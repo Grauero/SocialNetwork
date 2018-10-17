@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
@@ -16,9 +17,12 @@ mongoose.connect(db, { useNewUrlParser: true })
   .catch(err => console.log(err));
 
 // Server config
-app.use('api/posts', posts);
-app.use('api/profile', profile);
-app.use('api/users', users);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/api/posts', posts);
+app.use('/api/profile', profile);
+app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server on port ${port}`));
