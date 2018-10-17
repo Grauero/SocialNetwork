@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
 const users = require('./routes/api/users');
+const keys = require('./config/keys');
 
 const app = express();
 
 // DB config
-const db = require('./config/keys').mongoURI;
+const db = keys.mongoURI;
 
 // Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true })

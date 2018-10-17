@@ -1,8 +1,10 @@
 const express = require('express');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../../models/User');
+const keys = require('../../config/keys');
 
 const router = express.Router();
 
@@ -37,6 +39,25 @@ router.post('/register', (req, res) => {
             .catch(err => console.log(err));
         });
       });
+    });
+});
+
+router.post('login', (req, res) => {
+  const { name, email, password } = req.body;
+
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ email: 'User not found' });
+      }
+
+      bcrypt.compare(password, user.password)
+        .then((isMatch) => {
+          if (isMatch) {
+            return res.status(200).json({ success: true });
+          }
+          return res.status(400).json({ password: 'Password incorrect' });
+        });
     });
 });
 
