@@ -2,6 +2,7 @@ const express = require('express');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 const User = require('../../models/User');
 const keys = require('../../config/keys');
@@ -25,10 +26,10 @@ router.post('/register', (req, res) => {
       const avatar = gravatar.url(email, {
         s: '200', // size
         r: 'pg', // rating
-        d: 'm', // default
+        d: 'm' // default
       });
       const newUser = new User({
-        name, password, email, avatar,
+        name, password, email, avatar
       });
 
       // hashing password
@@ -40,10 +41,11 @@ router.post('/register', (req, res) => {
           // saving new user to DB
           newUser.save()
             .then(user => res.json(user))
-            .catch(err => res.status(400).json({ email: 'Error while saving', err: err.message }));
+            .catch(err => res.status(400).json({ email: 'Error while registering', err: err.message }));
         });
       });
-    });
+    })
+    .catch(err => res.statuss(500).json({ email: 'Error while registering', err: err.message }));
 });
 
 // @route   POST api/users/login
@@ -64,7 +66,11 @@ router.post('/login', (req, res) => {
         .then((isMatch) => {
           // user and password matched
           if (isMatch) {
-            const payload = { id: user.id, name: user.name, avatar: user.avatar }; // JWT payload
+            const payload = {
+              id: user.id,
+              name: user.name,
+              avatar: user.avatar
+            }; // JWT payload
 
             jwt.sign(
               payload,
@@ -75,7 +81,7 @@ router.post('/login', (req, res) => {
                   return res.status(500).json({ success: false, token: 'didnt get JWT' });
                 }
                 return res.status(200).json({ success: true, token: `Bearer ${token}` });
-              },
+              }
             );
           } else {
             return res.status(400).json({ password: 'Password incorrect' });
@@ -83,5 +89,17 @@ router.post('/login', (req, res) => {
         });
     });
 });
+
+// @route   GET api/users/current
+// @desc    Return current user
+// @access  private
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    id: req.user.id,
+    name: req.user.name,
+    email: req.user.email
+  });
+});
+
 
 module.exports = router;

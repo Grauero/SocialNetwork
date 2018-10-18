@@ -40,5 +40,7 @@ module.exports = {
     "jsx-a11y/label-has-associated-control": 0,
     "import/no-extraneous-dependencies": 0,
     "no-shadow": 0,
+    "comma-dangle": 0,
+    "prefer-destructuring": 0,
   }
 };

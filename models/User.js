@@ -4,23 +4,23 @@ const mongoose = require('mongoose');
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   avatar: {
-    type: String,
+    type: String
   },
   date: {
     type: String,
-    default: Date.now,
-  },
+    default: Date.now
+  }
 });
 
 const User = mongoose.model('users', UserSchema);
