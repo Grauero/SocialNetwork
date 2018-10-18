@@ -6,6 +6,7 @@ const passport = require('passport');
 
 const User = require('../../models/User');
 const keys = require('../../config/keys');
+const validateRegisterInput = require('../../validation/register');
 
 const router = express.Router();
 
@@ -13,6 +14,13 @@ const router = express.Router();
 // @desc    Register user
 // @access  public
 router.post('/register', (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const { name, email } = req.body;
   const { password } = req.body;
 
@@ -20,7 +28,8 @@ router.post('/register', (req, res) => {
     .then((user) => {
       // check user
       if (user) {
-        return res.status(400).json({ email: 'That email already exists' });
+        errors.email = 'That email already exists';
+        return res.status(400).json(errors);
       }
 
       const avatar = gravatar.url(email, {
@@ -41,11 +50,17 @@ router.post('/register', (req, res) => {
           // saving new user to DB
           newUser.save()
             .then(user => res.json(user))
-            .catch(err => res.status(400).json({ email: 'Error while registering', err: err.message }));
+            .catch(() => {
+              errors.email = 'Error while registering';
+              res.status(400).json(errors);
+            });
         });
       });
     })
-    .catch(err => res.statuss(500).json({ email: 'Error while registering', err: err.message }));
+    .catch(() => {
+      errors.email = 'Error while registering';
+      res.status(500).json(errors);
+    });
 });
 
 // @route   POST api/users/login
