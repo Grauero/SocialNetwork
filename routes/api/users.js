@@ -7,6 +7,7 @@ const passport = require('passport');
 const User = require('../../models/User');
 const keys = require('../../config/keys');
 const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 const router = express.Router();
 
@@ -67,13 +68,21 @@ router.post('/register', (req, res) => {
 // @desc    Login user / Returning JWT
 // @access  public
 router.post('/login', (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   const { email, password } = req.body;
 
   User.findOne({ email })
     .then((user) => {
       // check user
       if (!user) {
-        return res.status(404).json({ email: 'User not found' });
+        errors.email = 'User not found';
+        return res.status(404).json(errors);
       }
 
       // check password
@@ -81,11 +90,12 @@ router.post('/login', (req, res) => {
         .then((isMatch) => {
           // user and password matched
           if (isMatch) {
+            // JWT payload
             const payload = {
               id: user.id,
               name: user.name,
               avatar: user.avatar
-            }; // JWT payload
+            };
 
             jwt.sign(
               payload,
@@ -93,13 +103,15 @@ router.post('/login', (req, res) => {
               { expiresIn: 3600 },
               (err, token) => {
                 if (err) {
-                  return res.status(500).json({ success: false, token: 'didnt get JWT' });
+                  errors.token = 'didnt get JWT';
+                  return res.status(500).json(errors);
                 }
                 return res.status(200).json({ success: true, token: `Bearer ${token}` });
               }
             );
           } else {
-            return res.status(400).json({ password: 'Password incorrect' });
+            errors.password = 'Password incorrect';
+            return res.status(400).json(errors);
           }
         });
     });
@@ -109,11 +121,8 @@ router.post('/login', (req, res) => {
 // @desc    Return current user
 // @access  private
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({
-    id: req.user.id,
-    name: req.user.name,
-    email: req.user.email
-  });
+  const { id, name, email } = req.user;
+  res.json({ id, name, email });
 });
 
 
