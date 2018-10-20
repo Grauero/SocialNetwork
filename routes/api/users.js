@@ -13,7 +13,7 @@ const router = express.Router();
 
 // @route   POST api/users/register
 // @desc    Register user
-// @access  public
+// @access  Public
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -66,7 +66,7 @@ router.post('/register', (req, res) => {
 
 // @route   POST api/users/login
 // @desc    Login user / Returning JWT
-// @access  public
+// @access  Public
 router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -119,11 +119,10 @@ router.post('/login', (req, res) => {
 
 // @route   GET api/users/current
 // @desc    Return current user
-// @access  private
+// @access  Private
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { id, name, email } = req.user;
   res.json({ id, name, email });
 });
-
 
 module.exports = router;
