@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const Profile = require('../../models/Profile');
-const User = require('../../models/User');
+const validateProfileInput = require('../../validation/profile');
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
   const errors = {};
 
   Profile.findOne({ user: req.user.id })
+    .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
         errors.noprofile = 'There is no profile';
@@ -28,7 +29,12 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @desc    Create or update users profile
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
+  const { errors, isValid } = validateProfileInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   const profileFields = {};
   profileFields.user = req.user.id;
@@ -87,6 +93,5 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     }
   });
 });
-
 
 module.exports = router;
