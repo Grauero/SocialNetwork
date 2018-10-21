@@ -14,7 +14,7 @@ function validateExperienceInput(data) {
   }
 
   if (Validator.isEmpty(data.company)) {
-    errors.company = 'Comapny field is required';
+    errors.company = 'Company field is required';
   }
 
   if (Validator.isEmpty(data.from)) {
