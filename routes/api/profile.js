@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const Profile = require('../../models/Profile');
 const validateProfileInput = require('../../validation/profile');
+const validateExperienceInput = require('../../validation/experience');
 
 const router = express.Router();
 
@@ -158,6 +159,40 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
       });
     }
   });
+});
+
+// @route   POST api/profile/experience
+// @desc    Add experience to profile
+// @access  Private
+router.post('/experience', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { errors, isValid } = validateExperienceInput(req.body);
+
+  // check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  Profile.findOne({ user: req.user.id })
+    .then((profile) => {
+      const {
+        title, company, location, from, to, current, description
+      } = req.body;
+      const newExperience = {
+        title, company, location, from, to, current, description
+      };
+
+      profile.experience.unshift(newExperience);
+      profile.save()
+        .then(profile => res.json(profile))
+        .catch(() => {
+          errors.handle = 'Internal server error';
+          return res.status(500).json(errors);
+        });
+    })
+    .catch(() => {
+      errors.handle = 'Internal server error';
+      return res.status(500).json(errors);
+    });
 });
 
 module.exports = router;
