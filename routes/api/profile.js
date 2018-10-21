@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 
 const Profile = require('../../models/Profile');
+const User = require('../../models/User');
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require('../../validation/education');
@@ -134,16 +135,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     .then((profile) => {
       if (profile) {
       // Update
+
         Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
         )
-          .then(profile => res.json(profile))
-          .catch(() => {
-            errors.handle = 'Update error';
-            return res.status(500).json(errors);
-          });
+          .then(profile => res.json(profile));
       } else {
       // Create
 
@@ -154,13 +152,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
             res.status(400).json(errors);
           }
 
-          // Save
-          new Profile(profileFields).save()
-            .then(profile => res.json(profile))
-            .catch(() => {
-              errors.handle = 'Creation error';
-              return res.status(500).json(errors);
-            });
+          // Save profile
+          new Profile(profileFields).save().then(profile => res.json(profile));
         });
       }
     })
@@ -191,12 +184,7 @@ router.post('/experience', passport.authenticate('jwt', { session: false }), (re
       };
 
       profile.experience.unshift(newExperience);
-      profile.save()
-        .then(profile => res.json(profile))
-        .catch(() => {
-          errors.handle = 'Internal server error';
-          return res.status(500).json(errors);
-        });
+      profile.save().then(profile => res.json(profile));
     })
     .catch(() => {
       errors.handle = 'Profile doesnt exist';
@@ -225,12 +213,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
       };
 
       profile.experience.unshift(newEducation);
-      profile.save()
-        .then(profile => res.json(profile))
-        .catch(() => {
-          errors.handle = 'Internal server error';
-          return res.status(500).json(errors);
-        });
+      profile.save().then(profile => res.json(profile));
     })
     .catch(() => {
       errors.handle = 'Profile doesnt exist';
@@ -255,12 +238,7 @@ router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: fal
       profile.experience.splice(removeIndex, 1);
 
       // Update profile and save it
-      profile.save()
-        .then(profile => res.json(profile))
-        .catch(() => {
-          errors.handle = 'Internal server error';
-          return res.status(500).json(errors);
-        });
+      profile.save().then(profile => res.json(profile));
     })
     .catch(() => {
       errors.handle = 'Profile doesnt exist';
@@ -285,12 +263,24 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
       profile.education.splice(removeIndex, 1);
 
       // Update profile and save it
-      profile.save()
-        .then(profile => res.json(profile))
-        .catch(() => {
-          errors.handle = 'Internal server error';
-          return res.status(500).json(errors);
-        });
+      profile.save().then(profile => res.json(profile));
+    })
+    .catch(() => {
+      errors.handle = 'Profile doesnt exist';
+      return res.status(404).json(errors);
+    });
+});
+
+// @route   DELETE api/profile
+// @desc    Delete user and profile
+// @access  Private
+router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const errors = {};
+
+  Profile.findOneAndRemove({ user: req.user.id })
+    .then(() => {
+      User.findOneAndRemove({ _id: req.user.id })
+        .then(() => res.json({ succes: true }));
     })
     .catch(() => {
       errors.handle = 'Profile doesnt exist';
