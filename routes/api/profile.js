@@ -13,88 +13,64 @@ const router = express.Router();
 // @desc    Get current users profile
 // @access  Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
-
   Profile.findOne({ user: req.user.id })
     .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
-        errors.noprofile = 'There is no profile';
-        return res.status(404).json(errors);
+        return res.status(404).json({ noProfile: 'There is no profile' });
       }
 
       res.json(profile);
     })
-    .catch(() => {
-      errors.profile = 'There is no user with that ID';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ noUser: 'There is no user with that ID' }));
 });
 
 // @route   GET api/profile/all
 // @desc    Get all profiles
 // @access  Public
 router.get('/all', (req, res) => {
-  const errors = {};
-
   Profile.find()
     .populate('user', ['name', 'avatar'])
     .then((profiles) => {
       if (!profiles) {
-        errors.noProfiles = 'There are no profiles';
-        res.status(404).json(errors);
+        res.status(404).json({ noProfiles: 'There are no profiles' });
       }
 
       res.json(profiles);
     })
-    .catch(() => {
-      errors.profiles = 'There are no profiles';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ noProfiles: 'There are no profiles' }));
 });
 
 // @route   GET api/profile/handle/:handle
 // @desc    Get profile by handle
 // @access  Public
 router.get('/handle/:handle', (req, res) => {
-  const errors = {};
-
   Profile.findOne({ handle: req.params.handle })
     .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
-        errors.noProfile = 'Profile doesnt exist';
-        res.status(404).json(errors);
+        res.status(404).json({ noProfile: 'Profile doesnt exist' });
       }
 
       res.json(profile);
     })
-    .catch(() => {
-      errors.handle = 'Profile doesnt exist';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
 
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user id
 // @access  Public
 router.get('/user/:user_id', (req, res) => {
-  const errors = {};
-
   Profile.findOne({ user: req.params.user_id })
     .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
-        errors.noProfile = 'Profile doesnt exist';
-        res.status(404).json(errors);
+        res.status(404).json({ noProfile: 'Profile doesnt exist' });
       }
 
       res.json(profile);
     })
-    .catch(() => {
-      errors.handle = 'Profile doesnt exist';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
 
 // @route   POST api/profile
@@ -225,8 +201,6 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
 // @desc    Delete experience from profile
 // @access  Private
 router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
-
   Profile.findOne({ user: req.user.id })
     .then((profile) => {
       // Find index of experience
@@ -240,18 +214,13 @@ router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: fal
       // Update profile and save it
       profile.save().then(profile => res.json(profile));
     })
-    .catch(() => {
-      errors.handle = 'Profile doesnt exist';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
 
 // @route   DELETE api/profile/education/:edu_id
 // @desc    Delete education from profile
 // @access  Private
 router.delete('/education/:edu_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
-
   Profile.findOne({ user: req.user.id })
     .then((profile) => {
       // Find index of education
@@ -265,27 +234,19 @@ router.delete('/education/:edu_id', passport.authenticate('jwt', { session: fals
       // Update profile and save it
       profile.save().then(profile => res.json(profile));
     })
-    .catch(() => {
-      errors.handle = 'Profile doesnt exist';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
 
 // @route   DELETE api/profile
 // @desc    Delete user and profile
 // @access  Private
 router.delete('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const errors = {};
-
   Profile.findOneAndRemove({ user: req.user.id })
     .then(() => {
       User.findOneAndRemove({ _id: req.user.id })
         .then(() => res.json({ succes: true }));
     })
-    .catch(() => {
-      errors.handle = 'Profile doesnt exist';
-      return res.status(404).json(errors);
-    });
+    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
 
 module.exports = router;
