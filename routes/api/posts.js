@@ -13,7 +13,13 @@ const router = express.Router();
 router.get('/', (req, res) => {
   Post.find()
     .sort({ date: -1 })
-    .then(posts => res.json(posts))
+    .then((posts) => {
+      if (posts.length === 0) {
+        return res.status(404).json({ noPostsFound: 'No posts found' });
+      }
+
+      return res.json(posts);
+    })
     .catch(() => res.status(404).json({ noPostsFound: 'No posts found' }));
 });
 

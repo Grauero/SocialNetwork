@@ -203,6 +203,9 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
 router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Profile.findOne({ user: req.user.id })
     .then((profile) => {
+      if (!profile) {
+        return res.status(404).json({ handle: 'Profile doesnt exist' });
+      }
       // Find index of experience
       const removeIndex = profile.experience
         .map(item => item.id)
@@ -223,6 +226,10 @@ router.delete('/experience/:exp_id', passport.authenticate('jwt', { session: fal
 router.delete('/education/:edu_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Profile.findOne({ user: req.user.id })
     .then((profile) => {
+      if (!profile) {
+        return res.status(404).json({ handle: 'Profile doesnt exist' });
+      }
+
       // Find index of education
       const removeIndex = profile.education
         .map(item => item.id)
