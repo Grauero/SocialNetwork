@@ -32,11 +32,11 @@ router.get('/all', (req, res) => {
   Profile.find()
     .populate('user', ['name', 'avatar'])
     .then((profiles) => {
-      if (!profiles) {
-        res.status(404).json({ noProfiles: 'There are no profiles' });
+      if (profiles.length === 0) {
+        return res.status(404).json({ noProfiles: 'There are no profiles' });
       }
 
-      res.json(profiles);
+      return res.json(profiles);
     })
     .catch(() => res.status(404).json({ noProfiles: 'There are no profiles' }));
 });
