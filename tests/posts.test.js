@@ -27,6 +27,11 @@ describe('/api/posts', () => {
       expect(res.body[0]).toHaveProperty('text', post.text);
       expect(res.body[0]).toHaveProperty('name', post.name);
     });
+
+    it('should return status 404 when posts doesnt exists', async () => {
+      const res = await request(server).get('/api/posts/');
+      expect(res.status).toBe(404);
+    });
   });
 
   describe('GET /:id', () => {
