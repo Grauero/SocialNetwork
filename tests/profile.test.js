@@ -23,10 +23,8 @@ describe('/api/profile', () => {
       await new Profile(profile).save();
 
       const res = await request(server).get('/api/profile/all/');
-      expect(res.status).toBe(200);
-      expect(res.body[0]).toHaveProperty('handle', profile.handle);
-      expect(res.body[0]).toHaveProperty('status', profile.status);
-      expect(res.body[0]).toHaveProperty('skills', profile.skills);
+      expect(res.body.some(obj => obj.handle === profile.handle)).toBeTruthy();
+      expect(res.body.some(obj => obj.status === profile.status)).toBeTruthy();
     });
 
     it('should return status 404 when no profiles exists', async () => {

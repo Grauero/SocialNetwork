@@ -22,8 +22,7 @@ router.post('/register', (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const { name, email } = req.body;
-  const { password } = req.body;
+  const { name, email, password } = req.body;
 
   User.findOne({ email })
     .then((user) => {

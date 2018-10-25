@@ -14,9 +14,7 @@ router.get('/', (req, res) => {
   Post.find()
     .sort({ date: -1 })
     .then((posts) => {
-      if (posts.length === 0) {
-        return res.status(404).json({ noPostsFound: 'No posts found' });
-      }
+      if (posts.length === 0) { throw new Error('No posts found'); }
 
       return res.json(posts);
     })

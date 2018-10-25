@@ -12,12 +12,10 @@ const applyPassportStrategies = require('./config/passport');
 const app = express();
 
 // Connect to MongoDB
-const dbURI = process.env.NODE_ENV !== 'test' ? keys.mongoURITest : keys.mongoURI;
+const dbURI = process.env.NODE_ENV === 'test' ? keys.mongoURITest : keys.mongoURI;
 mongoose.connect(dbURI, { useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log(err));
-
-console.log(dbURI);
 
 // Server config
 app.use(bodyParser.urlencoded({ extended: false }));
