@@ -109,7 +109,7 @@ describe('/api/posts/', () => {
     });
 
     it('should return status 401 when user isnt authorized', async () => {
-      const res = await request(server).delete('/api/posts/');
+      const res = await request(server).delete('/api/posts/test');
 
       expect(res.status).toBe(401);
     });
@@ -173,7 +173,7 @@ describe('/api/posts/', () => {
     });
 
     it('should return status 401 when user isnt authorized', async () => {
-      const res = await request(server).post('/api/posts/like/');
+      const res = await request(server).post('/api/posts/like/test');
 
       expect(res.status).toBe(401);
     });
@@ -197,6 +197,33 @@ describe('/api/posts/', () => {
         .set('Authorization', token);
 
       expect(res.body).toHaveProperty('text', post.text);
+    });
+  });
+
+  describe('POST api/posts/unlike/:id', () => {
+    beforeAll(async () => {
+      await request(server).post('/api/users/register').send(newUser);
+      delete newUser.password2;
+      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
+    });
+    afterAll(async () => {
+      User.deleteMany({});
+      Post.deleteMany({});
+      token = '';
+    });
+
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).post('/api/posts/unlike/test');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 404 with message when no posts find with that ID', async () => {
+      const res = await request(server)
+        .post('/api/posts/unlike/test')
+        .set('Authorization', token);
+
+      expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
   });
 });

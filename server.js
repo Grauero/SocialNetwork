@@ -28,6 +28,8 @@ app.use('/api/profile', profile);
 app.use('/api/users', users);
 
 const port = process.env.PORT || 80;
+const mode = process.env.NODE_ENV === 'test' ? 'test' : 'dev';
+console.log(`MODE=${mode}`);
 const server = app.listen(port, () => console.log(`Server on port ${port}`));
 
 module.exports = server;
