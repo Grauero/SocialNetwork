@@ -109,7 +109,7 @@ describe('/api/posts/', () => {
     });
 
     it('should return status 401 when user isnt authorized', async () => {
-      const res = await request(server).delete('/api/posts/1');
+      const res = await request(server).delete('/api/posts/');
 
       expect(res.status).toBe(401);
     });
@@ -127,8 +127,8 @@ describe('/api/posts/', () => {
       expect(res.body).toMatchObject({ success: true });
     });
 
-    it('should reurn status 401 with message when user have no access', async () => {
-      const id = (await request(server)
+    it('should return status 401 with message when user have no access', async () => {
+      const postId = (await request(server)
         .post('/api/posts/')
         .set('Authorization', token)
         .send(post)).body._id;
@@ -145,7 +145,7 @@ describe('/api/posts/', () => {
       const anotherToken = (await request(server).post('/api/users/login').send(anotherUser)).body.token;
 
       const res = await request(server)
-        .delete(`/api/posts/${id}`)
+        .delete(`/api/posts/${postId}`)
         .set('Authorization', anotherToken);
 
       expect(res.body).toMatchObject({ noAccess: 'User didnt create that post' });
@@ -157,6 +157,46 @@ describe('/api/posts/', () => {
         .set('Authorization', token);
 
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
+    });
+  });
+
+  describe('POST api/posts/like/:id', () => {
+    beforeAll(async () => {
+      await request(server).post('/api/users/register').send(newUser);
+      delete newUser.password2;
+      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
+    });
+    afterAll(async () => {
+      User.deleteMany({});
+      Post.deleteMany({});
+      token = '';
+    });
+
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).post('/api/posts/like/');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 404 with message when no posts find with that ID', async () => {
+      const res = await request(server)
+        .post('/api/posts/like/1')
+        .set('Authorization', token);
+
+      expect(res.body).toMatchObject({ postNotFound: 'No post found' });
+    });
+
+    xit('should apply like from the authorized user and return liked post', async () => {
+      const postId = (await request(server)
+        .post('/api/posts/')
+        .set('Authorization', token)
+        .send(post)).body._id;
+
+      const res = await request(server)
+        .post(`/api/posts/like/${postId}`)
+        .set('Authorization', token);
+
+      expect(res.body).toHaveProperty('text', post.text);
     });
   });
 });

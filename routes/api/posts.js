@@ -76,7 +76,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 // @route   POST api/posts/like/:id
 // @desc    Like post
 // @access  Private
-router.delete('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Profile.findOne({ user: req.user.id })
     .then(() => {
       Post.findById(req.params.id)
@@ -97,7 +97,7 @@ router.delete('/like/:id', passport.authenticate('jwt', { session: false }), (re
 // @route   POST api/posts/unlike/:id
 // @desc    Unlike post
 // @access  Private
-router.delete('/unlike/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Profile.findOne({ user: req.user.id })
     .then(() => {
       Post.findById(req.params.id)
