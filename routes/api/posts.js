@@ -64,10 +64,10 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
       Post.findById(req.params.id)
         .then((post) => {
           if (post.user.toString() !== req.user.id) {
-            res.status(401).json({ noAuthorized: 'User not athorized' });
+            return res.status(401).json({ noAccess: 'User didnt create that post' });
           }
 
-          post.remove().then(() => res.json({ success: true }));
+          return post.remove().then(() => res.json({ success: true }));
         })
         .catch(() => res.status(404).json({ postNotFound: 'No post found' }));
     });
