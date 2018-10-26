@@ -1,12 +1,20 @@
 const request = require('supertest');
 
 const Profile = require('../models/Profile');
-
-let server;
+const User = require('../models/User');
 
 describe('/api/profile', () => {
+  let server;
+  let token;
+  const newUser = {
+    name: 'name',
+    password: 'password',
+    password2: 'password',
+    email: 'name@gmail.com'
+  };
+
   beforeEach(() => { server = require('../server'); });
-  afterEach(() => { server.close(); });
+  afterEach(() => server.close());
 
   describe('GET /all', () => {
     afterEach(async () => {

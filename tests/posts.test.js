@@ -89,10 +89,10 @@ describe('/api/posts/', () => {
       const res = await request(server)
         .post('/api/posts/')
         .set('Authorization', token)
-        .send({ text: '123' });
+        .send({ text: '' });
 
       expect(res.status).toBe(400);
-      expect(res.body).toMatchObject({ text: 'Post must be between 10 and 300 characters' });
+      expect(res.body).toMatchObject({ text: 'Text field is required' });
     });
   });
 
@@ -148,6 +148,7 @@ describe('/api/posts/', () => {
         .delete(`/api/posts/${postId}`)
         .set('Authorization', anotherToken);
 
+      expect(res.status).toBe(401);
       expect(res.body).toMatchObject({ noAccess: 'User didnt create that post' });
     });
 
@@ -156,6 +157,7 @@ describe('/api/posts/', () => {
         .delete('/api/posts/1')
         .set('Authorization', token);
 
+      expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
   });
@@ -183,6 +185,7 @@ describe('/api/posts/', () => {
         .post('/api/posts/like/1')
         .set('Authorization', token);
 
+      expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
 
@@ -244,6 +247,7 @@ describe('/api/posts/', () => {
         .post('/api/posts/unlike/test')
         .set('Authorization', token);
 
+      expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
 
@@ -322,6 +326,7 @@ describe('/api/posts/', () => {
         .set('Authorization', token)
         .send({ text: '12345678910' }); // for validation requirement
 
+      expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
 
@@ -365,6 +370,7 @@ describe('/api/posts/', () => {
         .delete('/api/posts/comment/test/comment_id')
         .set('Authorization', token);
 
+      expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
 
