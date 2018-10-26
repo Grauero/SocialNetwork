@@ -186,17 +186,38 @@ describe('/api/posts/', () => {
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
     });
 
-    xit('should apply like from the authorized user and return liked post', async () => {
+    it('should apply like from the authorized user and return liked post', async () => {
+      // create post
       const postId = (await request(server)
         .post('/api/posts/')
         .set('Authorization', token)
         .send(post)).body._id;
 
+      // like post
       const res = await request(server)
         .post(`/api/posts/like/${postId}`)
         .set('Authorization', token);
 
       expect(res.body).toHaveProperty('text', post.text);
+    });
+
+    it('should not apply second like from the same user', async () => {
+      // create post
+      const postId = (await request(server)
+        .post('/api/posts/')
+        .set('Authorization', token)
+        .send(post)).body._id;
+
+      // like post
+      await request(server)
+        .post(`/api/posts/like/${postId}`)
+        .set('Authorization', token);
+      // second like
+      const res = await request(server)
+        .post(`/api/posts/like/${postId}`)
+        .set('Authorization', token);
+
+      expect(res.body).toMatchObject({ alreadyLiked: 'User already liked this post' });
     });
   });
 
@@ -224,6 +245,39 @@ describe('/api/posts/', () => {
         .set('Authorization', token);
 
       expect(res.body).toMatchObject({ postNotFound: 'No post found' });
+    });
+
+    it('should remove like from the authorized user and return post', async () => {
+      // create post
+      const postId = (await request(server)
+        .post('/api/posts/')
+        .set('Authorization', token)
+        .send(post)).body._id;
+      // like post
+      await request(server)
+        .post(`/api/posts/like/${postId}`)
+        .set('Authorization', token);
+      // unlike post
+      const res = await request(server)
+        .post(`/api/posts/unlike/${postId}`)
+        .set('Authorization', token);
+
+      expect(res.body).toHaveProperty('text', post.text);
+    });
+
+    it('should not remove like if user dont have one', async () => {
+      // create post
+      const postId = (await request(server)
+        .post('/api/posts/')
+        .set('Authorization', token)
+        .send(post)).body._id;
+
+      // unlike post
+      const res = await request(server)
+        .post(`/api/posts/unlike/${postId}`)
+        .set('Authorization', token);
+
+      expect(res.body).toMatchObject({ notLiked: 'User havent yet liked this post' });
     });
   });
 });

@@ -81,7 +81,7 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req,
     .then(() => {
       Post.findById(req.params.id)
         .then((post) => {
-          const isLiked = post.like.filter(like => like.user.toString() === req.user.id);
+          const isLiked = post.likes.filter(like => like.user.toString() === req.user.id);
 
           if (isLiked.length > 0) {
             return res.status(400).json({ alreadyLiked: 'User already liked this post' });
@@ -102,10 +102,10 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (re
     .then(() => {
       Post.findById(req.params.id)
         .then((post) => {
-          const isLiked = post.like.filter(like => like.user.toString() === req.user.id);
+          const isLiked = post.likes.filter(like => like.user.toString() === req.user.id);
 
           if (isLiked.length === 0) {
-            return res.status(400).json({ notLiked: 'You havent yet liked this post' });
+            return res.status(400).json({ notLiked: 'User havent yet liked this post' });
           }
 
           const removeIndex = post.likes
