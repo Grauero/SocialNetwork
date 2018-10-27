@@ -4,12 +4,6 @@ const User = require('../models/User');
 
 describe('/api/users/', () => {
   let server;
-  const newUser = {
-    name: 'name',
-    password: 'password',
-    password2: 'password',
-    email: 'name@gmail.com'
-  };
 
   beforeEach(() => { server = require('../server'); });
   afterEach(() => server.close());
@@ -24,6 +18,13 @@ describe('/api/users/', () => {
     });
 
     it('should return status 400 with message when Email already exists', async () => {
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
+
       await request(server).post('/api/users/register').send(newUser);
       const res = await request(server).post('/api/users/register').send(newUser);
 
@@ -32,6 +33,12 @@ describe('/api/users/', () => {
     });
 
     it('should register user if user provided unique valid data', async () => {
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
       const res = await request(server).post('/api/users/register').send(newUser);
 
       expect(res.body).toHaveProperty('email', newUser.email);
@@ -49,6 +56,12 @@ describe('/api/users/', () => {
     });
 
     it('should return status 404 with message when user not found in DB', async () => {
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
       const res = await request(server).post('/api/users/login').send(newUser);
 
       expect(res.status).toBe(404);
@@ -57,6 +70,12 @@ describe('/api/users/', () => {
 
     it('should return status 400 with message when provided passwords didnt match', async () => {
       // register user
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
       await request(server).post('/api/users/register').send(newUser);
 
       // invalid data
@@ -74,6 +93,12 @@ describe('/api/users/', () => {
 
     it('should login user and return JWT token if user registered and provided valid data', async () => {
       // register user
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
       await request(server).post('/api/users/register').send(newUser);
       delete newUser.password2;
 
@@ -94,19 +119,25 @@ describe('/api/users/', () => {
 
     it('should return user data if user provided valid data', async () => {
       // register and login user
-      const registeredUser = await request(server).post('/api/users/register').send(newUser);
+      const newUser = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'name@gmail.com'
+      };
+      const registeredUser = (await request(server).post('/api/users/register').send(newUser)).body;
       delete newUser.password2;
       const token = (await request(server).post('/api/users/login').send(newUser)).body.token;
 
-      const obj = {
-        id: registeredUser.body._id,
-        name: registeredUser.body.name,
-        email: registeredUser.body.email
-      };
+      const res = await request(server)
+        .get('/api/users/current')
+        .set('Authorization', token);
 
-      const res = await request(server).get('/api/users/current').set('Authorization', token).send(registeredUser);
-
-      expect(res.body).toMatchObject(obj);
+      expect(res.body).toMatchObject({
+        _id: registeredUser._id,
+        name: registeredUser.name,
+        email: registeredUser.email
+      });
     });
   });
 });
