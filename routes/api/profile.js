@@ -68,9 +68,9 @@ router.get('/user/:user_id', (req, res) => {
         res.status(404).json({ noProfile: 'Profile doesnt exist' });
       }
 
-      res.json(profile);
+      return res.json(profile);
     })
-    .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
+    .catch(() => res.status(404).json({ handle: 'User doesnt exist' }));
 });
 
 // @route   POST api/profile
@@ -96,7 +96,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
   // Skills
   if (typeof req.body.skills !== 'undefined') {
-    profileFields.skills = req.body.split(',');
+    profileFields.skills = req.body.skills.split(',');
   }
 
   // Social
