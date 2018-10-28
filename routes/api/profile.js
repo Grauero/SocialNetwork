@@ -49,10 +49,10 @@ router.get('/handle/:handle', (req, res) => {
     .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
-        res.status(404).json({ noProfile: 'Profile doesnt exist' });
+        return res.status(404).json({ noProfile: 'Profile doesnt exist' });
       }
 
-      res.json(profile);
+      return res.json(profile);
     })
     .catch(() => res.status(404).json({ handle: 'Profile doesnt exist' }));
 });
@@ -65,7 +65,7 @@ router.get('/user/:user_id', (req, res) => {
     .populate('user', ['name', 'avatar'])
     .then((profile) => {
       if (!profile) {
-        res.status(404).json({ noProfile: 'Profile doesnt exist' });
+        return res.status(404).json({ noProfile: 'Profile doesnt exist' });
       }
 
       return res.json(profile);
@@ -125,7 +125,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
         Profile.findOne({ handle: profileFields.handle }).then((profile) => {
           if (profile) {
             errors.handle = 'That handle already exists';
-            res.status(400).json(errors);
+            return res.status(400).json(errors);
           }
 
           // Save profile

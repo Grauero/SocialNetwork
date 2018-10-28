@@ -30,15 +30,19 @@ describe('/api/posts/', () => {
   };
   let token;
 
-  beforeAll(async () => {
+
+  beforeEach(async () => {
     server = require('../server');
     await request(server).post('/api/users/register').send(newUser);
     delete newUser.password2;
     token = (await request(server).post('/api/users/login').send(newUser)).body.token;
   });
-  beforeEach(async () => { server = require('../server'); });
-  afterEach(() => server.close());
-  afterAll(() => { User.deleteMany({}); Profile.deleteMany({}); token = ''; });
+  afterEach(() => {
+    server.close();
+    User.deleteMany({});
+    Profile.deleteMany({});
+    token = '';
+  });
 
   describe('GET api/profile/', () => {
     beforeEach(() => Profile.deleteMany({}));
@@ -67,7 +71,7 @@ describe('/api/posts/', () => {
     });
   });
 
-  describe('GET /all', () => {
+  describe('GET api/profile/all', () => {
     afterEach(async () => {
       await Profile.deleteMany({});
     });
@@ -123,6 +127,7 @@ describe('/api/posts/', () => {
   });
 
   describe('GET api/profile/user/user_id', () => {
+    afterEach(() => User.deleteMany({}));
     it('should return status 404 with message if user with that id doesnt exists', async () => {
       const res = await request(server).get('/api/profile/user/fake_id');
 
@@ -138,14 +143,40 @@ describe('/api/posts/', () => {
         password2: 'password',
         email: 'name123@gmail.com'
       };
-      const Id = (await request(server).post('/api/users/register').send(user)).body._id;
+      const id = (await request(server).post('/api/users/register').send(user)).body._id;
       delete user.password2;
       token = (await request(server).post('/api/users/login').send(user)).body.token;
 
-      const res = await request(server).get(`/api/profile/user/${Id}`);
+      const res = await request(server).get(`/api/profile/user/${id}`);
 
       expect(res.status).toBe(404);
       expect(res.body).toMatchObject({ noProfile: 'Profile doesnt exist' });
+    });
+
+    it('should return users profile if user provided valid data', async () => {
+      // create user
+      const user = {
+        name: 'name123',
+        password: 'password',
+        password2: 'password',
+        email: 'name123@gmail.com'
+      };
+      const id = (await request(server).post('/api/users/register').send(user)).body._id;
+      delete user.password2;
+      token = (await request(server).post('/api/users/login').send(user)).body.token;
+
+      // create profile
+      await request(server)
+        .post('/api/profile/')
+        .set('Authorization', token)
+        .send(profile);
+
+      const res = await request(server).get(`/api/profile/user/${id}`);
+
+      expect(res.body).toHaveProperty('bio', profile.bio);
+      expect(res.body).toHaveProperty('company', profile.company);
+      expect(res.body).toHaveProperty('githubUserName', profile.githubUserName);
+      expect(res.body).toHaveProperty('handle', profile.handle);
     });
   });
 });
