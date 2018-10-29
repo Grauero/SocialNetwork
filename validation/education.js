@@ -6,7 +6,7 @@ function validateEducationInput(data) {
   const errors = {};
 
   data.school = !isEmpty(data.school) ? data.school : '';
-  data.degree = !isEmpty(data.degree) ? data.company : '';
+  data.degree = !isEmpty(data.degree) ? data.degree : '';
   data.fieldOfStudy = !isEmpty(data.fieldOfStudy) ? data.fieldOfStudy : '';
   data.from = !isEmpty(data.from) ? data.from : '';
 

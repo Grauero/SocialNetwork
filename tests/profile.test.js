@@ -28,6 +28,17 @@ describe('/api/posts/', () => {
       instagram: 'instagram.com'
     }
   };
+  const experience = { // test experience
+    title: 'title',
+    company: 'company',
+    from: new Date()
+  };
+  const education = { // test education
+    school: 'school',
+    degree: 'degree',
+    fieldOfStudy: 'field',
+    from: new Date()
+  };
   let token; // auth token
   let registrationResult; // registration response
 
@@ -165,6 +176,99 @@ describe('/api/posts/', () => {
       expect(res.body).toHaveProperty('company', profile.company);
       expect(res.body).toHaveProperty('githubUserName', profile.githubUserName);
       expect(res.body).toHaveProperty('handle', profile.handle);
+    });
+  });
+
+  describe('POST api/profile/experience', () => {
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).post('/api/profile/experience');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 400 when users data didnt pass validation', async () => {
+      const res = await request(server)
+        .post('/api/profile/experience')
+        .set('Authorization', token)
+        .send({});
+
+      expect(res.status).toBe(400);
+      expect(res.body).toMatchObject({
+        title: 'Job title field is required',
+        company: 'Company field is required',
+        from: 'From date field is required'
+      });
+    });
+
+    it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+      const res = await request(server)
+        .post('/api/profile/experience')
+        .set('Authorization', token)
+        .send(experience);
+
+      expect(res.status).toBe(404);
+      expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
+    });
+
+    it('should create new experience for users profile and return it if user provided valid data', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      const res = await request(server)
+        .post('/api/profile/experience')
+        .set('Authorization', token)
+        .send(experience);
+
+      expect(res.body.experience[0]).toHaveProperty(experience.company);
+      expect(res.body.experience[0]).toHaveProperty(experience.title);
+    });
+  });
+
+  describe('POST api/profile/education', () => {
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).post('/api/profile/education');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 400 when users data didnt pass validation', async () => {
+      const res = await request(server)
+        .post('/api/profile/education')
+        .set('Authorization', token)
+        .send({});
+
+      expect(res.status).toBe(400);
+      expect(res.body).toMatchObject({
+        school: 'School field is required',
+        degree: 'Degree field is required',
+        fieldOfStudy: 'Field of study field is required',
+        from: 'From date field is required'
+      });
+    });
+
+    it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+      const res = await request(server)
+        .post('/api/profile/education')
+        .set('Authorization', token)
+        .send(education);
+
+      expect(res.status).toBe(404);
+      expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
+    });
+
+    it('should create new education for users profile and return it if user provided valid data', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      const res = await request(server)
+        .post('/api/profile/education')
+        .set('Authorization', token)
+        .send(education);
+      console.log(res);
+
+      expect(res.body.education[0]).toHaveProperty(education.school);
+      expect(res.body.education[0]).toHaveProperty(education.degree);
+      expect(res.body.education[0]).toHaveProperty(education.fieldOfStudy);
     });
   });
 });

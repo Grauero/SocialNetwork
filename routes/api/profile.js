@@ -188,7 +188,7 @@ router.post('/education', passport.authenticate('jwt', { session: false }), (req
         school, degree, fieldOfStudy, from, to, current, description
       };
 
-      profile.experience.unshift(newEducation);
+      profile.education.unshift(newEducation);
       profile.save().then(profile => res.json(profile));
     })
     .catch(() => {
