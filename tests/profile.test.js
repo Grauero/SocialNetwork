@@ -19,14 +19,7 @@ describe('/api/posts/', () => {
     status: 'status',
     skills: 'skill1, skill2',
     bio: 'bio',
-    githubUserName: 'github',
-    social: {
-      youtube: 'youtube.com',
-      twitter: 'twitter.com',
-      facebook: 'facebook.com',
-      linkedin: 'linkedin.com',
-      instagram: 'instagram.com'
-    }
+    githubUserName: 'github'
   };
   const experience = { // test experience
     title: 'title',
@@ -166,7 +159,7 @@ describe('/api/posts/', () => {
       });
     });
 
-    it('should update users profile if profile already exists and user passed authentication and validation', async () => {
+    it('should create users profile if user passed authentication and validation', async () => {
       const res = await request(server)
         .post('/api/profile/')
         .set('Authorization', token)
@@ -176,6 +169,50 @@ describe('/api/posts/', () => {
       expect(res.body).toHaveProperty('company', profile.company);
       expect(res.body).toHaveProperty('githubUserName', profile.githubUserName);
       expect(res.body).toHaveProperty('handle', profile.handle);
+    });
+
+    it('should return status 400 with message if provided handler already exists', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      // create another user
+      const user = {
+        name: 'name',
+        password: 'password',
+        password2: 'password',
+        email: 'test@gmail.com'
+      };
+      await request(server).post('/api/users/register').send(user);
+      token = (await request(server).post('/api/users/login').send(user)).body.token;
+
+      const res = await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      expect(res.status).toBe(400);
+      expect(res.body).toMatchObject({ handle: 'That handle already exists' });
+    });
+
+    it('should update users profile if profile doesnt exists and user provided valid data', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      // update profile
+      const updatedProfile = Object.assign({}, profile, {
+        company: '',
+        website: '',
+        location: '',
+        bio: '',
+        githubUserName: '',
+        youtube: 'youtube.com',
+        twitter: 'twitter.com',
+        facebook: 'facebook.com',
+        linkedin: 'linkedin.com',
+        instagram: 'instagram.com'
+      });
+
+      const res = await request(server).post('/api/profile/').set('Authorization', token).send(updatedProfile);
+
+      expect(res.body).toHaveProperty('handle', profile.handle);
+      expect(res.body).toHaveProperty('status', profile.status);
     });
   });
 
