@@ -219,8 +219,8 @@ describe('/api/posts/', () => {
         .set('Authorization', token)
         .send(experience);
 
-      expect(res.body.experience[0]).toHaveProperty(experience.company);
-      expect(res.body.experience[0]).toHaveProperty(experience.title);
+      expect(res.body.experience[0]).toHaveProperty('company', experience.company);
+      expect(res.body.experience[0]).toHaveProperty('title', experience.title);
     });
   });
 
@@ -264,11 +264,99 @@ describe('/api/posts/', () => {
         .post('/api/profile/education')
         .set('Authorization', token)
         .send(education);
-      console.log(res);
 
-      expect(res.body.education[0]).toHaveProperty(education.school);
-      expect(res.body.education[0]).toHaveProperty(education.degree);
-      expect(res.body.education[0]).toHaveProperty(education.fieldOfStudy);
+      expect(res.body.education[0]).toHaveProperty('school', education.school);
+      expect(res.body.education[0]).toHaveProperty('degree', education.degree);
+      expect(res.body.education[0]).toHaveProperty('fieldOfStudy', education.fieldOfStudy);
+    });
+  });
+
+  describe('DELETE api/profile/experience/:exp_id', () => {
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).delete('/api/profile/experience/exp_id');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+      const res = await request(server)
+        .delete('/api/profile/experience/exp_id')
+        .set('Authorization', token);
+
+      expect(res.status).toBe(404);
+      expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
+    });
+
+    it('should delete experience from profile if user provided vavlid data', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+      // create experience
+      const { _id } = await request(server)
+        .post('/api/profile/experience')
+        .set('Authorization', token)
+        .send(experience);
+
+      const res = await request(server)
+        .delete(`/api/profile/experience/${_id}`)
+        .set('Authorization', token);
+
+      expect(res.body).toHaveProperty('bio', profile.bio);
+      expect(res.body).toHaveProperty('company', profile.company);
+      expect(res.body).toHaveProperty('githubUserName', profile.githubUserName);
+      expect(res.body).toHaveProperty('handle', profile.handle);
+    });
+  });
+
+  describe('DELETE api/profile/education/:edu_id', () => {
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).delete('/api/profile/education/edu_id');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+      const res = await request(server)
+        .delete('/api/profile/education/edu_id')
+        .set('Authorization', token);
+
+      expect(res.status).toBe(404);
+      expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
+    });
+
+    it('should delete experience from profile if user provided vavlid data', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+      // create education
+      const { _id } = await request(server)
+        .post('/api/profile/education')
+        .set('Authorization', token)
+        .send(education);
+
+      const res = await request(server)
+        .delete(`/api/profile/education/${_id}`)
+        .set('Authorization', token);
+
+      expect(res.body).toHaveProperty('bio', profile.bio);
+      expect(res.body).toHaveProperty('company', profile.company);
+      expect(res.body).toHaveProperty('githubUserName', profile.githubUserName);
+      expect(res.body).toHaveProperty('handle', profile.handle);
+    });
+  });
+
+  describe('DELETE api/profile', () => {
+    it('should return status 401 when user isnt authorized', async () => {
+      const res = await request(server).delete('/api/profile/');
+
+      expect(res.status).toBe(401);
+    });
+
+    it('should delete user&profile and return success status', async () => {
+      // create profile
+      await request(server).post('/api/profile/').set('Authorization', token).send(profile);
+
+      const res = await request(server).delete('/api/profile/').set('Authorization', token);
+
+      expect(res.body).toMatchObject({ succes: true });
     });
   });
 });
