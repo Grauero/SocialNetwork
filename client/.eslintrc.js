@@ -45,5 +45,6 @@ module.exports = {
     "no-param-reassign": 0,
     "no-underscore-dangle": 0,
     "global-require": 0,
+    "camelcase": 0,
   }
 };
