@@ -46,5 +46,6 @@ module.exports = {
     "no-underscore-dangle": 0,
     "global-require": 0,
     "camelcase": 0,
+    "jsx-a11y/anchor-is-valid": 0,
   }
 };
