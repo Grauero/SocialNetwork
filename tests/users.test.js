@@ -6,11 +6,12 @@ describe('/api/users/', () => {
   let server;
 
   beforeEach(() => { server = require('../server'); });
-  afterEach(() => server.close());
+  afterEach(async () => {
+    server.close();
+    await User.deleteMany({})
+  });
 
   describe('POST /api/users/register', () => {
-    afterEach(() => User.deleteMany({}));
-
     it('should return status 400 when user provided invalid data', async () => {
       const res = await request(server).post('/api/users/register');
 
@@ -47,8 +48,6 @@ describe('/api/users/', () => {
   });
 
   describe('POST /api/users/login', () => {
-    afterEach(() => User.deleteMany({}));
-
     it('should return status 400 when user provided invalid data', async () => {
       const res = await request(server).post('/api/users/login');
 
@@ -109,8 +108,6 @@ describe('/api/users/', () => {
   });
 
   describe('GET /api/users/current', () => {
-    afterEach(() => User.deleteMany({}));
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).get('/api/users/current');
 

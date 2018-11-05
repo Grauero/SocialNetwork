@@ -16,14 +16,22 @@ describe('/api/posts/', () => {
   };
   let token;
 
-  beforeEach(() => { server = require('../server'); });
-  afterEach(() => server.close());
+  beforeEach(async () => { 
+    server = require('../server');
+    await request(server).post('/api/users/register').send(newUser);
+    delete newUser.password2;
+    token = (await request(server).post('/api/users/login').send(newUser)).body.token;
+  });
+  afterEach(async () => { 
+    server.close();
+    await Post.deleteMany({});
+  });
+  afterAll(async () => {
+    await User.deleteMany({});
+    token = '';
+  });
 
   describe('GET /', () => {
-    afterEach(async () => {
-      await Post.deleteMany({});
-    });
-
     it('should return all posts', async () => {
       await new Post(post).save();
       const res = await request(server).get('/api/posts/');
@@ -39,10 +47,6 @@ describe('/api/posts/', () => {
   });
 
   describe('GET /:id', () => {
-    afterEach(async () => {
-      await Post.deleteMany({});
-    });
-
     it('should return post by ID', async () => {
       await new Post(post).save();
       const res = await request(server).get(`/api/posts/${post._id}`);
@@ -60,16 +64,6 @@ describe('/api/posts/', () => {
   });
 
   describe('POST /', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).post('/api/posts/');
 
@@ -97,17 +91,6 @@ describe('/api/posts/', () => {
   });
 
   describe('DELETE /:id', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      Post.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).delete('/api/posts/test');
 
@@ -163,17 +146,6 @@ describe('/api/posts/', () => {
   });
 
   describe('POST api/posts/like/:id', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      Post.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).post('/api/posts/like/test');
 
@@ -225,17 +197,6 @@ describe('/api/posts/', () => {
   });
 
   describe('POST api/posts/unlike/:id', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      Post.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).post('/api/posts/unlike/test');
 
@@ -286,17 +247,6 @@ describe('/api/posts/', () => {
   });
 
   describe('POST api/posts/comment/:id', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      Post.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).post('/api/posts/comment/test');
 
@@ -348,17 +298,6 @@ describe('/api/posts/', () => {
   });
 
   describe('DELETE api/posts/comment/:id/:comment_id', () => {
-    beforeAll(async () => {
-      await request(server).post('/api/users/register').send(newUser);
-      delete newUser.password2;
-      token = (await request(server).post('/api/users/login').send(newUser)).body.token;
-    });
-    afterAll(async () => {
-      User.deleteMany({});
-      Post.deleteMany({});
-      token = '';
-    });
-
     it('should return status 401 when user isnt authorized', async () => {
       const res = await request(server).delete('/api/posts/comment/post_id/comment_id');
 
