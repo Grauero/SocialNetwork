@@ -41,7 +41,6 @@ class Navbar extends Component {
       </ul>
     );
 
-
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">
@@ -69,8 +68,8 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-  auth: propTypes.shape.isRequired,
-  logoutUser: propTypes.func.isRequired
+  auth: propTypes.instanceOf(Object).isRequired,
+  logoutUser: propTypes.instanceOf(Object).isRequired,
 };
 
 const mapStateToProps = state => ({
