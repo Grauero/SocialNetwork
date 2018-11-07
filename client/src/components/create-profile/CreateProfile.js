@@ -26,7 +26,54 @@ class CreateProfile extends Component {
     errors: {}
   }
 
+  onSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  onChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  toggleSocialInputs = () => {
+    this.setState(prevState => ({
+      displaySocialInputs: !prevState.displaySocialInputs
+    }));
+  };
+
   render() {
+    const { errors, displaySocialInputs } = this.state;
+    let socialInputs;
+
+    if (displaySocialInputs) {
+      socialInputs = (
+        <div>
+          <InputGroup
+            placeholder="Twitter profile URL"
+            name="twitter"
+            icon="fab fa-twi"
+            value={this.state.twitter}
+            onChange={this.onChange}
+            error={errors.twitter}
+          />
+        </div>
+      );
+    }
+
+    // Select options for status
+    const options = [
+      { label: '* Select Professional Status', value: 0 },
+      { label: 'Developer', value: 'Developer' },
+      { label: 'Junior Developer', value: 'Junior Developer' },
+      { label: 'Senior Developer', value: 'Senior Developer' },
+      { label: 'Manager', value: 'Manager' },
+      { label: 'Student', value: 'Student' },
+      { label: 'Instructor', value: 'Instructor' },
+      { label: 'Intern', value: 'Intern' },
+      { label: 'Other', value: 'Other' }
+    ];
+
     return (
       <div className="create-profile">
         <div className="container">
@@ -37,6 +84,85 @@ class CreateProfile extends Component {
                 Fill up your acc
               </p>
               <small className="d-block pb-3">* = required fields</small>
+              <form onSubmit={this.onSubmit}>
+                <TextFieldGroup
+                  placeholder="* Profile handle"
+                  name="handle"
+                  value={this.state.handle}
+                  onChange={this.onChange}
+                  error={errors.handle}
+                  info="A unique handle for profile URL"
+                />
+                <SelectListGroup
+                  placeholder="Status"
+                  name="status"
+                  value={this.state.status}
+                  onChange={this.onChange}
+                  options={options}
+                  error={errors.status}
+                  info="Professional status"
+                />
+                <TextFieldGroup
+                  placeholder="Company"
+                  name="company"
+                  value={this.state.company}
+                  onChange={this.onChange}
+                  error={errors.company}
+                  info="Company name"
+                />
+                <TextFieldGroup
+                  placeholder="Website"
+                  name="website"
+                  value={this.state.website}
+                  onChange={this.onChange}
+                  error={errors.website}
+                  info="Website name"
+                />
+                <TextFieldGroup
+                  placeholder="Location"
+                  name="location"
+                  value={this.state.location}
+                  onChange={this.onChange}
+                  error={errors.location}
+                  info="City name"
+                />
+                <TextFieldGroup
+                  placeholder="* Skills"
+                  name="skills"
+                  value={this.state.skills}
+                  onChange={this.onChange}
+                  error={errors.skills}
+                  info="Use comma separated values (HTML, CSS, JavaScript)"
+                />
+                <TextFieldGroup
+                  placeholder="Github Username"
+                  name="githubUserName"
+                  value={this.state.githubUserName}
+                  onChange={this.onChange}
+                  error={errors.githubUserName}
+                  info="Include your Github profile"
+                />
+                <TextAreaFieldGroup
+                  placeholder="Short bio"
+                  name="bio"
+                  value={this.state.bio}
+                  onChange={this.onChange}
+                  error={errors.bio}
+                  info="Biography"
+                />
+                <div className="mb-3">
+                  <button
+                    type="button"
+                    onClick={this.toggleSocialInputs}
+                    className="btn btn-light"
+                  >
+                    Add social network links
+                  </button>
+                  <span className="text-muted">Optional</span>
+                </div>
+                {socialInputs}
+                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+              </form>
             </div>
           </div>
         </div>
