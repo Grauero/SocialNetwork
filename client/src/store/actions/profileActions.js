@@ -4,6 +4,13 @@ import {
   GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, GET_ERRORS
 } from '../types';
 
+// Delete account and profile
+export const deleteAccount = () => (dispatch) => {
+  if (window.confirm('')) {
+
+  }
+};
+
 // Profile loading
 export const setProfileLoading = () => ({
   type: PROFILE_LOADING
