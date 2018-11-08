@@ -55,3 +55,23 @@ export const getCurrentProfile = () => (dispatch) => {
       payload: {}
     }));
 };
+
+// Add experience
+export const addExperience = (experienceData, history) => (dispatch) => {
+  axios.post('/api/profile/experience', experienceData)
+    .then(() => history.push('/dashboard'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+};
+
+// Add education
+export const addEducation = (educationData, history) => (dispatch) => {
+  axios.post('/api/profile/education', educationData)
+    .then(() => history.push('/dashboard'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+};

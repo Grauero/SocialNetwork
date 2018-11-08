@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import { addExperience } from '../../store/actions/profileActions';
 
 class AddExperience extends Component {
   state = {
@@ -17,6 +18,41 @@ class AddExperience extends Component {
     description: '',
     errors: {},
     disabled: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const experienceData = {
+      company: this.state.company,
+      title: this.state.title,
+      location: this.state.location,
+      from: this.state.from,
+      to: this.state.to,
+      current: this.state.current,
+      description: this.state.description
+    };
+
+    this.props.addExperience(experienceData, this.props.history);
+  }
+
+  onChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onCheck = () => {
+    this.setState({
+      disabled: !this.state.disabled,
+      current: !this.state.current
+    });
   }
 
   render() {
@@ -107,13 +143,13 @@ class AddExperience extends Component {
 }
 
 AddExperience.propTypes = {
-  profile: propTypes.instanceOf(Object).isRequired,
   errors: propTypes.instanceOf(Object).isRequired,
+  history: propTypes.instanceOf(Object).isRequired,
+  addExperience: propTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(withRouter(AddExperience));
+export default connect(mapStateToProps, { addExperience })(withRouter(AddExperience));
