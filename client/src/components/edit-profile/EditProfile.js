@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import isEmpty from '../../validation/isEmpty';
 import TextFieldGroup from '../common/TextFieldGroup';
@@ -177,6 +177,9 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Link to="/dashboard" className="btn btn-light">
+                Go back
+              </Link>
               <h1 className="display-4 text-center">Edit your profile</h1>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>

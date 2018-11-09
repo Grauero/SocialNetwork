@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import Moment from 'react-moment';
 
 import { deleteExperience } from '../../store/actions/profileActions';
 
 class Experience extends Component {
   onDeleteClick = (id) => {
-    this.props.deleteExperience(id, this.props.history);
+    this.props.deleteExperience(id);
   }
 
   render() {
@@ -47,9 +46,7 @@ class Experience extends Component {
 
 Experience.propTypes = {
   experience: propTypes.instanceOf(Object).isRequired,
-  history: propTypes.instanceOf(Object).isRequired,
   deleteExperience: propTypes.func.isRequired
 };
 
-
-export default connect(null, { deleteExperience })(withRouter(Experience));
+export default connect(null, { deleteExperience })(Experience);
