@@ -48,5 +48,6 @@ module.exports = {
     "camelcase": 0,
     "jsx-a11y/anchor-is-valid": 0,
     "no-alert": 0,
+    "react/jsx-no-target-blank": 0
   }
 };
