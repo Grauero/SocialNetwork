@@ -65,6 +65,19 @@ export const deletePost = id => (dispatch) => {
     }));
 };
 
+// Add comment
+export const addComment = (postId, commentData) => (dispatch) => {
+  axios.post(`/api/posts/comment/${postId}`, commentData)
+    .then(res => dispatch({
+      type: GET_POST,
+      payload: res.data
+    }))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+};
+
 // Add like
 export const addLike = id => (dispatch) => {
   axios.post(`/api/posts/like/${id}`)
