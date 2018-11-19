@@ -28,12 +28,13 @@ TextFieldGroup.propTypes = {
   value: propTypes.string.isRequired,
   info: propTypes.string,
   error: propTypes.string,
-  type: propTypes.string.isRequired,
+  type: propTypes.string,
   onChange: propTypes.func.isRequired,
   disabled: propTypes.string,
 };
 
 TextFieldGroup.defaultProps = {
+  type: 'text',
   placeholder: null,
   info: null,
   error: null,

@@ -1,5 +1,5 @@
-module.exports = {
-  mongoURI: 'mongodb+srv://grayero:passwordpassword@cluster-qstf0.mongodb.net/Network?retryWrites=true',
-  mongoURITest: 'mongodb+srv://grayero:passwordpassword@cluster-qstf0.mongodb.net/test?retryWrites=true',
-  secretOrKey: 'secretKey'
-};
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+} else {
+  module.exports = require('./keys_dev');
+}
