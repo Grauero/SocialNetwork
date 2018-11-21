@@ -32,7 +32,8 @@ class Navbar extends Component {
               alt={user.name}
               title="This site uses Gravatar for profile image"
               style={{ width: '25px', marginRight: '5px' }}
-            />Logout
+            />
+            <span className="ml-3">Logout</span>
           </a>
         </li>
       </ul>
