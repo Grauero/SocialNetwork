@@ -10,7 +10,7 @@ class Login extends Component {
     email: '',
     password: '',
     errors: {}
-  }
+  };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -30,18 +30,18 @@ class Login extends Component {
     }
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const userData = {
       email: this.state.email,
-      password: this.state.password,
+      password: this.state.password
     };
 
     this.props.loginUser(userData);
@@ -51,12 +51,14 @@ class Login extends Component {
     const { email, password, errors } = this.state;
 
     return (
-      <div className="login">
+      <div className="login" style={{ minHeight: '100vh', paddingTop: '7em' }}>
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign in to your DevConnector account</p>
+              <p className="lead text-center">
+                Sign in to your DevConnector account
+              </p>
               <form action="dashboard.html" onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="Email Address"
@@ -96,4 +98,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);

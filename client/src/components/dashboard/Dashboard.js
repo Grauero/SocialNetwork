@@ -3,7 +3,10 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { getCurrentProfile, deleteAccount } from '../../store/actions/profileActions';
+import {
+  getCurrentProfile,
+  deleteAccount
+} from '../../store/actions/profileActions';
 import Spinner from '../common/Spinner';
 import ProfileActions from './ProfileActions';
 import Experience from './Experience';
@@ -16,7 +19,7 @@ class Dashboard extends Component {
 
   onDeleteClick = () => {
     this.props.deleteAccount();
-  }
+  };
 
   render() {
     const { user } = this.props.auth;
@@ -32,7 +35,9 @@ class Dashboard extends Component {
           <div>
             <p className="lead text-muted">
               Welcome
-              <Link to={`/profile/${profile.handle}`} className="ml-2">{user.name}</Link>
+              <Link to={`/profile/${profile.handle}`} className="ml-2">
+                {user.name}
+              </Link>
             </p>
             <ProfileActions />
             <Experience experience={profile.experience} />
@@ -87,4 +92,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile, deleteAccount }
+)(Dashboard);

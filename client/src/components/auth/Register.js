@@ -13,7 +13,7 @@ class Register extends Component {
     password: '',
     password2: '',
     errors: {}
-  }
+  };
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -29,13 +29,13 @@ class Register extends Component {
     }
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const newUser = {
@@ -49,18 +49,25 @@ class Register extends Component {
   };
 
   render() {
-    const {
-      name, email, password, password2, errors
-    } = this.state;
+    const { name, email, password, password2, errors } = this.state;
 
     return (
-      <div className="register">
+      <div
+        className="register pt-5"
+        style={{ minHeight: '100vh', paddingTop: '7em' }}
+      >
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your DevConnector account</p>
-              <form noValidate action="create-profile.html" onSubmit={this.onSubmit}>
+              <p className="lead text-center">
+                Create your DevConnector account
+              </p>
+              <form
+                noValidate
+                action="create-profile.html"
+                onSubmit={this.onSubmit}
+              >
                 <TextFieldGroup
                   placeholder="Name"
                   name="name"
@@ -116,4 +123,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));
