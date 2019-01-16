@@ -13,10 +13,18 @@ const applyPassportStrategies = require('./config/passport');
 const app = express();
 
 // Connect to MongoDB
-const dbURI = process.env.NODE_ENV === 'test' ? keys.mongoURITest : keys.mongoURI;
-mongoose.connect(dbURI, { useNewUrlParser: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.log(err));
+(async function() {
+  const dbURI =
+    process.env.NODE_ENV === 'test' ? keys.mongoURITest : keys.mongoURI;
+  try {
+    await mongoose.connect(
+      dbURI,
+      { useNewUrlParser: true }
+    );
+  } catch (err) {
+    throw new Error('Connection to DB failed');
+  }
+})();
 
 // Server config
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,11 +42,9 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
-} 
+}
 
 const port = process.env.PORT || 80;
-const mode = process.env.NODE_ENV === 'test' ? 'test' : 'dev';
-console.log(`MODE=${mode}`);
 const server = app.listen(port, () => console.log(`Server on port ${port}`));
 
 module.exports = server;

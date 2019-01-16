@@ -11,10 +11,8 @@ const validateLoginInput = require('../../validation/login');
 
 const router = express.Router();
 
-// @route   POST api/users/register
-// @desc    Register user
-// @access  Public
-router.post('/register', (req, res) => {
+// register new user
+router.post('/register', async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // check validation
@@ -24,49 +22,42 @@ router.post('/register', (req, res) => {
 
   const { name, email, password } = req.body;
 
-  User.findOne({ email })
-    .then((user) => {
-      // check user
-      if (user) {
-        errors.email = 'That email already exists';
-        return res.status(400).json(errors);
-      }
+  try {
+    const user = await User.findOne({ email });
 
-      const avatar = gravatar.url(email, {
-        s: '200', // size
-        r: 'pg', // rating
-        d: 'm' // default
-      });
-      const newUser = new User({
-        name, password, email, avatar
-      });
+    if (user) {
+      errors.email = 'That email already exists';
+      return res.status(400).json(errors);
+    }
 
-      // hashing password
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err;
-        bcrypt.hash(password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          // saving new user to DB
-          newUser.save()
-            .then(user => res.json(user))
-            .catch(() => {
-              errors.email = 'Error while registering';
-              res.status(400).json(errors);
-            });
-        });
-      });
-    })
-    .catch(() => {
-      errors.email = 'Error while registering';
-      res.status(500).json(errors);
+    const avatar = gravatar.url(email, {
+      s: '200', // size
+      r: 'pg', // rating
+      d: 'm' // default
     });
+    const newUser = new User({
+      name,
+      password,
+      email,
+      avatar
+    });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    newUser.password = hashedPassword;
+
+    const savedUser = await newUser.save();
+
+    return res.json(savedUser);
+  } catch (err) {
+    errors.obj = err;
+    errors.email = 'Error while registering';
+    return res.status(400).json(errors);
+  }
 });
 
-// @route   POST api/users/login
-// @desc    Login user / Returning JWT
-// @access  Public
-router.post('/login', (req, res) => {
+// login user / return JWT
+router.post('/login', async (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // check validation
@@ -76,53 +67,54 @@ router.post('/login', (req, res) => {
 
   const { email, password } = req.body;
 
-  User.findOne({ email })
-    .then((user) => {
-      // check user
-      if (!user) {
-        errors.email = 'User not found';
-        return res.status(404).json(errors);
-      }
+  try {
+    const user = await User.findOne({ email });
 
-      // check password
-      bcrypt.compare(password, user.password)
-        .then((isMatch) => {
-          // user and password matched
-          if (isMatch) {
-            // JWT payload
-            const payload = {
-              id: user.id,
-              name: user.name,
-              avatar: user.avatar
-            };
+    if (!user) {
+      errors.email = 'User not found';
+      return res.status(404).json(errors);
+    }
 
-            jwt.sign(
-              payload,
-              keys.secretOrKey,
-              { expiresIn: 3600 },
-              (err, token) => {
-                if (err) {
-                  errors.token = 'didnt get JWT';
-                  return res.status(500).json(errors);
-                }
-                return res.status(200).json({ success: true, token: `Bearer ${token}` });
-              }
-            );
-          } else {
-            errors.password = 'Password incorrect';
-            return res.status(400).json(errors);
-          }
-        });
-    });
+    // check password
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      // JWT payload
+      const payload = {
+        id: user.id,
+        name: user.name,
+        avatar: user.avatar
+      };
+
+      jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+        if (err) {
+          errors.token = 'didnt get JWT';
+          return res.status(500).json(errors);
+        }
+
+        return res
+          .status(200)
+          .json({ success: true, token: `Bearer ${token}` });
+      });
+    } else {
+      errors.password = 'Password incorrect';
+      return res.status(400).json(errors);
+    }
+  } catch (err) {
+    errors.login = 'Invalid login';
+    return res.status(400).json(errors);
+  }
 });
 
-// @route   GET api/users/current
-// @desc    Return current user
-// @access  Private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const { _id, name, email } = req.user;
+// return current user
+router.get(
+  '/current',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { _id, name, email } = req.user;
 
-  res.json({ _id, name, email });
-});
+    return res.json({ _id, name, email });
+  }
+);
 
 module.exports = router;
