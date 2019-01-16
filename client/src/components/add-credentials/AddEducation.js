@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addEducation } from '../../store/actions/profileActions';
-
+ 
 class AddEducation extends Component {
   state = {
     school: '',
@@ -23,7 +23,7 @@ class AddEducation extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-    }
+    } 
   }
 
   onSubmit = (e) => {

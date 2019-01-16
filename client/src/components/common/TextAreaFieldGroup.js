@@ -3,7 +3,12 @@ import propTypes from 'prop-types';
 import classnames from 'classnames';
 
 const TextAreaFieldGroup = ({
-  name, placeholder, value, error, info, onChange
+  name,
+  placeholder,
+  value,
+  error,
+  info,
+  onChange
 }) => (
   <div className="form-group">
     <textarea
@@ -26,13 +31,13 @@ TextAreaFieldGroup.propTypes = {
   value: propTypes.string.isRequired,
   info: propTypes.string,
   error: propTypes.string,
-  onChange: propTypes.func.isRequired,
+  onChange: propTypes.func.isRequired
 };
 
 TextAreaFieldGroup.defaultProps = {
   placeholder: null,
   info: null,
-  error: null,
+  error: null
 };
 
 export default TextAreaFieldGroup;

@@ -13,15 +13,13 @@ class ProfileGithub extends Component {
 
   componentDidMount() {
     const { username } = this.props;
-    const {
-      clientId, clientSecret, count, sort
-    } = this.state;
+    const { clientId, clientSecret, count, sort } = this.state;
 
-    fetch(`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`)
+    fetch(
+      `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
+    )
       .then(res => res.json())
-      .then(data => (
-        this.setState({ repos: data })
-      ));
+      .then(data => this.setState({ repos: data }));
   }
 
   render() {

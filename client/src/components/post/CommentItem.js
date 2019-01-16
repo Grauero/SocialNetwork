@@ -7,7 +7,7 @@ import { deleteComment } from '../../store/actions/postActions';
 class CommentItem extends Component {
   onDeleteClick = (postId, commentId) => {
     this.props.deleteComment(postId, commentId);
-  }
+  };
 
   render() {
     const { comment, postId, auth } = this.props;
@@ -28,18 +28,15 @@ class CommentItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{comment.text}</p>
-            {
-              comment.user === auth.user.id
-                ? (
-                  <button
-                    type="button"
-                    className="btn btn-danger mr-1"
-                    onClick={() => this.onDeleteClick(postId, comment._id)}
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-                ) : null
-            }
+            {comment.user === auth.user.id ? (
+              <button
+                type="button"
+                className="btn btn-danger mr-1"
+                onClick={() => this.onDeleteClick(postId, comment._id)}
+              >
+                <i className="fas fa-times" />
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
@@ -58,4 +55,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { deleteComment })(CommentItem);
+export default connect(
+  mapStateToProps,
+  { deleteComment }
+)(CommentItem);

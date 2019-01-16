@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const setAuthToken = (token) => {
+const setAuthToken = token => {
   if (token) {
     // send JWT-token with every API request
     axios.defaults.headers.common.Authorization = token;

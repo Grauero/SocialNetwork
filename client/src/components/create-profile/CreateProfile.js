@@ -8,7 +8,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
 import { createProfile } from '../../store/actions/profileActions';
-
+ 
 class CreateProfile extends Component {
   state = {
     displaySocialInputs: false,

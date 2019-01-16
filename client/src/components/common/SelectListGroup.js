@@ -2,9 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import classnames from 'classnames';
 
-const SelectListGroup = ({
-  name, value, error, info, onChange, options
-}) => {
+const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
   const selectOptions = options.map(option => (
     <option key={option.label} value={option.value}>
       {option.label}
@@ -40,7 +38,7 @@ SelectListGroup.propTypes = {
 
 SelectListGroup.defaultProps = {
   info: null,
-  error: null,
+  error: null
 };
 
 export default SelectListGroup;

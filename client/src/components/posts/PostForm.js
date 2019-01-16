@@ -9,7 +9,7 @@ class PostForm extends Component {
   state = {
     text: '',
     errors: {}
-  }
+  };
 
   componentWillReceiveProps(newProps) {
     if (newProps.errors) {
@@ -19,13 +19,13 @@ class PostForm extends Component {
     }
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const { user } = this.props.auth;
@@ -38,15 +38,13 @@ class PostForm extends Component {
     this.props.addPost(newUser);
 
     this.setState({ text: '' });
-  }
+  };
 
   render() {
     return (
       <div className="post-form mb-3">
         <div className="card card-info">
-          <div className="card-header bg-info text-white">
-            Say Something...
-          </div>
+          <div className="card-header bg-info text-white">Say Something...</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
@@ -58,7 +56,9 @@ class PostForm extends Component {
                   error={this.state.errors.text}
                 />
               </div>
-              <button type="submit" className="btn btn-dark">Submit</button>
+              <button type="submit" className="btn btn-dark">
+                Submit
+              </button>
             </form>
           </div>
         </div>
@@ -77,4 +77,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addPost })(PostForm);
+export default connect(
+  mapStateToProps,
+  { addPost }
+)(PostForm);

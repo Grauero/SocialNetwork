@@ -17,11 +17,11 @@ const ProfileAbout = ({ profile }) => {
         <div className="card card-body bg-light mb-3">
           <h3 className="text-center text-info">{`${firstName}'s Bio`}</h3>
           <p className="lead">
-            {
-                isEmpty(profile.bio)
-                  ? <span>{firstName} doesnt have a bio</span>
-                  : <span>{profile.bio}</span>
-              }
+            {isEmpty(profile.bio) ? (
+              <span>{firstName} doesnt have a bio</span>
+            ) : (
+              <span>{profile.bio}</span>
+            )}
           </p>
           <hr />
           <h3 className="text-center text-info">Skill Set</h3>

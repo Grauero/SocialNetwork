@@ -8,14 +8,31 @@ const ProfileCreds = ({ experience, education }) => {
       <h4>{exp.company}</h4>
       <p>
         <Moment format="YYYY/MM/DD">{exp.from}</Moment> -
-        {exp.to === null ? 'Now' : <Moment format="YYYY/MM/DD">{exp.to}</Moment>}
+        {exp.to === null ? (
+          'Now'
+        ) : (
+          <Moment format="YYYY/MM/DD">{exp.to}</Moment>
+        )}
       </p>
-      <p><strong>Position: </strong>{exp.title}</p>
       <p>
-        {exp.location === '' ? null : <span><strong>Location: </strong>{exp.location}</span>}
+        <strong>Position: </strong>
+        {exp.title}
       </p>
       <p>
-        {exp.description === '' ? null : <span><strong>Description: </strong>{exp.description}</span>}
+        {exp.location === '' ? null : (
+          <span>
+            <strong>Location: </strong>
+            {exp.location}
+          </span>
+        )}
+      </p>
+      <p>
+        {exp.description === '' ? null : (
+          <span>
+            <strong>Description: </strong>
+            {exp.description}
+          </span>
+        )}
       </p>
     </li>
   ));
@@ -24,12 +41,27 @@ const ProfileCreds = ({ experience, education }) => {
       <h4>{edu.school}</h4>
       <p>
         <Moment format="YYYY/MM/DD">{edu.from}</Moment> -
-        {edu.to === null ? 'Now' : <Moment format="YYYY/MM/DD">{edu.to}</Moment>}
+        {edu.to === null ? (
+          'Now'
+        ) : (
+          <Moment format="YYYY/MM/DD">{edu.to}</Moment>
+        )}
       </p>
-      <p><strong>Degree: </strong>{edu.degree}</p>
-      <p><strong>Field Of Study: </strong>{edu.fieldOfStudy}</p>
       <p>
-        {edu.description === '' ? null : <span><strong>Description: </strong>{edu.description}</span>}
+        <strong>Degree: </strong>
+        {edu.degree}
+      </p>
+      <p>
+        <strong>Field Of Study: </strong>
+        {edu.fieldOfStudy}
+      </p>
+      <p>
+        {edu.description === '' ? null : (
+          <span>
+            <strong>Description: </strong>
+            {edu.description}
+          </span>
+        )}
       </p>
     </li>
   ));
@@ -38,20 +70,20 @@ const ProfileCreds = ({ experience, education }) => {
     <div className="row">
       <div className="col-md-6">
         <h3 className="text-center text-info">Experience</h3>
-        {
-          experienceItems.length > 0
-            ? <ul className="list-group">{experienceItems}</ul>
-            : <p className="text-center">No experience provided</p>
-        }
+        {experienceItems.length > 0 ? (
+          <ul className="list-group">{experienceItems}</ul>
+        ) : (
+          <p className="text-center">No experience provided</p>
+        )}
       </div>
 
       <div className="col-md-6">
         <h3 className="text-center text-info">Education</h3>
-        {
-            educationItems.length > 0
-              ? <ul className="list-group">{educationItems}</ul>
-              : <p className="text-center">No education provided</p>
-        }
+        {educationItems.length > 0 ? (
+          <ul className="list-group">{educationItems}</ul>
+        ) : (
+          <p className="text-center">No education provided</p>
+        )}
       </div>
     </div>
   );

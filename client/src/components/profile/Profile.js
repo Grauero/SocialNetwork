@@ -42,8 +42,13 @@ class Profile extends Component {
           </div>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
-          <ProfileCreds education={profile.education} experience={profile.experience} />
-          {profile.githubUserName ? <ProfileGithub username={profile.githubUserName} /> : null}
+          <ProfileCreds
+            education={profile.education}
+            experience={profile.experience}
+          />
+          {profile.githubUserName ? (
+            <ProfileGithub username={profile.githubUserName} />
+          ) : null}
         </div>
       );
     }
@@ -52,9 +57,7 @@ class Profile extends Component {
       <div className="profile">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              {profileContent}
-            </div>
+            <div className="col-md-12">{profileContent}</div>
           </div>
         </div>
       </div>
@@ -73,4 +76,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileByHandle })(Profile);
+export default connect(
+  mapStateToProps,
+  { getProfileByHandle }
+)(Profile);

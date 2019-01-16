@@ -1,5 +1,9 @@
 import {
-  ADD_POST, POST_LOADING, GET_POSTS, GET_POST, DELETE_POST
+  ADD_POST,
+  POST_LOADING,
+  GET_POSTS,
+  GET_POST,
+  DELETE_POST
 } from '../types';
 
 const initialState = {
@@ -8,7 +12,7 @@ const initialState = {
   loading: false
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case POST_LOADING:
       return {

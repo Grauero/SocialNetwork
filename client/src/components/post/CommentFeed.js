@@ -3,11 +3,10 @@ import propTypes from 'prop-types';
 
 import CommentItem from './CommentItem';
 
-const ComponentFeed = ({ comments, postId }) => (
+const ComponentFeed = ({ comments, postId }) =>
   comments.map(comment => (
     <CommentItem key={comment._id} comment={comment} postId={postId} />
-  ))
-);
+  ));
 
 ComponentFeed.propTypes = {
   comments: propTypes.instanceOf(Array).isRequired,
