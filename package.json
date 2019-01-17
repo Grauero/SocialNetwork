@@ -38,8 +38,9 @@
     "supertest": "^3.3.0"
   },
   "jest": {
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    "testPathIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
+      "/client/"
     ]
   }
 }
