@@ -4,10 +4,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
-const User = require('../../models/User');
-const keys = require('../../config/keys');
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const User = require('../../../models/User');
+const keys = require('../../../config/keys');
+const validateRegisterInput = require('../../../validation/register');
+const validateLoginInput = require('../../../validation/login');
 
 const router = express.Router();
 
@@ -92,9 +92,7 @@ router.post('/login', async (req, res) => {
           return res.status(500).json(errors);
         }
 
-        return res
-          .status(200)
-          .json({ success: true, token: `Bearer ${token}` });
+        return res.status(200).json({ success: true, token: `Bearer ${token}` });
       });
     } else {
       errors.password = 'Password incorrect';
@@ -107,14 +105,10 @@ router.post('/login', async (req, res) => {
 });
 
 // return current user
-router.get(
-  '/current',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    const { _id, name, email } = req.user;
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { _id, name, email } = req.user;
 
-    return res.json({ _id, name, email });
-  }
-);
+  return res.json({ _id, name, email });
+});
 
 module.exports = router;

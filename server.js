@@ -4,18 +4,15 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 
-const posts = require('./routes/api/posts');
-const profile = require('./routes/api/profile');
-const users = require('./routes/api/users');
+const api = require('./routes');
 const keys = require('./config/keys');
 const applyPassportStrategies = require('./config/passport');
 
 const app = express();
 
 // Connect to MongoDB
-(async function() {
-  const dbURI =
-    process.env.NODE_ENV === 'test' ? keys.mongoURITest : keys.mongoURI;
+(async function connectToDB() {
+  const dbURI = process.env.NODE_ENV === 'test' ? keys.mongoURITest : keys.mongoURI;
   try {
     await mongoose.connect(
       dbURI,
@@ -24,17 +21,14 @@ const app = express();
   } catch (err) {
     throw new Error('Connection to DB failed');
   }
-})();
+}());
 
 // Server config
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
+app.use('/api', api);
 applyPassportStrategies(passport);
-
-app.use('/api/posts', posts);
-app.use('/api/profile', profile);
-app.use('/api/users', users);
 
 // Static assets for production
 if (process.env.NODE_ENV === 'production') {
