@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
@@ -11,21 +11,28 @@ import { clearCurrentProfile } from './store/actions/profileActions';
 import Navbar from './components/layouts/Navbar';
 import Footer from './components/layouts/Footer';
 import Landing from './components/layouts/Landing';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/common/PrivateRoute';
-import CreateProfile from './components/create-profile/CreateProfile';
-import EditProfile from './components/edit-profile/EditProfile';
-import AddExperience from './components/add-credentials/AddExperience';
-import AddEducation from './components/add-credentials/AddEducation';
-import Profiles from './components/profiles/Profiles';
-import Profile from './components/profile/Profile';
 import NotFound from './components/not-found/NotFound';
-import Posts from './components/posts/Posts';
-import Post from './components/post/Post';
-
+import Spinner from './components/common/Spinner';
 import './App.css';
+
+const Login = lazy(() => import('./components/auth/Login'));
+const Register = lazy(() => import('./components/auth/Register'));
+const Dashboard = lazy(() => import('./components/dashboard/Dashboard'));
+const CreateProfile = lazy(() =>
+  import('./components/create-profile/CreateProfile')
+);
+const EditProfile = lazy(() => import('./components/edit-profile/EditProfile'));
+const AddExperience = lazy(() =>
+  import('./components/add-credentials/AddExperience')
+);
+const AddEducation = lazy(() =>
+  import('./components/add-credentials/AddEducation')
+);
+const Profiles = lazy(() => import('./components/profiles/Profiles'));
+const Profile = lazy(() => import('./components/profile/Profile'));
+const Posts = lazy(() => import('./components/posts/Posts'));
+const Post = lazy(() => import('./components/post/Post'));
 
 // check for auth token
 if (localStorage.jwtToken) {
@@ -47,53 +54,59 @@ if (localStorage.jwtToken) {
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <Route exact path="/" component={Landing} />
-        <div className="container">
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/profiles" component={Profiles} />
-          <Route exact path="/profile/:handle" component={Profile} />
-          <Switch>
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/create-profile"
-              component={CreateProfile}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute exact path="/edit-profile" component={EditProfile} />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/add-experience"
-              component={AddExperience}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/add-education"
-              component={AddEducation}
-            />
-          </Switch>
-          <Switch>
-            <PrivateRoute exact path="/feed" component={Posts} />
-          </Switch>
-          <Switch>
-            <PrivateRoute exact path="/post/:id" component={Post} />
-          </Switch>
-          <Route exact path="/not-found" component={NotFound} />
+    <Suspense fallback={<Spinner />}>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <div className="container">
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/profiles" component={Profiles} />
+            <Route exact path="/profile/:handle" component={Profile} />
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/create-profile"
+                component={CreateProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/edit-profile"
+                component={EditProfile}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-experience"
+                component={AddExperience}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/add-education"
+                component={AddEducation}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/feed" component={Posts} />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/post/:id" component={Post} />
+            </Switch>
+            <Route exact path="/not-found" component={NotFound} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Suspense>
   </Provider>
 );
 
