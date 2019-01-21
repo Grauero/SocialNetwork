@@ -16,9 +16,22 @@ describe('sync auth action creators', () => {
 
   describe('logoutUser', () => {
     it('should clear local storage', () => {
-      actionCreators.logoutUser();
+      window.localStorage.setItem('jwtToken', 'token');
+      actionCreators.logoutUser()(() => ({}));
 
-      expect(window.localStorage.removeItem).toBeCalled();
+      expect(window.localStorage.getItem('jwtToken')).toBeNull();
+    });
+
+    it('should dispatch an action SET_CURRENT_USER', () => {
+      const expectedAction = {
+        type: SET_CURRENT_USER,
+        payload: {}
+      };
+      const dispatch = jest.fn();
+      actionCreators.logoutUser()(dispatch);
+
+      expect(dispatch).toBeCalled();
+      expect(dispatch).toBeCalledWith(expectedAction);
     });
   });
 });
