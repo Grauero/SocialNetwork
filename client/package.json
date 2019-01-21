@@ -21,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest --watch --no-cache",
+    "test-clear-cache": "jest --clearCache",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:80",
@@ -50,6 +51,12 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
     "setupFiles": [
       "<rootDir>/mocks/browserMocks.js"
     ]
