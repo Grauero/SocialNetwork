@@ -45,18 +45,12 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "jest": "^23.6.0",
+    "jest": "^21.0.0",
     "moxios": "^0.4.0",
     "redux-mock-store": "^1.5.3"
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ],
     "setupFiles": [
       "<rootDir>/mocks/browserMocks.js"
     ]

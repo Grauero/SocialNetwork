@@ -10,19 +10,13 @@ describe('errors reducer', () => {
     expect(res).toEqual(initialState);
   });
 
-  it('should return initial state if no action is provided', () => {
-    const res = errorsReducer(initialState);
-
-    expect(res).toEqual(initialState);
-  });
-
-  it('should return {} if action.type is CLEAR_ERRORS', () => {
+  it('should return {} if ACTION.TYPE is CLEAR_ERRORS', () => {
     const res = errorsReducer(initialState, { type: CLEAR_ERRORS });
 
     expect(res).toEqual({});
   });
 
-  it('should return action.payload if action.type is GET_ERRORS', () => {
+  it('should return ACTION.PAYLOAD if ACTION.TYPE is GET_ERRORS', () => {
     const action = { type: GET_ERRORS, payload: 'payload' };
     const res = errorsReducer(initialState, action);
 
