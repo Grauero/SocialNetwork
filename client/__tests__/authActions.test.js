@@ -10,16 +10,14 @@ const createMockStore = configureMockStore([thunk]);
 const store = createMockStore({});
 
 describe('sync auth action creators', () => {
-  describe('setCurrentUser', () => {
-    it('should create an action SET_CURRENT_USER', () => {
-      const payload = { test: 'test' };
-      const expectedAction = {
-        type: SET_CURRENT_USER,
-        payload
-      };
+  it('should create an action SET_CURRENT_USER', () => {
+    const payload = { test: 'test' };
+    const expectedAction = {
+      type: SET_CURRENT_USER,
+      payload
+    };
 
-      expect(actionCreators.setCurrentUser(payload)).toEqual(expectedAction);
-    });
+    expect(actionCreators.setCurrentUser(payload)).toEqual(expectedAction);
   });
 
   describe('logoutUser', () => {
@@ -52,11 +50,16 @@ describe('async auth action creators', () => {
     const userData = 'userData';
     const history = { push: jest.fn(path => path) };
 
-    mock.onPost('/api/users/register').reply(function() {
-      return new Promise((resolve, reject) => resolve([200, { test: 'test' }]));
-    });
+    beforeEach(() =>
+      mock.onPost('/api/users/register').reply(function() {
+        return new Promise((resolve, reject) =>
+          resolve([200, { test: 'test' }])
+        );
+      })
+    );
+    afterEach(() => mock.reset());
 
-    it('should make request to /api/users/register', async () => {
+    it('should make POST request to /api/users/register', async () => {
       await store.dispatch(actionCreators.registerUser(userData, history));
 
       expect(mock.history.post[0].data).toBe(userData);
