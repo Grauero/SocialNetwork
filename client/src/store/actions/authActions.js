@@ -8,7 +8,7 @@ import setAuthToken from '../utils/setAuthToken';
 export const registerUser = (userData, history) => async dispatch => {
   try {
     await axios.post('/api/users/register', userData);
-    history.push('/login');
+    return history.push('/login');
   } catch (err) {
     dispatch({
       type: GET_ERRORS,

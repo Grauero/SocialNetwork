@@ -16,6 +16,19 @@ const localStorageMock = (function() {
   };
 })();
 
+const historyMock = (function() {
+  const items = [];
+  return {
+    push: function(key) {
+      return items.push(key);
+    },
+    length: items.length
+  };
+})();
+
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock
+});
+Object.defineProperty(window, 'history', {
+  value: historyMock
 });
