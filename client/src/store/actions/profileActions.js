@@ -13,7 +13,7 @@ import {
 export const deleteAccount = () => async dispatch => {
   try {
     if (window.confirm('Are you sure? This can NOT be undone!')) {
-      await axios.delete('api/profile');
+      await axios.delete('/api/profile');
 
       dispatch({
         type: SET_CURRENT_USER,
@@ -42,7 +42,7 @@ export const clearCurrentProfile = () => ({
 export const createProfile = (profileData, history) => async dispatch => {
   try {
     await axios.post('/api/profile', profileData);
-    history.push('/dashboard');
+    return history.push('/dashboard');
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -53,7 +53,7 @@ export const createProfile = (profileData, history) => async dispatch => {
 
 // Get current profile
 export const getCurrentProfile = () => async dispatch => {
-  dispatch(setProfileLoading);
+  dispatch(setProfileLoading());
 
   try {
     const res = await axios.get('/api/profile');
@@ -72,7 +72,7 @@ export const getCurrentProfile = () => async dispatch => {
 
 // Get profile by handle
 export const getProfileByHandle = handle => async dispatch => {
-  dispatch(setProfileLoading);
+  dispatch(setProfileLoading());
 
   try {
     const res = await axios.get(`/api/profile/handle/${handle}`);
@@ -93,7 +93,7 @@ export const getProfileByHandle = handle => async dispatch => {
 export const addExperience = (experienceData, history) => async dispatch => {
   try {
     await axios.post('/api/profile/experience', experienceData);
-    history.push('/dashboard');
+    return history.push('/dashboard');
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
@@ -106,7 +106,7 @@ export const addExperience = (experienceData, history) => async dispatch => {
 export const addEducation = (educationData, history) => async dispatch => {
   try {
     await axios.post('/api/profile/education', educationData);
-    history.push('/dashboard');
+    return history.push('/dashboard');
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
