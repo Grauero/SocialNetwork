@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom'; 
+import { Link, withRouter } from 'react-router-dom';
 
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
@@ -18,7 +18,7 @@ class AddExperience extends Component {
     description: '',
     errors: {},
     disabled: false
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -26,7 +26,7 @@ class AddExperience extends Component {
     }
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const experienceData = {
@@ -40,20 +40,20 @@ class AddExperience extends Component {
     };
 
     this.props.addExperience(experienceData, this.props.history);
-  }
+  };
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
   onCheck = () => {
     this.setState({
       disabled: !this.state.disabled,
       current: !this.state.current
     });
-  }
+  };
 
   render() {
     const { errors } = this.state;
@@ -132,7 +132,11 @@ class AddExperience extends Component {
                   error={errors.company}
                   info="Tell us about position"
                 />
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
+                />
               </form>
             </div>
           </div>
@@ -152,4 +156,8 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { addExperience })(withRouter(AddExperience));
+export { AddExperience };
+export default connect(
+  mapStateToProps,
+  { addExperience }
+)(withRouter(AddExperience));

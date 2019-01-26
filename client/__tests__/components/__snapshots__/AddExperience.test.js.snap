@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<AddExperience
+  addExperience={[Function]}
+  errors={Object {}}
+  history={
+    Object {
+      "history": "test",
+    }
+  }
+>
+  <div
+    className="add-experience"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-8 m-auto"
+        >
+          <Link
+            className="btn btn-light"
+            replace={false}
+            to="/dashboard"
+          >
+            <a
+              className="btn btn-light"
+              href="/dashboard"
+              onClick={[Function]}
+            >
+              Go back
+            </a>
+          </Link>
+          <h1
+            className="display-4 text-center"
+          >
+            Add experience
+          </h1>
+          <p
+            className="lead text-center"
+          >
+            Add any job or position that you have had in the past
+          </p>
+          <small
+            className="d-block pb-3"
+          >
+            * = required fields
+          </small>
+          <form
+            onSubmit={[Function]}
+          >
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="company"
+              onChange={[Function]}
+              placeholder="* Company"
+              type="text"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="company"
+                  onChange={[Function]}
+                  placeholder="* Company"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="title"
+              onChange={[Function]}
+              placeholder="* Job Title"
+              type="text"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="title"
+                  onChange={[Function]}
+                  placeholder="* Job Title"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="location"
+              onChange={[Function]}
+              placeholder="Location"
+              type="text"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="location"
+                  onChange={[Function]}
+                  placeholder="Location"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <h6>
+              From Date
+            </h6>
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="from"
+              onChange={[Function]}
+              placeholder={null}
+              type="date"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="from"
+                  onChange={[Function]}
+                  placeholder={null}
+                  type="date"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <h6>
+              To Date
+            </h6>
+            <TextFieldGroup
+              disabled=""
+              error={null}
+              info={null}
+              name="to"
+              onChange={[Function]}
+              placeholder={null}
+              type="date"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled=""
+                  name="to"
+                  onChange={[Function]}
+                  placeholder={null}
+                  type="date"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <div
+              className="form-check mb-4"
+            >
+              <input
+                checked={false}
+                className="form-check-input"
+                id="current"
+                name="current"
+                onChange={[Function]}
+                type="checkbox"
+                value={false}
+              />
+              <label
+                className="form-check-label"
+                htmlFor="current"
+              >
+                Current Job
+              </label>
+            </div>
+            <TextAreaFieldGroup
+              error={null}
+              info="Tell us about position"
+              name="description"
+              onChange={[Function]}
+              placeholder="Job Description"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <textarea
+                  className="form-control form-control-lg"
+                  name="description"
+                  onChange={[Function]}
+                  placeholder="Job Description"
+                  value=""
+                />
+                <small
+                  className="form-text text-muted"
+                >
+                  Tell us about position
+                </small>
+              </div>
+            </TextAreaFieldGroup>
+            <input
+              className="btn btn-info btn-block mt-4"
+              type="submit"
+              value="Submit"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</AddExperience>
+`;

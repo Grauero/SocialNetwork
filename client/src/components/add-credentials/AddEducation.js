@@ -153,4 +153,5 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
+export { AddEducation };
 export default connect(mapStateToProps, { addEducation })(withRouter(AddEducation));
