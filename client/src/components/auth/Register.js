@@ -123,6 +123,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
+export { Register };
 export default connect(
   mapStateToProps,
   { registerUser }

@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<Login
+  auth={
+    Object {
+      "isAuthenticated": false,
+    }
+  }
+  errors={Object {}}
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
+  loginUser={[Function]}
+>
+  <div
+    className="login"
+    style={
+      Object {
+        "minHeight": "100vh",
+        "paddingTop": "7em",
+      }
+    }
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-8 m-auto"
+        >
+          <h1
+            className="display-4 text-center"
+          >
+            Log In
+          </h1>
+          <p
+            className="lead text-center"
+          >
+            Sign in to your DevConnector account
+          </p>
+          <form
+            action="dashboard.html"
+            onSubmit={[Function]}
+          >
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="email"
+              onChange={[Function]}
+              placeholder="Email Address"
+              type="email"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="email"
+                  onChange={[Function]}
+                  placeholder="Email Address"
+                  type="email"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <TextFieldGroup
+              disabled={null}
+              error={null}
+              info={null}
+              name="password"
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+              value=""
+            >
+              <div
+                className="form-group"
+              >
+                <input
+                  className="form-control form-control-lg"
+                  disabled={null}
+                  name="password"
+                  onChange={[Function]}
+                  placeholder="Password"
+                  type="password"
+                  value=""
+                />
+              </div>
+            </TextFieldGroup>
+            <input
+              className="btn btn-info btn-block mt-4"
+              type="submit"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</Login>
+`;
