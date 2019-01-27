@@ -61,8 +61,12 @@
     "setupFiles": [
       "<rootDir>/mocks/browserMocks.js"
     ],
+    "moduleNameMapper": {
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/mocks/fileMock.js"
+    },
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "babel-jest"
-    }
+    },
+    "testURL": "http://localhost:80"
   }
 }

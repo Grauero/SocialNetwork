@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<InputGroup
+  error={null}
+  icon={null}
+  name="name"
+  onChange={[Function]}
+  placeholder={null}
+  type="text"
+  value="value"
+>
+  <div
+    className="input-group mb-3"
+  >
+    <div
+      className="input-group-prepend"
+    >
+      <span
+        className="input-group-text"
+      >
+        <i
+          className={null}
+        />
+      </span>
+    </div>
+    <input
+      className="form-control form-control-lg"
+      name="name"
+      onChange={[Function]}
+      placeholder={null}
+      type="text"
+      value="value"
+    />
+  </div>
+</InputGroup>
+`;
