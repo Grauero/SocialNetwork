@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render markup if user isnt authenticated 1`] = `
+<Landing
+  auth={
+    Object {
+      "isAuthenticated": true,
+    }
+  }
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
+>
+  <div
+    className="landing"
+  >
+    <div
+      className="dark-overlay landing-inner text-light"
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-12 text-center"
+          >
+            <h1
+              className="display-3 mb-4"
+            >
+              Developer Connector
+            </h1>
+            <p
+              className="lead"
+            >
+              Create a developer profile/portfolio, share posts and get help from other developers
+            </p>
+            <hr />
+            <Link
+              className="btn btn-lg btn-info mr-2"
+              replace={false}
+              to="/register"
+            >
+              <a
+                className="btn btn-lg btn-info mr-2"
+                href="/register"
+                onClick={[Function]}
+              >
+                Sign Up
+              </a>
+            </Link>
+            <Link
+              className="btn btn-lg btn-light"
+              replace={false}
+              to="/login"
+            >
+              <a
+                className="btn btn-lg btn-light"
+                href="/login"
+                onClick={[Function]}
+              >
+                Login
+              </a>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Landing>
+`;

@@ -63,8 +63,7 @@ it('renders <ProfileActions />, <Experience />, <Education /> component if users
 });
 
 it('calls deleteAccount by pressing button', () => {
-  const deleteButton = component.find('button');
-  deleteButton.simulate('click');
+  component.find('button').simulate('click');
 
   expect(props.deleteAccount).toHaveBeenCalled();
   expect(props.deleteAccount).toHaveBeenCalledTimes(1);

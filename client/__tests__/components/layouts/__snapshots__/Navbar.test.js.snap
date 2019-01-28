@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render auth links if user is authenticated 1`] = `
+Array [
+  <Link
+    className="navbar-brand"
+    replace={false}
+    to="/"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      DevConnector
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/profiles"
+  >
+    <a
+      className="nav-link"
+      href="/profiles"
+      onClick={[Function]}
+    >
+      Developers
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/feed"
+  >
+    <a
+      className="nav-link"
+      href="/feed"
+      onClick={[Function]}
+    >
+      Post Feed
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/dashboard"
+  >
+    <a
+      className="nav-link"
+      href="/dashboard"
+      onClick={[Function]}
+    >
+      Dashboard
+    </a>
+  </Link>,
+]
+`;
+
+exports[`should render guest links if user is NOT authenticated 1`] = `
+Array [
+  <Link
+    className="navbar-brand"
+    replace={false}
+    to="/"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      DevConnector
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/profiles"
+  >
+    <a
+      className="nav-link"
+      href="/profiles"
+      onClick={[Function]}
+    >
+      Developers
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/feed"
+  >
+    <a
+      className="nav-link"
+      href="/feed"
+      onClick={[Function]}
+    >
+      Post Feed
+    </a>
+  </Link>,
+  <Link
+    className="nav-link"
+    replace={false}
+    to="/dashboard"
+  >
+    <a
+      className="nav-link"
+      href="/dashboard"
+      onClick={[Function]}
+    >
+      Dashboard
+    </a>
+  </Link>,
+]
+`;

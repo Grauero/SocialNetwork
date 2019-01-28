@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
- 
+
 import isEmpty from '../../validation/isEmpty';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
-import { createProfile, getCurrentProfile } from '../../store/actions/profileActions';
+import {
+  createProfile,
+  getCurrentProfile
+} from '../../store/actions/profileActions';
 
 class EditProfile extends Component {
   state = {
@@ -27,7 +30,7 @@ class EditProfile extends Component {
     youtube: '',
     instagram: '',
     errors: {}
-  }
+  };
 
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -47,14 +50,26 @@ class EditProfile extends Component {
       profile.company = !isEmpty(profile.company) ? profile.company : '';
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
-      profile.githubUserName = !isEmpty(profile.githubUserName) ? profile.githubUserName : '';
+      profile.githubUserName = !isEmpty(profile.githubUserName)
+        ? profile.githubUserName
+        : '';
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
       profile.social = !isEmpty(profile.social) ? profile.social : {};
-      profile.twitter = !isEmpty(profile.social.twitter) ? profile.social.twitter : '';
-      profile.facebook = !isEmpty(profile.social.facebook) ? profile.social.facebook : '';
-      profile.linkedin = !isEmpty(profile.social.linkedin) ? profile.social.linkedin : '';
-      profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube : '';
-      profile.instagram = !isEmpty(profile.social.instagram) ? profile.social.instagram : '';
+      profile.twitter = !isEmpty(profile.social.twitter)
+        ? profile.social.twitter
+        : '';
+      profile.facebook = !isEmpty(profile.social.facebook)
+        ? profile.social.facebook
+        : '';
+      profile.linkedin = !isEmpty(profile.social.linkedin)
+        ? profile.social.linkedin
+        : '';
+      profile.youtube = !isEmpty(profile.social.youtube)
+        ? profile.social.youtube
+        : '';
+      profile.instagram = !isEmpty(profile.social.instagram)
+        ? profile.social.instagram
+        : '';
 
       // set component fields state
       this.setState({
@@ -75,7 +90,7 @@ class EditProfile extends Component {
     }
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const profileData = {
@@ -96,7 +111,7 @@ class EditProfile extends Component {
     this.props.createProfile(profileData, this.props.history);
   };
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -114,7 +129,7 @@ class EditProfile extends Component {
 
     if (displaySocialInputs) {
       socialInputs = (
-        <div>
+        <div data-social>
           <InputGroup
             placeholder="Twitter profile URL"
             name="twitter"
@@ -259,7 +274,11 @@ class EditProfile extends Component {
                   <span className="text-muted">Optional</span>
                 </div>
                 {socialInputs}
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
+                />
               </form>
             </div>
           </div>
@@ -282,6 +301,8 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(EditProfile)
-);
+export { EditProfile };
+export default connect(
+  mapStateToProps,
+  { createProfile, getCurrentProfile }
+)(withRouter(EditProfile));

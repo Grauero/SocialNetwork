@@ -13,8 +13,7 @@ const props = {
 const component = mount(<Education {...props} />);
 
 it('deletes selected education by pressing button', () => {
-  const deleteButton = component.find('button');
-  deleteButton.simulate('click');
+  component.find('button').simulate('click');
 
   expect(props.deleteEducation).toHaveBeenCalled();
   expect(props.deleteEducation).toHaveBeenCalledTimes(1);

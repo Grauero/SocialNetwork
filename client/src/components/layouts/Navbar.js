@@ -99,6 +99,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+export { Navbar };
 export default connect(
   mapStateToProps,
   { logoutUser, clearCurrentProfile }

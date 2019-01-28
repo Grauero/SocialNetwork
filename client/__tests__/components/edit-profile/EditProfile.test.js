@@ -1,12 +1,15 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 
-import { CreateProfile } from '../../../src/components/create-profile/CreateProfile';
+import { EditProfile } from '../../../src/components/edit-profile/EditProfile';
 
 const props = {
   errors: {},
   history: { history: 'test' },
-  createProfile: jest.fn()
+  profile: {},
+  createProfile: jest.fn(),
+  getCurrentProfile: jest.fn()
 };
 const initialState = {
   displaySocialInputs: false,
@@ -26,14 +29,23 @@ const initialState = {
   errors: {}
 };
 
-const component = mount(<CreateProfile {...props} />);
+const wrapper = mount(
+  <BrowserRouter>
+    <EditProfile {...props} />
+  </BrowserRouter>
+);
+const component = wrapper.find(EditProfile);
 component.setState(initialState);
+
+it('calls getCurrentProfile when component is rendered', () => {
+  expect(props.getCurrentProfile).toHaveBeenCalled();
+  expect(props.getCurrentProfile).toHaveBeenCalledTimes(1);
+});
 
 it('handles form submit', () => {
   const expectedObj = Object.assign({}, initialState);
   delete expectedObj.displaySocialInputs;
   delete expectedObj.errors;
-
   component.find('form').simulate('submit');
 
   expect(props.createProfile).toHaveBeenCalled();
@@ -61,17 +73,17 @@ it('handles inputs change', () => {
 
 it('displays social inputs based on component state', () => {
   const state = Object.assign(initialState, { displaySocialInputs: true });
-  const component = mount(<CreateProfile {...props} />);
   component.setState(state);
 
   const socialDiv = component.find('div[data-social]');
 
   expect(socialDiv).toBeDefined();
+  component.setState(initialState); // reset components state to initial
 });
 
 it('toggles social input by pressing button', () => {
   const expectedState = Object.assign({}, initialState, {
-    displaySocialInputs: true
+    displaySocialInputs: !initialState.displaySocialInputs
   });
 
   component.find('button').simulate('click');

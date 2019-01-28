@@ -25,8 +25,7 @@ it('renders correct input with provided props', () => {
 });
 
 it('handles input change', () => {
-  const input = component.find('input');
-  input.simulate('change');
+  component.find('input').simulate('change');
 
   expect(props.onChange).toHaveBeenCalled();
   expect(props.onChange).toHaveBeenCalledTimes(1);

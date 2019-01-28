@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<Footer>
+  <footer
+    className="bg-dark text-white mt-5 p-4 text-center"
+  >
+    Copyright © 
+    2019
+     Network
+  </footer>
+</Footer>
+`;

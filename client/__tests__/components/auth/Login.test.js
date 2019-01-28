@@ -41,18 +41,18 @@ it('handles form submit', () => {
 });
 
 it('handles inputs change', () => {
-  const input = component
-    .find('TextFieldGroup')
-    .at(0)
-    .find('input');
   const name = 'email';
   const value = 'updatedValue';
   const expectedState = Object.assign({}, initialState);
   expectedState[name] = value;
 
-  input.simulate('change', {
-    target: { name, value }
-  });
+  component
+    .find('TextFieldGroup')
+    .at(0)
+    .find('input')
+    .simulate('change', {
+      target: { name, value }
+    });
 
   expect(component.state()).toEqual(expectedState);
 });
