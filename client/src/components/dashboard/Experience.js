@@ -59,6 +59,7 @@ Experience.propTypes = {
   deleteExperience: propTypes.func.isRequired
 };
 
+export { Experience };
 export default connect(
   null,
   { deleteExperience }

@@ -17,14 +17,12 @@ const component = mount(
 );
 
 it('renders child component if user is authenticated', () => {
-  const props = {
-    component: NotFound,
+  const testProps = Object.assign({}, props, {
     auth: { isAuthenticated: true }
-  };
-
+  });
   const component = mount(
     <BrowserRouter>
-      <PrivateRoute {...props} />
+      <PrivateRoute {...testProps} />
     </BrowserRouter>
   );
   const testComponent = component.find(NotFound);

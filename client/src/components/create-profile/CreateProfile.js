@@ -8,7 +8,7 @@ import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
 import { createProfile } from '../../store/actions/profileActions';
- 
+
 class CreateProfile extends Component {
   state = {
     displaySocialInputs: false,
@@ -26,7 +26,7 @@ class CreateProfile extends Component {
     youtube: '',
     instagram: '',
     errors: {}
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -34,7 +34,7 @@ class CreateProfile extends Component {
     }
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const profileData = {
@@ -55,7 +55,7 @@ class CreateProfile extends Component {
     this.props.createProfile(profileData, this.props.history);
   };
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -73,7 +73,7 @@ class CreateProfile extends Component {
 
     if (displaySocialInputs) {
       socialInputs = (
-        <div>
+        <div data-social>
           <InputGroup
             placeholder="Twitter profile URL"
             name="twitter"
@@ -137,9 +137,7 @@ class CreateProfile extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Create your profile</h1>
-              <p className="lead text-center">
-                Fill up your acc
-              </p>
+              <p className="lead text-center">Fill up your acc</p>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -218,7 +216,11 @@ class CreateProfile extends Component {
                   <span className="text-muted">Optional</span>
                 </div>
                 {socialInputs}
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
+                />
               </form>
             </div>
           </div>
@@ -239,4 +241,8 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { createProfile })(withRouter(CreateProfile));
+export { CreateProfile };
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));

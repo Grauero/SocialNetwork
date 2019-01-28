@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<BrowserRouter>
+  <Router
+    history={
+      Object {
+        "action": "POP",
+        "block": [Function],
+        "createHref": [Function],
+        "go": [Function],
+        "goBack": [Function],
+        "goForward": [Function],
+        "length": 1,
+        "listen": [Function],
+        "location": Object {
+          "hash": "",
+          "pathname": "/",
+          "search": "",
+          "state": undefined,
+        },
+        "push": [Function],
+        "replace": [Function],
+      }
+    }
+  >
+    <ProfileActions>
+      <div
+        className="btn-group mb-4"
+        role="group"
+      >
+        <Link
+          className="btn btn-light"
+          replace={false}
+          to="/edit-profile"
+        >
+          <a
+            className="btn btn-light"
+            href="/edit-profile"
+            onClick={[Function]}
+          >
+            <i
+              className="fas fa-user-circle text-info mr-1"
+            />
+            Edit Profile
+          </a>
+        </Link>
+        <Link
+          className="btn btn-light"
+          replace={false}
+          to="/add-experience"
+        >
+          <a
+            className="btn btn-light"
+            href="/add-experience"
+            onClick={[Function]}
+          >
+            <i
+              className="fab fa-black-tie text-info mr-1"
+            />
+            Add Experience
+          </a>
+        </Link>
+        <Link
+          className="btn btn-light"
+          replace={false}
+          to="/add-education"
+        >
+          <a
+            className="btn btn-light"
+            href="/add-education"
+            onClick={[Function]}
+          >
+            <i
+              className="fas fa-graduation-cap text-info mr-1"
+            />
+            Add Education
+          </a>
+        </Link>
+      </div>
+    </ProfileActions>
+  </Router>
+</BrowserRouter>
+`;
