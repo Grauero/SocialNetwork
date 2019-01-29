@@ -17,11 +17,14 @@ const initialState = {
   password2: '',
   errors: {}
 };
+let component;
 
-const wrapper = mount(<Register {...props} />);
+beforeEach(() => {
+  component = mount(<Register {...props} />);
+  component.setState(initialState);
+});
 
-const component = wrapper.find(Register);
-component.setState(initialState);
+afterEach(() => component.unmount());
 
 it('should redirect to /dashboard if user is authenticated', () => {
   const authProps = Object.assign({}, props, {
@@ -34,7 +37,9 @@ it('should redirect to /dashboard if user is authenticated', () => {
 });
 
 it('handles form submit', () => {
-  const expectedObj = { email: '', name: '', password: '', password2: '' };
+  const expectedObj = Object.assign({}, initialState);
+  delete expectedObj.errors;
+
   component.find('form').simulate('submit');
 
   expect(props.registerUser).toHaveBeenCalled();

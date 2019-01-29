@@ -9,15 +9,17 @@ const props = {
   type: 'text',
   onChange: jest.fn()
 };
+let component;
 
-const component = mount(<TextFieldGroup {...props} />);
+beforeEach(() => (component = mount(<TextFieldGroup {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('renders correct input with provided props', () => {
   const input = component.find('input');
   const name = input.getDOMNode().getAttribute('name');
   const value = input.getDOMNode().getAttribute('value');
 
-  expect(input).toBeDefined();
   expect(name).toBe(props.name);
   expect(value).toBe(props.value);
 });
@@ -27,7 +29,7 @@ it('renders info if props.info is provided', () => {
   const component = mount(<TextFieldGroup {...infoProps} />);
   const infoElement = component.find('small');
 
-  expect(infoElement).toBeDefined();
+  expect(infoElement.debug()).toBeTruthy();
 });
 
 it('renders error if props.error is provided', () => {
@@ -35,5 +37,5 @@ it('renders error if props.error is provided', () => {
   const component = mount(<TextFieldGroup {...errorProps} />);
   const errorElement = component.find('.invalid-feedback');
 
-  expect(errorElement).toBeDefined();
+  expect(errorElement.debug()).toBeTruthy();
 });

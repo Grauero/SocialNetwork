@@ -9,14 +9,16 @@ const props = {
   onChange: jest.fn(),
   options: []
 };
+let component;
 
-const component = mount(<SelectListGroup {...props} />);
+beforeEach(() => (component = mount(<SelectListGroup {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('renders correct select list with provided props', () => {
   const select = component.find('select');
   const name = select.getDOMNode().getAttribute('name');
 
-  expect(select).toBeDefined();
   expect(name).toBe(props.name);
 });
 
@@ -25,7 +27,7 @@ it('renders info if props.info is provided', () => {
   const component = mount(<SelectListGroup {...infoProps} />);
   const infoElement = component.find('small');
 
-  expect(infoElement).toBeDefined();
+  expect(infoElement.debug()).toBeTruthy();
 });
 
 it('renders error if props.error is provided', () => {
@@ -33,5 +35,5 @@ it('renders error if props.error is provided', () => {
   const component = mount(<SelectListGroup {...errorProps} />);
   const errorElement = component.find('.invalid-feedback');
 
-  expect(errorElement).toBeDefined();
+  expect(errorElement.debug).toBeTruthy();
 });

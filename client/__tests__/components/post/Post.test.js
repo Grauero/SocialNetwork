@@ -11,13 +11,16 @@ const props = {
   post: { post: { _id: 'id', comments: [] }, loading: false },
   getPost: jest.fn()
 };
+let component;
 
-const component = shallow(<Post {...props} />);
+beforeEach(() => (component = shallow(<Post {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('renders <ComponentFeed /> component if post exists', () => {
   const feed = component.find('ComponentFeed');
 
-  expect(feed.debug()).not.toBeFalsy();
+  expect(feed.debug()).toBeTruthy();
 });
 
 it('renders <Spinner /> component if post doesnt exists', () => {
@@ -33,7 +36,7 @@ it('renders <Spinner /> component if post doesnt exists', () => {
   );
   const spinner = component.find('Spinner');
 
-  expect(spinner.debug()).not.toBeFalsy();
+  expect(spinner.debug()).toBeTruthy();
 });
 
 it('renders <Spinner /> component if post is loading', () => {
@@ -49,7 +52,7 @@ it('renders <Spinner /> component if post is loading', () => {
   );
   const spinner = component.find('Spinner');
 
-  expect(spinner.debug()).not.toBeFalsy();
+  expect(spinner.debug()).toBeTruthy();
 });
 
 it('renders <Spinner /> component if post is empty', () => {
@@ -65,7 +68,7 @@ it('renders <Spinner /> component if post is empty', () => {
   );
   const spinner = component.find('Spinner');
 
-  expect(spinner.debug()).not.toBeFalsy();
+  expect(spinner.debug()).toBeTruthy();
 });
 
 it('calls getPost when component is mount', () => {

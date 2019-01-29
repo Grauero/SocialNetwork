@@ -17,12 +17,18 @@ const props = {
   postId: 'postId',
   deleteComment: jest.fn()
 };
+let component;
 
-const component = mount(
-  <BrowserRouter>
-    <CommentItem {...props} />
-  </BrowserRouter>
+beforeEach(
+  () =>
+    (component = mount(
+      <BrowserRouter>
+        <CommentItem {...props} />
+      </BrowserRouter>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('renders delete comment button if user created that comment', () => {
   const deleteButton = component.find('button');

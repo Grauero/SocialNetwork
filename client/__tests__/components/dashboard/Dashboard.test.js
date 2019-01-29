@@ -20,18 +20,23 @@ const props = {
   auth: { user: { name: 'name' } }
 };
 const store = createStore(() => {});
+let component;
 
-const component = mount(
-  <BrowserRouter>
-    <Provider store={store}>
-      <Dashboard {...props} />
-    </Provider>
-  </BrowserRouter>
+beforeEach(
+  () =>
+    (component = mount(
+      <BrowserRouter>
+        <Provider store={store}>
+          <Dashboard {...props} />
+        </Provider>
+      </BrowserRouter>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('calls getCurrentProfile method when component is rendered', () => {
   expect(props.getCurrentProfile).toHaveBeenCalled();
-  expect(props.getCurrentProfile).toHaveBeenCalledTimes(1);
 });
 
 it('renders <Spinner /> if users profile is null', () => {
@@ -39,7 +44,7 @@ it('renders <Spinner /> if users profile is null', () => {
   const component = mount(<Dashboard {...testProps} />);
   const spinnerComponent = component.find(Spinner);
 
-  expect(spinnerComponent).toBeDefined();
+  expect(spinnerComponent.debug()).toBeTruthy();
   expect(testProps.profile.profile).toBeNull();
 });
 
@@ -48,7 +53,7 @@ it('renders <Spinner /> if profile is loading', () => {
   const component = mount(<Dashboard {...testProps} />);
   const spinnerComponent = component.find(Spinner);
 
-  expect(spinnerComponent).toBeDefined();
+  expect(spinnerComponent.debug()).toBeTruthy();
   expect(testProps.profile.loading).toBe(true);
 });
 
@@ -57,9 +62,9 @@ it('renders <ProfileActions />, <Experience />, <Education /> component if users
   const experience = component.find(Experience);
   const education = component.find(Education);
 
-  expect(profileActions).toBeDefined();
-  expect(experience).toBeDefined();
-  expect(education).toBeDefined();
+  expect(profileActions.debug()).toBeTruthy();
+  expect(experience.debug()).toBeTruthy();
+  expect(education.debug()).toBeTruthy();
 });
 
 it('calls deleteAccount by pressing button', () => {

@@ -9,8 +9,11 @@ const props = {
   education: [{ _id }],
   deleteEducation: jest.fn()
 };
+let component;
 
-const component = mount(<Education {...props} />);
+beforeEach(() => (component = mount(<Education {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('deletes selected education by pressing button', () => {
   component.find('button').simulate('click');

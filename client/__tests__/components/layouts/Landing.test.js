@@ -12,15 +12,20 @@ const props = {
   history: { push: jest.fn() }
 };
 const store = createStore(() => {});
+let wrapper, component;
 
-const wrapper = mount(
-  <BrowserRouter>
-    <Provider store={store}>
-      <Landing {...props} />
-    </Provider>
-  </BrowserRouter>
-);
-const component = wrapper.find(Landing);
+beforeEach(() => {
+  wrapper = mount(
+    <BrowserRouter>
+      <Provider store={store}>
+        <Landing {...props} />
+      </Provider>
+    </BrowserRouter>
+  );
+  component = wrapper.find(Landing);
+});
+
+afterEach(() => wrapper.unmount());
 
 it('redirects to /dashboard if user is authenticated', () => {
   expect(props.history.push).toHaveBeenCalled();

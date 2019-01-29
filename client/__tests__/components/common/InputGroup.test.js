@@ -10,8 +10,11 @@ const props = {
   type: 'text',
   onChange: jest.fn()
 };
+let component;
 
-const component = mount(<InputGroup {...props} />);
+beforeEach(() => (component = mount(<InputGroup {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('renders correct input with provided props', () => {
   const input = component.find('input');
@@ -37,7 +40,7 @@ it('renders error if error is provided with props', () => {
   const errorDiv = component.find('.invalid-feedback');
   const errorClass = errorDiv.getDOMNode().getAttribute('class');
 
-  expect(errorDiv).toBeDefined();
+  expect(errorDiv.debug()).toBeTruthy();
   expect(errorClass).toBe('invalid-feedback');
 });
 

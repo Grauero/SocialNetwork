@@ -10,12 +10,18 @@ const props = {
   logoutUser: jest.fn(),
   clearCurrentProfile: jest.fn()
 };
+let component;
 
-const component = mount(
-  <BrowserRouter>
-    <Navbar {...props} />
-  </BrowserRouter>
+beforeEach(
+  () =>
+    (component = mount(
+      <BrowserRouter>
+        <Navbar {...props} />
+      </BrowserRouter>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('calls clearCurrentProfile and logoutUser by pressing logout button', () => {
   const logoutButton = component.find('a').get(4);

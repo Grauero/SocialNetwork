@@ -13,14 +13,19 @@ const initialState = {
   text: 'text',
   errors: {}
 };
+let wrapper, component;
 
-const wrapper = mount(
-  <BrowserRouter>
-    <CommentForm {...props} />
-  </BrowserRouter>
-);
-const component = wrapper.find(CommentForm);
-component.setState(initialState);
+beforeEach(() => {
+  wrapper = mount(
+    <BrowserRouter>
+      <CommentForm {...props} />
+    </BrowserRouter>
+  );
+  component = wrapper.find(CommentForm);
+  component.setState(initialState);
+});
+
+afterEach(() => wrapper.unmount());
 
 it('handles form submit', () => {
   const expectedObj = {
@@ -28,18 +33,18 @@ it('handles form submit', () => {
     name: props.auth.user.name,
     avatar: props.auth.user.avatar
   };
+
   component.find('form').simulate('submit');
 
   expect(props.addComment).toHaveBeenCalled();
   expect(props.addComment).toHaveBeenCalledWith(props.postId, expectedObj);
   expect(props.addComment).toHaveBeenCalledTimes(1);
-  component.setState(initialState); // reset components state to initial
 });
 
 it('clears state after submitting the form', () => {
   component.find('form').simulate('submit');
+
   expect(component.state().text).toBe('');
-  component.setState(initialState); // reset components state to initial
 });
 
 it('handles textarea change', () => {
@@ -57,5 +62,4 @@ it('handles textarea change', () => {
     });
 
   expect(component.state()).toEqual(expectedState);
-  component.setState(initialState); // reset components state to initial
 });

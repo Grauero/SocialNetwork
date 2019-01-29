@@ -8,14 +8,16 @@ const props = {
   value: 'value',
   onChange: jest.fn()
 };
+let component;
 
-const component = mount(<TextAreaFieldGroup {...props} />);
+beforeEach(() => (component = mount(<TextAreaFieldGroup {...props} />)));
+
+afterEach(() => component.unmount());
 
 it('renders correct textarea with provided props', () => {
   const textarea = component.find('textarea');
   const name = textarea.getDOMNode().getAttribute('name');
 
-  expect(textarea).toBeDefined();
   expect(name).toBe(props.name);
 });
 
@@ -24,7 +26,7 @@ it('renders info if props.info is provided', () => {
   const component = mount(<TextAreaFieldGroup {...infoProps} />);
   const infoElement = component.find('small');
 
-  expect(infoElement).toBeDefined();
+  expect(infoElement.debug()).toBeTruthy();
 });
 
 it('renders error if props.error is provided', () => {
@@ -32,5 +34,5 @@ it('renders error if props.error is provided', () => {
   const component = mount(<TextAreaFieldGroup {...errorProps} />);
   const errorElement = component.find('.invalid-feedback');
 
-  expect(errorElement).toBeDefined();
+  expect(errorElement.debug()).toBeTruthy();
 });

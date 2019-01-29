@@ -21,26 +21,26 @@ const initialState = {
   errors: {},
   disabled: false
 };
+let wrapper, component;
 
-const wrapper = mount(
-  <BrowserRouter>
-    <AddEducation {...props} />
-  </BrowserRouter>
-);
+beforeEach(() => {
+  wrapper = mount(
+    <BrowserRouter>
+      <AddEducation {...props} />
+    </BrowserRouter>
+  );
 
-const component = wrapper.find(AddEducation);
-component.setState(initialState);
+  component = wrapper.find(AddEducation);
+  component.setState(initialState);
+});
+
+afterEach(() => wrapper.unmount());
 
 it('handles form submit', () => {
-  const expectedObj = {
-    current: false,
-    degree: 'degree',
-    description: 'desc',
-    fieldOfStudy: 'field',
-    from: 'from',
-    school: 'school',
-    to: 'to'
-  };
+  const expectedObj = Object.assign({}, initialState);
+  delete expectedObj.disabled;
+  delete expectedObj.errors;
+
   component.find('form').simulate('submit');
 
   expect(props.addEducation).toHaveBeenCalled();

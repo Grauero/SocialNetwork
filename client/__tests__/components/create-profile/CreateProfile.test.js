@@ -25,9 +25,14 @@ const initialState = {
   instagram: 'instagram',
   errors: {}
 };
+let component;
 
-const component = mount(<CreateProfile {...props} />);
-component.setState(initialState);
+beforeEach(() => {
+  component = mount(<CreateProfile {...props} />);
+  component.setState(initialState);
+});
+
+afterEach(() => component.unmount());
 
 it('handles form submit', () => {
   const expectedObj = Object.assign({}, initialState);
@@ -56,7 +61,6 @@ it('handles inputs change', () => {
     });
 
   expect(component.state()).toEqual(expectedState);
-  component.setState(initialState); // reset components state to initial
 });
 
 it('displays social inputs based on component state', () => {
@@ -66,15 +70,12 @@ it('displays social inputs based on component state', () => {
 
   const socialDiv = component.find('div[data-social]');
 
-  expect(socialDiv).toBeDefined();
+  expect(socialDiv.debug()).toBeTruthy();
 });
 
 it('toggles social input by pressing button', () => {
-  const expectedState = Object.assign({}, initialState, {
-    displaySocialInputs: true
-  });
-
+  const oldState = initialState.displaySocialInputs;
   component.find('button').simulate('click');
 
-  expect(component.state()).toEqual(expectedState);
+  expect(component.state().displaySocialInputs).not.toBe(oldState);
 });

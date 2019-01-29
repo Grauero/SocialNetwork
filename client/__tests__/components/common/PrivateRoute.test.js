@@ -9,12 +9,18 @@ const props = {
   component: NotFound,
   auth: { isAuthenticated: false }
 };
+let component;
 
-const component = mount(
-  <BrowserRouter>
-    <PrivateRoute {...props} />
-  </BrowserRouter>
+beforeEach(
+  () =>
+    (component = mount(
+      <BrowserRouter>
+        <PrivateRoute {...props} />
+      </BrowserRouter>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('renders child component if user is authenticated', () => {
   const testProps = Object.assign({}, props, {
@@ -27,13 +33,13 @@ it('renders child component if user is authenticated', () => {
   );
   const testComponent = component.find(NotFound);
 
-  expect(testComponent).toBeDefined();
+  expect(testComponent.debug()).toBeTruthy();
 });
 
 it('renders <Redirect to="/login" /> component if user is NOT authenticated', () => {
   const redirectComponent = component.find(Redirect);
 
-  expect(redirectComponent).toBeDefined();
+  expect(redirectComponent.debug()).toBeTruthy();
   expect(redirectComponent.debug()).toBe(
     '<Redirect to="/login" push={false} />'
   );

@@ -15,11 +15,14 @@ const initialState = {
   password: '',
   errors: {}
 };
+let component;
 
-const wrapper = mount(<Login {...props} />);
+beforeEach(() => {
+  component = mount(<Login {...props} />);
+  component.setState(initialState);
+});
 
-const component = wrapper.find(Login);
-component.setState(initialState);
+afterEach(() => component.unmount());
 
 it('should redirect to /dashboard if user is authenticated', () => {
   const authProps = Object.assign({}, props, {
@@ -32,7 +35,9 @@ it('should redirect to /dashboard if user is authenticated', () => {
 });
 
 it('handles form submit', () => {
-  const expectedObj = { email: '', password: '' };
+  const expectedObj = Object.assign({}, initialState);
+  delete expectedObj.errors;
+
   component.find('form').simulate('submit');
 
   expect(props.loginUser).toHaveBeenCalled();

@@ -22,6 +22,7 @@
     "build": "react-scripts build",
     "test": "jest --watch --no-cache",
     "test-clear-cache": "jest --clearCache",
+    "test-coverage": "jest --coverage",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:80",

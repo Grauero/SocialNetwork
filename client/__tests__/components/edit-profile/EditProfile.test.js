@@ -28,24 +28,29 @@ const initialState = {
   instagram: 'instagram',
   errors: {}
 };
+let wrapper, component;
 
-const wrapper = mount(
-  <BrowserRouter>
-    <EditProfile {...props} />
-  </BrowserRouter>
-);
-const component = wrapper.find(EditProfile);
-component.setState(initialState);
+beforeEach(() => {
+  wrapper = mount(
+    <BrowserRouter>
+      <EditProfile {...props} />
+    </BrowserRouter>
+  );
+  component = wrapper.find(EditProfile);
+  component.setState(initialState);
+});
+
+afterEach(() => wrapper.unmount());
 
 it('calls getCurrentProfile when component is rendered', () => {
   expect(props.getCurrentProfile).toHaveBeenCalled();
-  expect(props.getCurrentProfile).toHaveBeenCalledTimes(1);
 });
 
 it('handles form submit', () => {
   const expectedObj = Object.assign({}, initialState);
   delete expectedObj.displaySocialInputs;
   delete expectedObj.errors;
+
   component.find('form').simulate('submit');
 
   expect(props.createProfile).toHaveBeenCalled();
@@ -68,7 +73,6 @@ it('handles inputs change', () => {
     });
 
   expect(component.state()).toEqual(expectedState);
-  component.setState(initialState); // reset components state to initial
 });
 
 it('displays social inputs based on component state', () => {
@@ -77,8 +81,7 @@ it('displays social inputs based on component state', () => {
 
   const socialDiv = component.find('div[data-social]');
 
-  expect(socialDiv).toBeDefined();
-  component.setState(initialState); // reset components state to initial
+  expect(socialDiv).toBeTruthy();
 });
 
 it('toggles social input by pressing button', () => {

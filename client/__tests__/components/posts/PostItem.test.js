@@ -20,12 +20,18 @@ const props = {
   addLike: jest.fn(),
   removeLike: jest.fn()
 };
+let component;
 
-const component = mount(
-  <BrowserRouter>
-    <PostItem {...props} />
-  </BrowserRouter>
+beforeEach(
+  () =>
+    (component = mount(
+      <BrowserRouter>
+        <PostItem {...props} />
+      </BrowserRouter>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('calls onLikeClick by pressing like button', () => {
   const likeButton = component.find('button').get(0);

@@ -10,11 +10,18 @@ const props = {
   getPosts: jest.fn()
 };
 const store = createStore(() => ({ auth: {} }));
-const component = mount(
-  <Provider store={store}>
-    <Posts {...props} />
-  </Provider>
+let component;
+
+beforeEach(
+  () =>
+    (component = mount(
+      <Provider store={store}>
+        <Posts {...props} />
+      </Provider>
+    ))
 );
+
+afterEach(() => component.unmount());
 
 it('calls getPosts when component is mount', () => {
   expect(props.getPosts).toHaveBeenCalled();
