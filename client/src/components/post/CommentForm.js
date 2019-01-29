@@ -79,6 +79,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
+export { CommentForm };
 export default connect(
   mapStateToProps,
   { addComment }

@@ -77,6 +77,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
+export { PostForm };
 export default connect(
   mapStateToProps,
   { addPost }

@@ -111,6 +111,7 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+export { PostItem };
 export default connect(
   mapStateToProps,
   { deletePost, addLike, removeLike }

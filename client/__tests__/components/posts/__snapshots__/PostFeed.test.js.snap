@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot for 2 posts 1`] = `
+Array [
+  <Connect(PostItem)
+    key="1"
+    post={
+      Object {
+        "_id": "1",
+        "post": "post1",
+      }
+    }
+  />,
+  <Connect(PostItem)
+    key="2"
+    post={
+      Object {
+        "_id": "2",
+        "post": "post2",
+      }
+    }
+  />,
+]
+`;

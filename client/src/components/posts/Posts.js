@@ -46,6 +46,7 @@ const mapStateToProps = state => ({
   post: state.post
 });
 
+export { Posts };
 export default connect(
   mapStateToProps,
   { getPosts }

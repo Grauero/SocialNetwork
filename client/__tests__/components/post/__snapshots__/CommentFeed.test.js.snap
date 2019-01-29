@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot for 2 comments 1`] = `
+Array [
+  <Connect(CommentItem)
+    comment={
+      Object {
+        "_id": "1",
+        "comment": "comment1",
+      }
+    }
+    key="1"
+    postId="postId"
+  />,
+  <Connect(CommentItem)
+    comment={
+      Object {
+        "_id": "2",
+        "comment": "comment2",
+      }
+    }
+    key="2"
+    postId="postId"
+  />,
+]
+`;
