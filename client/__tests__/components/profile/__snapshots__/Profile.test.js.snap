@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <ProfileGithub /> component if user have github user name in profile 1`] = `
+<ProfileGithub
+  username="name"
+/>
+`;
+
+exports[`renders <Spinner /> component if profile doesnt exists 1`] = `
+<Spinner>
+  <div>
+    <img
+      alt="Loading..."
+      src="test-file-stub"
+      style={
+        Object {
+          "display": "block",
+          "margin": "auto",
+          "width": "200px",
+        }
+      }
+    />
+  </div>
+</Spinner>
+`;
+
+exports[`renders <Spinner /> component if profile loading 1`] = `
+<Spinner>
+  <div>
+    <img
+      alt="Loading..."
+      src="test-file-stub"
+      style={
+        Object {
+          "display": "block",
+          "margin": "auto",
+          "width": "200px",
+        }
+      }
+    />
+  </div>
+</Spinner>
+`;

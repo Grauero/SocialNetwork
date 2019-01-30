@@ -21,16 +21,19 @@ const ProfileHeader = ({ profile }) => (
           <p className="lead text-center">
             {profile.status}{' '}
             {isEmpty(profile.company) ? null : (
-              <span>at {profile.company}</span>
+              <span data-company>at {profile.company}</span>
             )}
           </p>
-          {isEmpty(profile.location) ? null : <p>{profile.location}</p>}
+          {isEmpty(profile.location) ? null : (
+            <p data-location>{profile.location}</p>
+          )}
           <p>
             {isEmpty(profile.website) ? null : (
               <a
                 className="text-white p-2"
                 href={profile.website}
                 target="_blank"
+                data-website
               >
                 <i className="fas fa-globe fa-2x" />
               </a>
@@ -40,6 +43,7 @@ const ProfileHeader = ({ profile }) => (
                 className="text-white p-2"
                 href={profile.social.twitter}
                 target="_blank"
+                data-twitter
               >
                 <i className="fab fa-twitter fa-2x" />
               </a>
@@ -49,6 +53,7 @@ const ProfileHeader = ({ profile }) => (
                 className="text-white p-2"
                 href={profile.social.facebook}
                 target="_blank"
+                data-facebook
               >
                 <i className="fab fa-facebook fa-2x" />
               </a>
@@ -58,6 +63,7 @@ const ProfileHeader = ({ profile }) => (
                 className="text-white p-2"
                 href={profile.social.linkedin}
                 target="_blank"
+                data-linkedin
               >
                 <i className="fab fa-linkedin  fa-2x" />
               </a>
@@ -67,6 +73,7 @@ const ProfileHeader = ({ profile }) => (
                 className="text-white p-2"
                 href={profile.social.youtube}
                 target="_blank"
+                data-youtube
               >
                 <i className="fab fa-youtube fa-2x" />
               </a>
@@ -76,6 +83,7 @@ const ProfileHeader = ({ profile }) => (
                 className="text-white p-2"
                 href={profile.social.instagram}
                 target="_blank"
+                data-instagram
               >
                 <i className="fab fa-instagram fa-2x" />
               </a>

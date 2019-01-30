@@ -11,7 +11,9 @@ const ProfileCreds = ({ experience, education }) => {
         {exp.to === null ? (
           'Now'
         ) : (
-          <Moment format="YYYY/MM/DD">{exp.to}</Moment>
+          <Moment format="YYYY/MM/DD" data-to>
+            {exp.to}
+          </Moment>
         )}
       </p>
       <p>
@@ -20,7 +22,7 @@ const ProfileCreds = ({ experience, education }) => {
       </p>
       <p>
         {exp.location === '' ? null : (
-          <span>
+          <span data-location>
             <strong>Location: </strong>
             {exp.location}
           </span>
@@ -28,7 +30,7 @@ const ProfileCreds = ({ experience, education }) => {
       </p>
       <p>
         {exp.description === '' ? null : (
-          <span>
+          <span data-description>
             <strong>Description: </strong>
             {exp.description}
           </span>
@@ -57,7 +59,7 @@ const ProfileCreds = ({ experience, education }) => {
       </p>
       <p>
         {edu.description === '' ? null : (
-          <span>
+          <span data-description>
             <strong>Description: </strong>
             {edu.description}
           </span>
@@ -71,7 +73,9 @@ const ProfileCreds = ({ experience, education }) => {
       <div className="col-md-6">
         <h3 className="text-center text-info">Experience</h3>
         {experienceItems.length > 0 ? (
-          <ul className="list-group">{experienceItems}</ul>
+          <ul className="list-group" data-experience>
+            {experienceItems}
+          </ul>
         ) : (
           <p className="text-center">No experience provided</p>
         )}
@@ -80,7 +84,9 @@ const ProfileCreds = ({ experience, education }) => {
       <div className="col-md-6">
         <h3 className="text-center text-info">Education</h3>
         {educationItems.length > 0 ? (
-          <ul className="list-group">{educationItems}</ul>
+          <ul className="list-group" data-education>
+            {educationItems}
+          </ul>
         ) : (
           <p className="text-center">No education provided</p>
         )}

@@ -76,6 +76,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
+export { Profile }; 
 export default connect(
   mapStateToProps,
   { getProfileByHandle }

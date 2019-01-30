@@ -52,6 +52,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
+export { Profiles };
 export default connect(
   mapStateToProps,
   { getProfiles }
