@@ -11,12 +11,15 @@ class CommentForm extends Component {
     errors: {}
   };
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.errors) {
-      this.setState({
-        errors: newProps.errors
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors) {
+      return {
+        ...state,
+        errors: props.errors
+      };
     }
+
+    return null;
   }
 
   onChange = e => {

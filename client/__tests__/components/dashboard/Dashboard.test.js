@@ -42,9 +42,9 @@ it('calls getCurrentProfile method when component is rendered', () => {
 it('renders <Spinner /> if users profile is null', () => {
   const testProps = Object.assign({}, props, { profile: { profile: null } });
   const component = mount(<Dashboard {...testProps} />);
-  const spinnerComponent = component.find(Spinner);
+  const spinner = component.find(Spinner);
 
-  expect(spinnerComponent.debug()).toBeTruthy();
+  expect(spinner.debug()).toBeTruthy();
   expect(testProps.profile.profile).toBeNull();
 });
 

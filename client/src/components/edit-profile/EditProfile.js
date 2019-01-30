@@ -36,13 +36,13 @@ class EditProfile extends Component {
     this.props.getCurrentProfile();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors) {
+      return { ...state, errors: props.errors };
     }
 
-    if (nextProps.profile.profile) {
-      const profile = nextProps.profile.profile;
+    if (props.profile.profile) {
+      const profile = props.profile.profile;
 
       const skillsCSV = profile.skills.join(',');
 
@@ -72,7 +72,8 @@ class EditProfile extends Component {
         : '';
 
       // set component fields state
-      this.setState({
+      return {
+        ...state,
         handle: profile.handle,
         company: profile.company,
         website: profile.website,
@@ -86,8 +87,10 @@ class EditProfile extends Component {
         linkedin: profile.linkedin,
         youtube: profile.youtube,
         instagram: profile.instagram
-      });
+      };
     }
+
+    return null;
   }
 
   onSubmit = e => {

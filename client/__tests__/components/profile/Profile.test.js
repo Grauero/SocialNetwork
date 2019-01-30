@@ -67,7 +67,7 @@ it('did NOT renders <ProfileGithub /> component if user dont have github user na
 
 it('renders <Spinner /> component if profile doesnt exists', () => {
   const testProps = Object.assign({}, props, {
-    profile: { profile: null }
+    profile: { ...props.profile, profile: null }
   });
 
   component = mount(

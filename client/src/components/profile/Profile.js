@@ -17,10 +17,12 @@ class Profile extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push('/not-found');
+  static getDerivedStateFromProps(props) {
+    if (props.profile.profile === null && props.profile.loading) {
+      props.history.push('/not-found');
     }
+
+    return null;
   }
 
   render() {
@@ -76,7 +78,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export { Profile }; 
+export { Profile };
 export default connect(
   mapStateToProps,
   { getProfileByHandle }

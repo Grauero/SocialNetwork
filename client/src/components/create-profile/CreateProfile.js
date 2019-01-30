@@ -28,10 +28,15 @@ class CreateProfile extends Component {
     errors: {}
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors) {
+      return {
+        ...state,
+        errors: props.errors
+      };
     }
+
+    return null;
   }
 
   onSubmit = e => {

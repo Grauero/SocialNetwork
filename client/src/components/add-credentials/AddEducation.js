@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { addEducation } from '../../store/actions/profileActions';
- 
+
 class AddEducation extends Component {
   state = {
     school: '',
@@ -18,15 +18,20 @@ class AddEducation extends Component {
     description: '',
     errors: {},
     disabled: false
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors) {
+      return {
+        ...state,
+        errors: props.errors
+      };
+    }
+
+    return null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    } 
-  }
-
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const educationData = {
@@ -40,20 +45,20 @@ class AddEducation extends Component {
     };
 
     this.props.addEducation(educationData, this.props.history);
-  }
+  };
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
   onCheck = () => {
     this.setState({
       disabled: !this.state.disabled,
       current: !this.state.current
     });
-  }
+  };
 
   render() {
     const { errors } = this.state;
@@ -132,7 +137,11 @@ class AddEducation extends Component {
                   error={errors.company}
                   info="Tell us about th program that you were in"
                 />
-                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-info btn-block mt-4"
+                />
               </form>
             </div>
           </div>
@@ -154,4 +163,7 @@ const mapStateToProps = state => ({
 });
 
 export { AddEducation };
-export default connect(mapStateToProps, { addEducation })(withRouter(AddEducation));
+export default connect(
+  mapStateToProps,
+  { addEducation }
+)(withRouter(AddEducation));

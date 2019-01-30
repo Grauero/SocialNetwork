@@ -21,12 +21,15 @@ class Register extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors) {
+      return {
+        ...state,
+        errors: props.errors
+      };
     }
+
+    return null;
   }
 
   onChange = e => {
