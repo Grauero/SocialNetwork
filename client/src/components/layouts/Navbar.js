@@ -30,7 +30,7 @@ const Navbar = ({
         </Link>
       </li>
       <li className="nav-item">
-        <a href="#" onClick={onLogoutClick} className="nav-link">
+        <a href=" " onClick={onLogoutClick} className="nav-link">
           <img
             className="rounded-circle"
             src={user.avatar}
@@ -60,7 +60,7 @@ const Navbar = ({
   );
 
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <nav className="navbar navbar-expand-md navbar-light bg-transparent mb-4">
       <div className="container">
         <Link className="navbar-brand" to="/">
           DevConnector

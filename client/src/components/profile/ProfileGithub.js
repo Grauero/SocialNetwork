@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 class ProfileGithub extends Component {
   state = {
-    clientId: '20db24bd8d7bd006f9bd',
-    clientSecret: '0928f0e83c526cbffc989066f1e455f3fff6d92d',
+    clientId: process.env.REACT_APP_GITHUB_CLIENT_ID,
+    clientSecret: process.env.REACT_APP_GITHUB_SECRET_ID,
     count: 5,
     sort: 'created: asc',
     repos: []
@@ -16,11 +14,16 @@ class ProfileGithub extends Component {
     const { username } = this.props;
     const { clientId, clientSecret, count, sort } = this.state;
 
-    const res = await axios.get(
+    fetch(
       `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
-    );
-
-    this.setState({ repos: res.data });
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (this.refs.myRef) {
+          this.setState({ repos: data });
+        }
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -30,9 +33,14 @@ class ProfileGithub extends Component {
         <div className="row">
           <div className="col-md-6">
             <h4>
-              <Link to={repo.html_url} className="text-info" target="_blank">
+              <a
+                href={repo.html_url}
+                className="text-info"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {repo.name}
-              </Link>
+              </a>
             </h4>
             <p>{repo.description}</p>
           </div>
@@ -52,7 +60,7 @@ class ProfileGithub extends Component {
     ));
 
     return (
-      <div>
+      <div ref="myRef">
         <hr />
         <h3 className="mb-4">Latest Github repos</h3>
         {repoItems}
