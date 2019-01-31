@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { EditProfile } from '../../../src/components/edit-profile/EditProfile';
 
@@ -28,19 +27,19 @@ const initialState = {
   instagram: 'instagram',
   errors: {}
 };
-let wrapper, component;
+let component;
 
 beforeEach(() => {
-  wrapper = mount(
-    <BrowserRouter>
-      <EditProfile {...props} />
-    </BrowserRouter>
+  component = shallow(
+    //<BrowserRouter>
+    <EditProfile {...props} />
+    //</BrowserRouter>
   );
-  component = wrapper.find(EditProfile);
+  //component = wrapper.find(EditProfile);
   component.setState(initialState);
 });
 
-afterEach(() => wrapper.unmount());
+afterEach(() => component.unmount());
 
 it('calls getCurrentProfile when component is rendered', () => {
   expect(props.getCurrentProfile).toHaveBeenCalled();
@@ -51,7 +50,7 @@ it('handles form submit', () => {
   delete expectedObj.displaySocialInputs;
   delete expectedObj.errors;
 
-  component.find('form').simulate('submit');
+  component.find('form').simulate('submit', { preventDefault: jest.fn() });
 
   expect(props.createProfile).toHaveBeenCalled();
   expect(props.createProfile).toHaveBeenCalledWith(expectedObj, props.history);
@@ -67,7 +66,6 @@ it('handles inputs change', () => {
   component
     .find('TextFieldGroup')
     .at(0)
-    .find('input')
     .simulate('change', {
       target: { name, value }
     });
@@ -92,4 +90,61 @@ it('toggles social input by pressing button', () => {
   component.find('button').simulate('click');
 
   expect(component.state()).toEqual(expectedState);
+});
+
+describe('getDerivedStateFromProps', () => {
+  const propsNames = [
+    'company',
+    'website',
+    'location',
+    'githubUserName',
+    'bio',
+    'twitter',
+    'facebook',
+    'linkedin',
+    'youtube',
+    'instagram'
+  ];
+
+  propsNames.forEach(name => {
+    it(`updates ${name} in state when props change without errors`, () => {
+      const testProps = { ...props };
+
+      if (
+        name === 'twitter' ||
+        name === 'facebook' ||
+        name === 'linkedin' ||
+        name === 'youtube' ||
+        name === 'instagram'
+      ) {
+        testProps.profile.profile = {
+          ...initialState,
+          social: {
+            [name]: 'updatedValue'
+          },
+          skills: []
+        };
+      } else {
+        testProps.profile.profile = {
+          ...initialState,
+          [name]: 'updatedValue',
+          skills: []
+        };
+      }
+      testProps.errors = null;
+      component.setProps(testProps);
+
+      expect(component.state()[name]).toBe('updatedValue');
+    });
+  });
+
+  it('updates errors in state when props change with errors', () => {
+    const testProps = { ...props };
+    const expectedObj = { error: 'error' };
+    testProps.errors = expectedObj;
+
+    component.setProps(testProps);
+
+    expect(component.state().errors).toEqual(expectedObj);
+  });
 });
