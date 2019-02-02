@@ -15,6 +15,14 @@
   },
   "author": "Grauero",
   "license": "MIT",
+  "keywords": [
+    "React",
+    "Redux",
+    "Node",
+    "Express",
+    "MongoDB"
+  ],
+  "homepage": "https://github.com/Grauero/SocialNetwork",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",

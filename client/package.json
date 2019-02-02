@@ -1,6 +1,17 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "description": "network",
+  "version": "1.0.0",
+  "author": "Grauero",
+  "license": "MIT",
+  "keywords": [
+    "React",
+    "Redux",
+    "Node",
+    "Express",
+    "MongoDB"
+  ],
+  "homepage": "https://github.com/Grauero/SocialNetwork",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
