@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Message = ({ from, to, title, message }) => {
   return (
@@ -6,11 +7,11 @@ const Message = ({ from, to, title, message }) => {
       <div className="row">
         <div className="col-12">
           <h4>
-            <a href=" ">From: {from}</a>
+            <Link to={`/profile/${from.handle}`}>From: {from.handle}</Link>
           </h4>
           <br />
           <h4>
-            <a href=" ">To: {to}</a>
+            <Link to={`/profile/${to.handle}`}>To: {to.handle}</Link>
           </h4>
           <br />
           <h5>Title: {title}</h5>

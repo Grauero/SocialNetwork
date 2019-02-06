@@ -117,8 +117,7 @@ const App = () => (
                 component={MessageFeed}
               />
             </Switch>
-            <Route exact path="/not-found" component={NotFound} />
-            <Route exact path="*" render={() => <Redirect to="/not-found" />} />
+            {/* <Route component={NotFound} /> */}
           </div>
           <Footer />
         </div>

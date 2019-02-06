@@ -61,7 +61,7 @@ const ProfileSchema = new mongoose.Schema({
       description: {
         type: String
       }
-    },
+    }
   ],
   education: [
     {
@@ -91,7 +91,7 @@ const ProfileSchema = new mongoose.Schema({
       description: {
         type: String
       }
-    },
+    }
   ],
   social: {
     youtube: {
@@ -113,7 +113,39 @@ const ProfileSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  messages: [
+    {
+      from: {
+        handle: {
+          type: String,
+          required: true
+        },
+        id: {
+          type: String,
+          required: true
+        }
+      },
+      to: {
+        handle: {
+          type: String,
+          required: true
+        },
+        id: {
+          type: String,
+          required: true
+        }
+      },
+      title: {
+        type: String,
+        required: true
+      },
+      message: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
 
 const Profile = mongoose.model('profile', ProfileSchema);

@@ -7,72 +7,72 @@ const validatePostInput = require('../../../validation/post');
 
 const router = express.Router();
 
-// get posts
-router.get('/', async (req, res) => {
-  try {
-    const posts = await Post.find().sort({ date: -1 });
+// general post
+router
+  .route('/')
+  .get(async (req, res) => {
+    try {
+      const posts = await Post.find().sort({ date: -1 });
 
-    if (posts.length === 0) {
-      throw new Error('No posts found');
+      if (posts.length === 0) {
+        throw new Error('No posts found');
+      }
+
+      return res.json(posts);
+    } catch (err) {
+      res.status(404).json({ noPostsFound: 'No posts found' });
+    }
+  })
+  .post(passport.authenticate('jwt', { session: false }), async (req, res) => {
+    const { errors, isValid } = validatePostInput(req.body);
+
+    // check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
     }
 
-    return res.json(posts);
-  } catch (err) {
-    res.status(404).json({ noPostsFound: 'No posts found' });
-  }
-});
+    const { text, name, avatar } = req.body;
+    const newPost = new Post({
+      text,
+      name,
+      avatar,
+      user: req.user.id
+    });
 
-// get post by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
-    res.json(post);
-  } catch (err) {
-    res.status(404).json({ noPostFound: 'No post found with that ID' });
-  }
-});
-
-// create new post
-router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const { errors, isValid } = validatePostInput(req.body);
-
-  // check validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
-
-  const { text, name, avatar } = req.body;
-  const newPost = new Post({
-    text,
-    name,
-    avatar,
-    user: req.user.id
+    try {
+      const post = await newPost.save();
+      res.json(post);
+    } catch (err) {
+      errors.handle = 'Post doesnt exist';
+      return res.status(404).json(errors);
+    }
   });
 
-  try {
-    const post = await newPost.save();
-    res.json(post);
-  } catch (err) {
-    errors.handle = 'Post doesnt exist';
-    return res.status(404).json(errors);
-  }
-});
-
-// delete post
-router.delete('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  try {
-    await Profile.findOne({ user: req.user.id });
-    const post = await Post.findById(req.params.id);
-
-    if (post.user.toString() !== req.user.id) {
-      return res.status(401).json({ noAccess: 'User didnt create that post' });
+// post by ID
+router
+  .route('/:id')
+  .get(async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      res.json(post);
+    } catch (err) {
+      res.status(404).json({ noPostFound: 'No post found with that ID' });
     }
+  })
+  .delete(passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+      await Profile.findOne({ user: req.user.id });
+      const post = await Post.findById(req.params.id);
 
-    await post.remove();
-    return res.json({ success: true });
-  } catch (err) {
-    return res.status(404).json({ postNotFound: 'No post found' });
-  }
-});
+      if (post.user.toString() !== req.user.id) {
+        return res.status(401).json({ noAccess: 'User didnt create that post' });
+      }
+
+      await post.remove();
+      return res.json({ success: true });
+    } catch (err) {
+      return res.status(404).json({ postNotFound: 'No post found' });
+    }
+  });
 
 module.exports = router;
