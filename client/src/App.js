@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
@@ -33,6 +33,8 @@ const Profiles = lazy(() => import('./components/profiles/Profiles'));
 const Profile = lazy(() => import('./components/profile/Profile'));
 const Posts = lazy(() => import('./components/posts/Posts'));
 const Post = lazy(() => import('./components/post/Post'));
+const CreateMessage = lazy(() => import('./components/message/CreateMessage'));
+const MessageFeed = lazy(() => import('./components/message/MessageFeed'));
 
 // check for auth token
 if (localStorage.jwtToken) {
@@ -101,7 +103,22 @@ const App = () => (
             <Switch>
               <PrivateRoute exact path="/post/:id" component={Post} />
             </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/message/:receiver"
+                component={CreateMessage}
+              />
+            </Switch>
+            <Switch>
+              <PrivateRoute
+                exact
+                path="/message-history"
+                component={MessageFeed}
+              />
+            </Switch>
             <Route exact path="/not-found" component={NotFound} />
+            <Route exact path="*" render={() => <Redirect to="/not-found" />} />
           </div>
           <Footer />
         </div>

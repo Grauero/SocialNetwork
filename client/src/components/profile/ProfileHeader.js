@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import isEmpty from '../../validation/isEmpty';
 
@@ -18,6 +19,9 @@ const ProfileHeader = ({ profile }) => (
         </div>
         <div className="text-center">
           <h1 className="display-4 text-center">{profile.user.name}</h1>
+          <Link to={`/message/${profile._id}`} className="btn btn-dark">
+            Message User
+          </Link>
           <p className="lead text-center">
             {profile.status}{' '}
             {isEmpty(profile.company) ? null : (

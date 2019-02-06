@@ -60,10 +60,10 @@ const Navbar = ({
   );
 
   return (
-    <nav className="navbar navbar-expand-md navbar-light bg-transparent mb-4">
+    <nav className="navbar navbar-light navbar-expand-md mb-4">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          DevConnector
+          DevNetwork
         </Link>
         <button
           className="navbar-toggler"

@@ -17,7 +17,7 @@ img {
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -36,4 +36,36 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+.navbar,
+.footer {
+  background: rgba(200, 200, 200, 0.2);
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.navbar-light a {
+  color: #17a2b8 !important;
+  font-weight: 100;
+  font-size: 1.3rem;
+}
+
+.navbar .navbar-brand {
+  color: #000 !important;
+  font-weight: 500;
+}
+
+body {
+  background: rgba(200, 200, 200, 0.2);
+}
+
+.footer {
+  background: #f4f4f4;
 }

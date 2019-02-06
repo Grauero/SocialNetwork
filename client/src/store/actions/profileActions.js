@@ -6,7 +6,8 @@ import {
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
   SET_CURRENT_USER,
-  GET_PROFILES
+  GET_PROFILES,
+  GET_MESSAGES
 } from '../types';
 
 // Delete account and profile
@@ -158,6 +159,31 @@ export const getProfiles = () => async dispatch => {
 
     dispatch({
       type: GET_PROFILES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_PROFILES,
+      payload: null
+    });
+  }
+};
+
+// export const sendMessage = (message, history) => async dispatch => {
+export const sendMessage = (message, history) => async () => {
+  await axios.post('/api/profile/message', message);
+
+  return history.push('/dashboard');
+};
+
+export const getMessages = () => async dispatch => {
+  dispatch(setProfileLoading());
+
+  try {
+    const res = await axios.get('/api/profile/message');
+
+    dispatch({
+      type: GET_MESSAGES,
       payload: res.data
     });
   } catch (err) {
