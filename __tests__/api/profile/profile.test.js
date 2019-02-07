@@ -191,3 +191,30 @@ describe('DELETE api/profile', () => {
     expect(res.body).toMatchObject({ succes: true });
   });
 });
+
+describe('POST /message', () => {
+  it('should return status 404 if request is rejected', async () => {
+    const res = await request(server)
+      .post('/api/message/')
+      .send({});
+
+    expect(res.status).toBe(404);
+  });
+});
+
+describe('DELETE api/profile/message/id', () => {
+  it('should return status 401 when user isnt authorized', async () => {
+    const res = await request(server).delete('/api/profile/message/id');
+
+    expect(res.status).toBe(401);
+  });
+
+  it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+    const res = await request(server)
+      .delete('/api/profile/message/id')
+      .set('Authorization', token);
+
+    expect(res.status).toBe(404);
+    expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
+  });
+});
