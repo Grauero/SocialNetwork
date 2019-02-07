@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
@@ -60,65 +60,53 @@ const App = () => (
       <BrowserRouter>
         <div className="App">
           <Navbar />
-          <Route exact path="/" component={Landing} />
-          <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/profiles" component={Profiles} />
-            <Route exact path="/profile/:handle" component={Profile} />
-            <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/create-profile"
-                component={CreateProfile}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/edit-profile"
-                component={EditProfile}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/add-experience"
-                component={AddExperience}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/add-education"
-                component={AddEducation}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/feed" component={Posts} />
-            </Switch>
-            <Switch>
-              <PrivateRoute exact path="/post/:id" component={Post} />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/message/:receiver"
-                component={CreateMessage}
-              />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/message-history"
-                component={MessageFeed}
-              />
-            </Switch>
-            {/* <Route component={NotFound} /> */}
-          </div>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <div className="container">
+              <Switch>
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/profiles" component={Profiles} />
+                <Route exact path="/profile/:handle" component={Profile} />
+
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+                <PrivateRoute
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
+                />
+                <PrivateRoute exact path="/feed" component={Posts} />
+                <PrivateRoute exact path="/post/:id" component={Post} />
+                <PrivateRoute
+                  exact
+                  path="/message/:receiver"
+                  component={CreateMessage}
+                />
+                <PrivateRoute
+                  exact
+                  path="/message-history"
+                  component={MessageFeed}
+                />
+
+                <Route component={NotFound} />
+              </Switch>
+            </div>
+          </Switch>
           <Footer />
         </div>
       </BrowserRouter>

@@ -11,18 +11,10 @@ import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../store/actions/profileActions';
 
 class Profile extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.match.params.handle) {
-      this.props.getProfileByHandle(this.props.match.params.handle);
+      await this.props.getProfileByHandle(this.props.match.params.handle);
     }
-  }
-
-  static getDerivedStateFromProps(props) {
-    if (props.profile.profile === null && props.profile.loading) {
-      props.history.push('/not-found');
-    }
-
-    return null;
   }
 
   render() {

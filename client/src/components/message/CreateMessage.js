@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -76,6 +77,12 @@ class CreateMessage extends Component {
     return <div>{messageForm} </div>;
   }
 }
+
+CreateMessage.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.instanceOf(Object).isRequired,
+  match: PropTypes.instanceOf(Object).isRequired
+};
 
 const mapStateToProps = state => ({
   profile: state.profile

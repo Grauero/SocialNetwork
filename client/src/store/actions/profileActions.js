@@ -168,13 +168,28 @@ export const getProfiles = () => async dispatch => {
   }
 };
 
-// export const sendMessage = (message, history) => async dispatch => {
-export const sendMessage = (message, history) => async () => {
+export const sendMessage = (message, history) => async dispatch => {
   try {
     await axios.post('/api/profile/message', message);
 
     return history.push('/dashboard');
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const deleteMessage = id => async dispatch => {
+  try {
+    await axios.delete(`/api/profile/message/${id}`);
+
+    dispatch(getCurrentProfile());
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
   }
 };

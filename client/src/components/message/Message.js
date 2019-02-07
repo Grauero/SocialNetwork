@@ -1,20 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Message = ({ from, to, title, message }) => {
+import { deleteMessage } from '../../store/actions/profileActions';
+
+const Message = ({ id, from, to, title, message, deleteMessage }) => {
   return (
     <div className="card card-body mb-3">
       <div className="row">
         <div className="col-12">
           <h4>
-            <Link to={`/profile/${from.handle}`}>From: {from.handle}</Link>
+            <Link to={`/profile/${from.handle}`} className="badge badge-info">
+              From: {from.handle}
+            </Link>
           </h4>
-          <br />
+          <i
+            className="far fa-trash-alt text-info mr-1 fa-2x"
+            onClick={() => deleteMessage(id)}
+          />
           <h4>
-            <Link to={`/profile/${to.handle}`}>To: {to.handle}</Link>
+            <Link to={`/profile/${to.handle}`} className="badge badge-info">
+              To: {to.handle}
+            </Link>
           </h4>
-          <br />
-          <h5>Title: {title}</h5>
+          <h5 className="text-center">Title: {title}</h5>
           <p>{message}</p>
         </div>
       </div>
@@ -22,4 +32,16 @@ const Message = ({ from, to, title, message }) => {
   );
 };
 
-export default Message;
+Message.propTypes = {
+  id: PropTypes.string.isRequired,
+  from: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  deleteMessage: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { deleteMessage }
+)(Message);

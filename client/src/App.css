@@ -4,9 +4,7 @@ img {
 
 .landing {
   position: relative;
-  background: url('./img/landing.jpeg') no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: url('./img/landing.jpeg') no-repeat center center/cover;
   height: 100vh;
   margin-top: -24px;
   margin-bottom: -50px;
@@ -17,7 +15,7 @@ img {
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
   top: 0;
   left: 0;
@@ -49,6 +47,7 @@ img {
 
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
+  background: #f4f4f4;
 }
 
 .navbar-light a {
@@ -66,6 +65,16 @@ body {
   background: rgba(200, 200, 200, 0.2);
 }
 
-.footer {
-  background: #f4f4f4;
+.col-12 {
+  position: relative;
+}
+
+.fa-trash-alt {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.fa-trash-alt:hover {
+  cursor: pointer;
 }

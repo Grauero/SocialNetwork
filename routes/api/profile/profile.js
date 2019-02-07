@@ -100,36 +100,57 @@ router
   });
 
 // users message routes
-router
-  .route('/message')
-  .post(passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post('/message', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const sender = await Profile.findById(req.body.from);
+    const receiver = await Profile.findById(req.body.to);
+
+    const from = {
+      handle: sender.handle,
+      id: req.body.from
+    };
+    const to = {
+      handle: receiver.handle,
+      id: req.body.to
+    };
+    const { title, message } = req.body;
+    const newMessage = { from, to, title, message };
+
+    sender.messages.push(newMessage);
+    receiver.messages.push(newMessage);
+
+    await receiver.save();
+    if (from.id !== to.id) {
+      await sender.save();
+    }
+
+    return res.json({ success: true });
+  } catch (err) {
+    return res.status(404).json({ error: err, msg: 'Message didnt send' });
+  }
+});
+
+router.delete(
+  '/message/:id',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
     try {
-      const sender = await Profile.findById(req.body.from);
-      const receiver = await Profile.findById(req.body.to);
+      const profile = await Profile.findOne({ user: req.user.id });
 
-      const from = {
-        handle: sender.handle,
-        id: req.body.from
-      };
-      const to = {
-        handle: receiver.handle,
-        id: req.body.to
-      };
-      const { title, message } = req.body;
-      const newMessage = { from, to, title, message };
-
-      sender.messages.push(newMessage);
-      receiver.messages.push(newMessage);
-
-      await receiver.save();
-      if (from.id !== to.id) {
-        await sender.save();
+      if (!profile) {
+        return res.status(404).json({ handle: 'Profile doesnt exist' });
       }
 
-      return res.json({ success: true });
+      // Find index of message
+      const removeIndex = profile.messages.map(message => message.id).indexOf(req.params.id);
+      profile.messages.splice(removeIndex, 1);
+      const updatedProfile = await profile.save();
+
+      return res.json(updatedProfile);
     } catch (err) {
-      return res.status(404).json({ error: err, msg: 'Message didnt send' });
+      return res.status(404).json({ handle: 'Profile doesnt exist' });
     }
-  });
+  }
+);
 
 module.exports = router;
