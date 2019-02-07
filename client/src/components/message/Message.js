@@ -34,13 +34,14 @@ const Message = ({ id, from, to, title, message, deleteMessage }) => {
 
 Message.propTypes = {
   id: PropTypes.string.isRequired,
-  from: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
+  from: PropTypes.instanceOf(Object).isRequired,
+  to: PropTypes.instanceOf(Object).isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   deleteMessage: PropTypes.func.isRequired
 };
 
+export { Message };
 export default connect(
   null,
   { deleteMessage }

@@ -3,7 +3,7 @@
 exports[`matches snapshot 1`] = `
 <Footer>
   <footer
-    className="bg-light text-dark mt-5 p-4 text-center"
+    className="footer mt-5 p-4 text-center"
   >
     Copyright © 
     2019

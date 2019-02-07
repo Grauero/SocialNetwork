@@ -45,16 +45,14 @@ it('renders <Spinner /> if users profile is null', () => {
   const spinner = component.find(Spinner);
 
   expect(spinner.debug()).toBeTruthy();
-  expect(testProps.profile.profile).toBeNull();
 });
 
 it('renders <Spinner /> if profile is loading', () => {
   const testProps = Object.assign({}, props, { profile: { loading: true } });
   const component = mount(<Dashboard {...testProps} />);
-  const spinnerComponent = component.find(Spinner);
+  const spinner = component.find(Spinner);
 
-  expect(spinnerComponent.debug()).toBeTruthy();
-  expect(testProps.profile.loading).toBe(true);
+  expect(spinner.debug()).toBeTruthy();
 });
 
 it('renders <ProfileActions />, <Experience />, <Education /> component if users profile is provided', () => {

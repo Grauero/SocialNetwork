@@ -31,12 +31,12 @@ exports[`should render markup if user isnt authenticated 1`] = `
             <h1
               className="display-3 mb-4"
             >
-              Developer Connector
+              Developer Network
             </h1>
             <p
               className="lead"
             >
-              Create a developer profile/portfolio, share posts and get help from other developers
+              Create a developer profile/portfolio, message other people, share posts and exchange views with other developers
             </p>
             <hr />
             <Link

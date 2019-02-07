@@ -5,6 +5,7 @@ import ProfileHeader from '../../../src/components/profile/ProfileHeader';
 
 const props = {
   profile: {
+    _id: 'id',
     user: { avatar: 'avatar', name: 'name' },
     company: 'company',
     location: 'location',
@@ -86,4 +87,10 @@ it('should NOT render website if its not defined', () => {
   const item = component.find('a[data-website]');
 
   expect(item.debug()).toBe('');
+});
+
+it('renders button for messaging user', () => {
+  const link = component.find('Link').get(0);
+
+  expect(link.props.to).toBe(`/message/${props.profile._id}`);
 });

@@ -18,7 +18,7 @@ class MessageFeed extends Component {
     if (profile === null || loading) {
       messages = <Spinner />;
     } else {
-      messages = this.props.profile.profile.messages
+      messages = profile.messages
         .reverse()
         .map(message => (
           <Message
@@ -45,6 +45,7 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
+export { MessageFeed };
 export default connect(
   mapStateToProps,
   { getCurrentProfile }

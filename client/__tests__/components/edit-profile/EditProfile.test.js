@@ -30,12 +30,7 @@ const initialState = {
 let component;
 
 beforeEach(() => {
-  component = shallow(
-    //<BrowserRouter>
-    <EditProfile {...props} />
-    //</BrowserRouter>
-  );
-  //component = wrapper.find(EditProfile);
+  component = shallow(<EditProfile {...props} />);
   component.setState(initialState);
 });
 

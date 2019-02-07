@@ -41,7 +41,7 @@ exports[`matches snapshot 1`] = `
           <p
             className="lead text-center"
           >
-            Sign in to your DevConnector account
+            Sign in to your DevNetwork account
           </p>
           <form
             action="dashboard.html"

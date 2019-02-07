@@ -79,15 +79,18 @@ class CreateMessage extends Component {
 }
 
 CreateMessage.propTypes = {
+  sendMessage: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.instanceOf(Object).isRequired,
-  match: PropTypes.instanceOf(Object).isRequired
+  match: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile
 });
 
+export { CreateMessage };
 export default connect(
   mapStateToProps,
   { sendMessage, getCurrentProfile }

@@ -16,7 +16,7 @@ exports[`renders <Spinner /> component if profile doesnt exists 1`] = `
         Object {
           "display": "block",
           "margin": "auto",
-          "width": "200px",
+          "width": "80px",
         }
       }
     />
@@ -34,7 +34,7 @@ exports[`renders <Spinner /> component if profile loading 1`] = `
         Object {
           "display": "block",
           "margin": "auto",
-          "width": "200px",
+          "width": "80px",
         }
       }
     />

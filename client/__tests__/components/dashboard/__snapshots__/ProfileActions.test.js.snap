@@ -77,6 +77,22 @@ exports[`matches snapshot 1`] = `
             Add Education
           </a>
         </Link>
+        <Link
+          className="btn btn-light"
+          replace={false}
+          to="/message-history"
+        >
+          <a
+            className="btn btn-light"
+            href="/message-history"
+            onClick={[Function]}
+          >
+            <i
+              className="fas fa-history text-info mr-1"
+            />
+            Message History
+          </a>
+        </Link>
       </div>
     </ProfileActions>
   </Router>
