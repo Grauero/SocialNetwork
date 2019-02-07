@@ -3,7 +3,7 @@ https://net-work.herokuapp.com/
 
 Network for developers build on React/Node.
 
-Authenticated users can create and fill up profile with their skills, experience, education, create and like posts, write comments, and see others profiles.  
+Authenticated users can create and fill up profile with their skills, experience, education, create and like posts, write comments, message other users and see their profiles.  
 
 ## Scripts:
   - ```npm run dev``` - to launch local dev-server (client+back)
@@ -17,5 +17,5 @@ Authenticated users can create and fill up profile with their skills, experience
   2. [Node](https://nodejs.org/) + [Experss](https://expressjs.com/) on back
   3. Auth with [JWT](https://jwt.io/) tokens
   4. [MongoDB](https://www.mongodb.com/) for database
-  5. [Jest](https://jestjs.io/) for testing
+  5. [Jest](https://jestjs.io/)/[Enzyme](https://github.com/airbnb/enzyme) for testing
 
