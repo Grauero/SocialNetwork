@@ -9,6 +9,7 @@ const keys = require('./config/keys');
 const applyPassportStrategies = require('./config/passport');
 
 const app = express();
+const port = process.env.PORT || 80;
 
 // Connect to MongoDB
 (async function connectToDB() {
@@ -38,7 +39,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const port = process.env.PORT || 80;
 const server = app.listen(port, () => console.log(`Server on port ${port}`));
 
 module.exports = server;
