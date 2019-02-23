@@ -26,7 +26,7 @@
   "homepage": "https://github.com/Grauero/SocialNetwork",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Grauero/Recipes-App.git"
+    "url": "https://github.com/Grauero/SocialNetwork.git"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
