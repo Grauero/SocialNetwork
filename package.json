@@ -13,8 +13,9 @@
     "test": "jest --watch -i",
     "test:coverage": "jest --coverage"
   },
+  "private": true,
   "author": "Grauero",
-  "license": "MIT",
+  "license": "ISC",
   "keywords": [
     "React",
     "Redux",
@@ -23,6 +24,10 @@
     "MongoDB"
   ],
   "homepage": "https://github.com/Grauero/SocialNetwork",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Grauero/Recipes-App.git"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
