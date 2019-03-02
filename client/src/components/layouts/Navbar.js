@@ -68,6 +68,7 @@ const Navbar = ({
         <button
           className="navbar-toggler"
           type="button"
+          aria-label="menu"
           data-toggle="collapse"
           data-target="#mobile-nav"
         >

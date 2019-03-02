@@ -269,6 +269,7 @@ class EditProfile extends Component {
                 <div className="mb-3">
                   <button
                     type="button"
+                    aria-label="add social links"
                     onClick={this.toggleSocialInputs}
                     className="btn btn-light"
                   >

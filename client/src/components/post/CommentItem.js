@@ -26,6 +26,7 @@ const CommentItem = ({ auth, comment, postId, deleteComment }) => {
           {comment.user === auth.user.id ? (
             <button
               type="button"
+              aria-label="delete comment"
               className="btn btn-danger mr-1"
               onClick={() => onDeleteClick(postId, comment._id)}
             >

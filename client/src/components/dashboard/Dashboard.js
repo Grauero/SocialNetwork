@@ -45,6 +45,7 @@ class Dashboard extends Component {
             <div style={{ marginBottom: '60px' }} />
             <button
               type="button"
+              aria-label="delete account"
               className="btn btn-danger"
               onClick={this.onDeleteClick}
             >

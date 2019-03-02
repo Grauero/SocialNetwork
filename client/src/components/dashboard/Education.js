@@ -23,6 +23,7 @@ const Education = ({ education, deleteEducation }) => {
       <td>
         <button
           type="button"
+          aria-label="delete education"
           onClick={() => onDeleteClick(edu._id)}
           className="btn btn-danger"
         >

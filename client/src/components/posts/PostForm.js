@@ -59,7 +59,11 @@ class PostForm extends Component {
                   error={this.state.errors.text}
                 />
               </div>
-              <button type="submit" className="btn btn-dark">
+              <button
+                type="submit"
+                aria-label="submit form"
+                className="btn btn-dark"
+              >
                 Submit
               </button>
             </form>

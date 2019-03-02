@@ -23,6 +23,7 @@ const Experience = ({ experience, deleteExperience }) => {
       <td>
         <button
           type="button"
+          aria-label="delete experience"
           onClick={() => onDeleteClick(exp._id)}
           className="btn btn-danger"
         >

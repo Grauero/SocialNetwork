@@ -46,6 +46,7 @@ const PostItem = ({
               <button
                 onClick={() => onLikeClick(post._id)}
                 type="button"
+                aria-label="like"
                 className="btn btn-light mr-1"
               >
                 <i
@@ -58,6 +59,7 @@ const PostItem = ({
               <button
                 onClick={() => onUnlikeClick(post._id)}
                 type="button"
+                aria-label="unlike"
                 className="btn btn-light mr-1"
               >
                 <i className="text-secondary fas fa-thumbs-down" />
@@ -68,6 +70,7 @@ const PostItem = ({
               {post.user === auth.user.id ? (
                 <button
                   type="button"
+                  aria-label="delete post"
                   className="btn btn-danger mr-1"
                   onClick={() => onDeleteClick(post._id)}
                 >
