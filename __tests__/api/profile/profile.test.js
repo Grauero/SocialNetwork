@@ -44,13 +44,13 @@ afterAll(async () => {
 });
 
 describe('GET api/profile/', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).get('/api/profile/');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+  it('returns status 404 with message if user pass authentication but dont have profile', async () => {
     const res = await request(server)
       .get('/api/profile/')
       .set('Authorization', token);
@@ -59,7 +59,7 @@ describe('GET api/profile/', () => {
     expect(res.body).toMatchObject({ noProfile: 'There is no profile' });
   });
 
-  it('should return users profile if it exists', async () => {
+  it('returns users profile if it exists', async () => {
     // create profile for user
     await request(server)
       .post('/api/profile/')
@@ -77,13 +77,13 @@ describe('GET api/profile/', () => {
 });
 
 describe('POST api/profile/', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/profile/');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 400 when users data didnt pass validation', async () => {
+  it('returns status 400 when users data didnt pass validation', async () => {
     const res = await request(server)
       .post('/api/profile/')
       .set('Authorization', token)
@@ -97,7 +97,7 @@ describe('POST api/profile/', () => {
     });
   });
 
-  it('should create users profile if user passed authentication and validation', async () => {
+  it('creates users profile if user passed authentication and validation', async () => {
     const res = await request(server)
       .post('/api/profile/')
       .set('Authorization', token)
@@ -109,7 +109,7 @@ describe('POST api/profile/', () => {
     expect(res.body).toHaveProperty('handle', profile.handle);
   });
 
-  it('should return status 400 with message if provided handler already exists', async () => {
+  it('returns status 400 with message if provided handler already exists', async () => {
     // create profile
     await request(server)
       .post('/api/profile/')
@@ -139,7 +139,7 @@ describe('POST api/profile/', () => {
     expect(res.body).toMatchObject({ handle: 'That handle already exists' });
   });
 
-  it('should update users profile if profile doesnt exists and user provided valid data', async () => {
+  it('updates users profile if profile doesnt exists and user provided valid data', async () => {
     // create profile
     await request(server)
       .post('/api/profile/')
@@ -171,13 +171,13 @@ describe('POST api/profile/', () => {
 });
 
 describe('DELETE api/profile', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).delete('/api/profile/');
 
     expect(res.status).toBe(401);
   });
 
-  it('should delete user&profile and return success status', async () => {
+  it('deletes user&profile and returns success status', async () => {
     // create profile
     await request(server)
       .post('/api/profile/')
@@ -193,7 +193,7 @@ describe('DELETE api/profile', () => {
 });
 
 describe('POST /message', () => {
-  it('should return status 404 if request is rejected', async () => {
+  it('returns status 404 if request is rejected', async () => {
     const res = await request(server)
       .post('/api/message/')
       .send({});
@@ -203,13 +203,13 @@ describe('POST /message', () => {
 });
 
 describe('DELETE api/profile/message/id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).delete('/api/profile/message/id');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+  it('returns status 404 with message if user pass authentication but dont have profile', async () => {
     const res = await request(server)
       .delete('/api/profile/message/id')
       .set('Authorization', token);

@@ -12,13 +12,13 @@ beforeEach(() => (component = shallow(<ProfileAbout {...props} />)));
 
 afterEach(() => component.unmount());
 
-it('should render users bio if its defined', () => {
+it('renders users bio if its defined', () => {
   const bio = component.find('span');
 
   expect(bio.html()).toBe(`<span>${props.profile.bio}</span>`);
 });
 
-it('should NOT render users bio if its not defined', () => {
+it('NOT renders users bio if its not defined', () => {
   const testProps = Object.assign({}, props, {
     profile: { ...props.profile, bio: '' }
   });
@@ -30,7 +30,7 @@ it('should NOT render users bio if its not defined', () => {
   );
 });
 
-it('should render user skills', () => {
+it('renders user skills', () => {
   const skill = component.find('.fa-check');
 
   expect(skill.debug()).toBeTruthy();

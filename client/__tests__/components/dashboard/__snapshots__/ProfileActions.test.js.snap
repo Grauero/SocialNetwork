@@ -11,7 +11,7 @@ exports[`matches snapshot 1`] = `
         "go": [Function],
         "goBack": [Function],
         "goForward": [Function],
-        "length": 1,
+        "length": 0,
         "listen": [Function],
         "location": Object {
           "hash": "",
@@ -26,7 +26,7 @@ exports[`matches snapshot 1`] = `
   >
     <ProfileActions>
       <div
-        className="btn-group mb-4"
+        className="profile-actions btn-group mb-4"
         role="group"
       >
         <Link

@@ -12,27 +12,27 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should dispatch action PROFILE_LOADING', async () => {
+it('dispatches action PROFILE_LOADING', async () => {
   const expectedAction = { type: PROFILE_LOADING };
   await store.dispatch(actionCreators.getProfileByHandle(handle));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should make GET request to /api/profile/handle/handle', async () => {
+it('makes GET request to /api/profile/handle/handle', async () => {
   await store.dispatch(actionCreators.getProfileByHandle(handle));
 
   expect(mock.history.get[0].url).toBe(`/api/profile/handle/${handle}`);
 });
 
-it('should dispatch action GET_PROFILE', async () => {
+it('dispatches action GET_PROFILE', async () => {
   const expectedAction = { payload: { test: 'test' }, type: GET_PROFILE };
   await store.dispatch(actionCreators.getProfileByHandle(handle));
 
   expect(store.getActions()[1]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_PROFILE with no ACTION.PAYLOAD if error is happened', async () => {
+it('dispatches action GET_PROFILE with no ACTION.PAYLOAD if error is happened', async () => {
   const expectedAction = { payload: null, type: GET_PROFILE };
   mock.onGet('/api/profile/handle/handle').reply(404);
   await store.dispatch(actionCreators.getProfileByHandle(handle));

@@ -34,7 +34,7 @@ it('renders profile skills', () => {
   );
 });
 
-it('should NOT render company if its not defined', () => {
+it('NOT renders company if its not defined', () => {
   const testProps = Object.assign({}, props, {
     profile: {
       ...props.profile,
@@ -52,7 +52,7 @@ it('should NOT render company if its not defined', () => {
   expect(item.debug()).toBe('');
 });
 
-it('should NOT render location if its not defined', () => {
+it('NOT renders location if its not defined', () => {
   const testProps = Object.assign({}, props, {
     profile: {
       ...props.profile,

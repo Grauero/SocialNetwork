@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run server\" \"cd client && npm run start\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "jest --watch -i",
-    "test:coverage": "jest --coverage"
+    "test-coverage": "jest --coverage"
   },
   "private": true,
   "author": "Grauero",

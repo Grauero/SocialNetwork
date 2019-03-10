@@ -44,7 +44,7 @@ afterAll(async () => {
 });
 
 describe('GET api/profile/all', () => {
-  it('should return all profiles', async () => {
+  it('returns all profiles', async () => {
     await new Profile(profile).save();
     const res = await request(server).get('/api/profile/all/');
 
@@ -52,7 +52,7 @@ describe('GET api/profile/all', () => {
     expect(res.body.some(obj => obj.status === profile.status)).toBeTruthy();
   });
 
-  it('should return status 404 when no profiles exists', async () => {
+  it('returns status 404 when no profiles exists', async () => {
     const res = await request(server).get('/api/profile/all/');
 
     expect(res.status).toBe(404);
@@ -61,14 +61,14 @@ describe('GET api/profile/all', () => {
 });
 
 describe('GET api/profile/handle/:handle', () => {
-  it('should return status 404 with message if requested handler doesnt exists', async () => {
+  it('returns status 404 with message if requested handler doesnt exists', async () => {
     const res = await request(server).get('/api/profile/handle/1');
 
     expect(res.status).toBe(404);
     expect(res.body).toMatchObject({ noProfile: 'Profile doesnt exist' });
   });
 
-  it('should return users profile if requested handler exists', async () => {
+  it('returns users profile if requested handler exists', async () => {
     await request(server)
       .post('/api/profile/')
       .set('Authorization', token)
@@ -84,21 +84,21 @@ describe('GET api/profile/handle/:handle', () => {
 });
 
 describe('GET api/profile/user/user_id', () => {
-  it('should return status 404 with message if user with that id doesnt exists', async () => {
+  it('returns status 404 with message if user with that id doesnt exists', async () => {
     const res = await request(server).get('/api/profile/user/fake_id');
 
     expect(res.status).toBe(404);
     expect(res.body).toMatchObject({ handle: 'User doesnt exist' });
   });
 
-  it('should return status 404 with message if users profile doesnt exists', async () => {
+  it('returns status 404 with message if users profile doesnt exists', async () => {
     const res = await request(server).get(`/api/profile/user/${registrationResult.body._id}`);
 
     expect(res.status).toBe(404);
     expect(res.body).toMatchObject({ noProfile: 'Profile doesnt exist' });
   });
 
-  it('should return user profile if user provided correct data', async () => {
+  it('returns user profile if user provided correct data', async () => {
     await request(server)
       .post('/api/profile/')
       .set('Authorization', token)

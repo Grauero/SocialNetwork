@@ -13,13 +13,13 @@ afterEach(async () => {
 });
 
 describe('POST /api/users/register', () => {
-  it('should return status 400 when user provided invalid data', async () => {
+  it('returns status 400 when user provided invalid data', async () => {
     const res = await request(server).post('/api/users/register');
 
     expect(res.status).toBe(400);
   });
 
-  it('should return status 400 with message when Email already exists', async () => {
+  it('returns status 400 with message when Email already exists', async () => {
     const newUser = {
       name: 'name',
       password: 'password',
@@ -38,7 +38,7 @@ describe('POST /api/users/register', () => {
     expect(res.body).toMatchObject({ email: 'That email already exists' });
   });
 
-  it('should register user if user provided unique valid data', async () => {
+  it('registers user if user provided unique valid data', async () => {
     const newUser = {
       name: 'name',
       password: 'password',
@@ -55,13 +55,13 @@ describe('POST /api/users/register', () => {
 });
 
 describe('POST /api/users/login', () => {
-  it('should return status 400 when user provided invalid data', async () => {
+  it('returns status 400 when user provided invalid data', async () => {
     const res = await request(server).post('/api/users/login');
 
     expect(res.status).toBe(400);
   });
 
-  it('should return status 404 with message when user not found in DB', async () => {
+  it('returns status 404 with message when user not found in DB', async () => {
     const newUser = {
       name: 'name',
       password: 'password',
@@ -76,7 +76,7 @@ describe('POST /api/users/login', () => {
     expect(res.body).toMatchObject({ email: 'User not found' });
   });
 
-  it('should return status 400 with message when provided passwords didnt match', async () => {
+  it('returns status 400 with message when provided passwords didnt match', async () => {
     // register user
     const newUser = {
       name: 'name',
@@ -103,7 +103,7 @@ describe('POST /api/users/login', () => {
     expect(res.body).toMatchObject({ password: 'Password incorrect' });
   });
 
-  it('should login user and return JWT token if user registered and provided valid data', async () => {
+  it('logins user and returns JWT token if user registered and provided valid data', async () => {
     // register user
     const newUser = {
       name: 'name',
@@ -125,13 +125,13 @@ describe('POST /api/users/login', () => {
 });
 
 describe('GET /api/users/current', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).get('/api/users/current');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return user data if user provided valid data', async () => {
+  it('returns user data if user provided valid data', async () => {
     // register and login user
     const newUser = {
       name: 'name',

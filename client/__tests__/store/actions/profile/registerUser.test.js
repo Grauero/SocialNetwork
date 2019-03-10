@@ -12,13 +12,13 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make POST request to /api/users/register', async () => {
+it('makes POST request to /api/users/register', async () => {
   await store.dispatch(actionCreators.registerUser(userData, history));
 
   expect(mock.history.post[0].data).toBe(userData);
 });
 
-it('should update history object with /login record', async () => {
+it('updates history object with /login record', async () => {
   const res = await store.dispatch(
     actionCreators.registerUser(userData, history)
   );
@@ -27,7 +27,7 @@ it('should update history object with /login record', async () => {
   expect(history.push).toBeCalledWith('/login');
 });
 
-it('should dispatch an action GET_ERRORS if error happened', async () => {
+it('dispatches an action GET_ERRORS if error happened', async () => {
   const expectedAction = { payload: 'error', type: GET_ERRORS };
   const history = {
     push: () => {

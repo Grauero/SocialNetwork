@@ -1,7 +1,7 @@
 import * as actionCreators from '../../../src/store/actions/authActions';
 import { SET_CURRENT_USER } from '../../../src/store/types';
 
-it('should create an action SET_CURRENT_USER', () => {
+it('creates an action SET_CURRENT_USER', () => {
   const payload = { test: 'test' };
   const expectedAction = {
     type: SET_CURRENT_USER,
@@ -12,14 +12,14 @@ it('should create an action SET_CURRENT_USER', () => {
 });
 
 describe('logoutUser', () => {
-  it('should clear local storage', () => {
+  it('clears local storage', () => {
     window.localStorage.setItem('jwtToken', 'token');
     actionCreators.logoutUser()(() => ({}));
 
     expect(window.localStorage.getItem('jwtToken')).toBeNull();
   });
 
-  it('should dispatch an action SET_CURRENT_USER', () => {
+  it('dispatches an action SET_CURRENT_USER', () => {
     const expectedAction = {
       type: SET_CURRENT_USER,
       payload: {}

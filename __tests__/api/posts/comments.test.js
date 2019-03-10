@@ -35,13 +35,13 @@ afterAll(async () => {
 });
 
 describe('POST api/posts/comment/:id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/posts/comment/test');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 400 when users data didnt pass validation', async () => {
+  it('returns status 400 when users data didnt pass validation', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -58,7 +58,7 @@ describe('POST api/posts/comment/:id', () => {
     expect(res.body).toMatchObject({ text: 'Post must be between 10 and 300 characters' });
   });
 
-  it('should return status 404 with message when no posts find with that ID', async () => {
+  it('returns status 404 with message when no posts find with that ID', async () => {
     const res = await request(server)
       .post('/api/posts/comment/test')
       .set('Authorization', token)
@@ -68,7 +68,7 @@ describe('POST api/posts/comment/:id', () => {
     expect(res.body).toMatchObject({ postNotFound: 'No post found' });
   });
 
-  it('should add users comment and return post if user provided valid data', async () => {
+  it('adds users comment and returns post if user provided valid data', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -86,13 +86,13 @@ describe('POST api/posts/comment/:id', () => {
 });
 
 describe('DELETE api/posts/comment/:id/:comment_id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).delete('/api/posts/comment/post_id/comment_id');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message when no posts find with that ID', async () => {
+  it('returns status 404 with message when no posts find with that ID', async () => {
     const res = await request(server)
       .delete('/api/posts/comment/test/comment_id')
       .set('Authorization', token);
@@ -101,7 +101,7 @@ describe('DELETE api/posts/comment/:id/:comment_id', () => {
     expect(res.body).toMatchObject({ postNotFound: 'No post found' });
   });
 
-  it('should return status 404 with message when user tries to delete comment that doesnt exist', async () => {
+  it('returns status 404 with message when user tries to delete comment that doesnt exist', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -117,7 +117,7 @@ describe('DELETE api/posts/comment/:id/:comment_id', () => {
     expect(res.body).toMatchObject({ commentNotExist: 'Comment doesnt exist' });
   });
 
-  it('should remove existing comment if user provided valid data', async () => {
+  it('removes existing comment if user provided valid data', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')

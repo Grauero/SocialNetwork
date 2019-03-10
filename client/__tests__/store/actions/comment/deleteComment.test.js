@@ -12,7 +12,7 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make DELETE request to /api/posts/comment/postId/commentId', async () => {
+it('makes DELETE request to /api/posts/comment/postId/commentId', async () => {
   await store.dispatch(actionCreators.deleteComment(postId, commentId));
 
   expect(mock.history.delete[0].url).toBe(
@@ -20,14 +20,14 @@ it('should make DELETE request to /api/posts/comment/postId/commentId', async ()
   );
 });
 
-it('should dispatch action GET_POST', async () => {
+it('dispatches action GET_POST', async () => {
   const expectedAction = { payload: { test: 'test' }, type: GET_POST };
   await store.dispatch(actionCreators.deleteComment(postId, commentId));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onDelete(`/api/posts/comment/${postId}/${commentId}`).reply(404);
   await store.dispatch(actionCreators.deleteComment(postId, commentId));

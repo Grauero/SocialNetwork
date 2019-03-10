@@ -13,13 +13,13 @@ const initialState = {
   loading: false
 };
 
-it('should return initial state if fails to proceed action', () => {
+it('returns initial state if fails to proceed action', () => {
   const res = postReducer(initialState, 'UNKNOWN_ACTION');
 
   expect(res).toEqual(initialState);
 });
 
-it('should switch loading field to true if ACTION.TYPE is POST_LOADING', () => {
+it('switches loading field to true if ACTION.TYPE is POST_LOADING', () => {
   const res = postReducer(initialState, { type: POST_LOADING });
 
   expect(res.loading).not.toBe(initialState.loading);
@@ -28,7 +28,7 @@ it('should switch loading field to true if ACTION.TYPE is POST_LOADING', () => {
   expect(res.posts).toEqual(initialState.posts);
 });
 
-it('should add new post from ACTION.PAYLOAD to posts array if ACTION.TYPE is ADD_POST', () => {
+it('adds new post from ACTION.PAYLOAD to posts array if ACTION.TYPE is ADD_POST', () => {
   const action = { type: ADD_POST, payload: 'new post' };
   let res = postReducer(initialState, action);
 
@@ -50,7 +50,7 @@ describe('GET_POSTS', () => {
     payload: 'payload'
   };
 
-  it('should set posts field as a ACTION.PAYLOAD', () => {
+  it('sets posts field as a ACTION.PAYLOAD', () => {
     const res = postReducer(initialState, action);
 
     expect(res.posts).toEqual(action.payload);
@@ -58,7 +58,7 @@ describe('GET_POSTS', () => {
     expect(res.post).toBe(initialState.post);
   });
 
-  it('should switch loading field to false', () => {
+  it('switches loading field to false', () => {
     const res = postReducer(initialState, action);
 
     expect(res.loading).toBe(false);
@@ -72,7 +72,7 @@ describe('GET_POST', () => {
     payload: 'payload'
   };
 
-  it('should set post field as a ACTION.PAYLOAD', () => {
+  it('sets post field as a ACTION.PAYLOAD', () => {
     const res = postReducer(initialState, action);
 
     expect(res.post).toBe(action.payload);
@@ -80,7 +80,7 @@ describe('GET_POST', () => {
     expect(res.posts).toEqual(initialState.posts);
   });
 
-  it('should switch loading field to false', () => {
+  it('switches loading field to false', () => {
     const res = postReducer(initialState, action);
 
     expect(res.loading).toBe(false);
@@ -89,7 +89,7 @@ describe('GET_POST', () => {
 });
 
 describe('DELETE_POST', () => {
-  it('should delete post with ID equal to ACTION.PAYLOAD from posts array', () => {
+  it('deletes post with ID equal to ACTION.PAYLOAD from posts array', () => {
     const initialState = {
       posts: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       post: {},
@@ -105,7 +105,7 @@ describe('DELETE_POST', () => {
     expect(res.posts).not.toContain(action.payload);
   });
 
-  it('should NOT delete post if provided ID doesnt exists in posts array', () => {
+  it('NOT deletes post if provided ID doesnt exists in posts array', () => {
     const initialState = {
       posts: [{ _id: 1 }, { _id: 2 }, { _id: 3 }],
       post: {},

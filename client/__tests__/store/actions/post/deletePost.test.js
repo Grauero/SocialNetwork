@@ -12,20 +12,20 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make DELETE request to /api/posts/id', async () => {
+it('makes DELETE request to /api/posts/id', async () => {
   await store.dispatch(actionCreators.deletePost(id));
 
   expect(mock.history.delete[0].url).toBe(`/api/posts/${id}`);
 });
 
-it('should dispatch action DELETE_POST', async () => {
+it('dispatches action DELETE_POST', async () => {
   const expectedAction = { payload: id, type: DELETE_POST };
   await store.dispatch(actionCreators.deletePost(id));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onDelete(`/api/posts/${id}`).reply(404);
   await store.dispatch(actionCreators.deletePost(id));

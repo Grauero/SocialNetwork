@@ -12,20 +12,20 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make DELETE request to /api/profile/message/id', async () => {
+it('makes DELETE request to /api/profile/message/id', async () => {
   await store.dispatch(actionCreators.deleteMessage(id));
 
   expect(mock.history.delete[0].url).toBe(`/api/profile/message/${id}`);
 });
 
-it('should dispatch action PROFILE_LOADING', async () => {
+it('dispatches action PROFILE_LOADING', async () => {
   const expectedAction = { type: PROFILE_LOADING };
   await store.dispatch(actionCreators.deleteMessage(id));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onDelete(`/api/profile/message/${id}`).reply(404);
   await store.dispatch(actionCreators.deleteMessage(id));

@@ -26,7 +26,7 @@ beforeEach(() => {
 
 afterEach(() => component.unmount());
 
-it('should redirect to /dashboard if user is authenticated', () => {
+it('redirects to /dashboard if user is authenticated', () => {
   const authProps = Object.assign({}, props, {
     auth: { isAuthenticated: true }
   });

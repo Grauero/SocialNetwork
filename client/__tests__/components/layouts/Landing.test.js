@@ -33,6 +33,6 @@ it('redirects to /dashboard if user is authenticated', () => {
   expect(props.history.push).toHaveBeenCalledWith('/dashboard');
 });
 
-it('should render markup if user isnt authenticated', () => {
+it('renders markup if user isnt authenticated', () => {
   expect(toJSON(component)).toMatchSnapshot();
 });

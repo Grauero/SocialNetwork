@@ -51,13 +51,13 @@ afterAll(async () => {
 });
 
 describe('POST api/profile/education', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/profile/education');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 400 when users data didnt pass validation', async () => {
+  it('returns status 400 when users data didnt pass validation', async () => {
     const res = await request(server)
       .post('/api/profile/education')
       .set('Authorization', token)
@@ -72,7 +72,7 @@ describe('POST api/profile/education', () => {
     });
   });
 
-  it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+  it('returns status 404 with message if user pass authentication but dont have profile', async () => {
     const res = await request(server)
       .post('/api/profile/education')
       .set('Authorization', token)
@@ -82,7 +82,7 @@ describe('POST api/profile/education', () => {
     expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
   });
 
-  it('should create new education for users profile and return it if user provided valid data', async () => {
+  it('creates new education for users profile and returns it if user provided valid data', async () => {
     // create profile
     await request(server)
       .post('/api/profile/')
@@ -101,13 +101,13 @@ describe('POST api/profile/education', () => {
 });
 
 describe('DELETE api/profile/education/:edu_id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).delete('/api/profile/education/edu_id');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message if user pass authentication but dont have profile', async () => {
+  it('returns status 404 with message if user pass authentication but dont have profile', async () => {
     const res = await request(server)
       .delete('/api/profile/education/edu_id')
       .set('Authorization', token);
@@ -116,7 +116,7 @@ describe('DELETE api/profile/education/:edu_id', () => {
     expect(res.body).toMatchObject({ handle: 'Profile doesnt exist' });
   });
 
-  it('should delete experience from profile if user provided vavlid data', async () => {
+  it('deletes experience from profile if user provided vavlid data', async () => {
     // create profile
     await request(server)
       .post('/api/profile/')

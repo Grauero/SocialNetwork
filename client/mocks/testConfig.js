@@ -19,3 +19,23 @@ export const experienceData = 'experienceData';
 export const educationData = 'educationData';
 export const handle = 'handle';
 export const history = { push: jest.fn(path => path) };
+export const githubMockData = [
+  {
+    id: 'id',
+    html_url: 'url',
+    name: 'name',
+    description: 'desc',
+    stargazers_count: 0,
+    watchers_count: 0,
+    forks_count: 0
+  },
+  {
+    id: 'id2',
+    html_url: 'url2',
+    name: 'name2',
+    description: 'desc2',
+    stargazers_count: 0,
+    watchers_count: 0,
+    forks_count: 0
+  }
+];

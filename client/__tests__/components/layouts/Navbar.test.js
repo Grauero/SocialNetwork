@@ -33,13 +33,13 @@ it('calls clearCurrentProfile and logoutUser by pressing logout button', () => {
   expect(props.logoutUser).toHaveBeenCalledTimes(1);
 });
 
-it('should render auth links if user is authenticated', () => {
+it('renders auth links if user is authenticated', () => {
   const authLinks = component.find('Link');
 
   expect(toJSON(authLinks)).toMatchSnapshot();
 });
 
-it('should render guest links if user is NOT authenticated', () => {
+it('renders guest links if user is NOT authenticated', () => {
   const guestLinks = component.find('Link');
 
   expect(toJSON(guestLinks)).toMatchSnapshot();

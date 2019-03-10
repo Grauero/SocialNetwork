@@ -12,13 +12,13 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make POST request to /api/profile', async () => {
+it('makes POST request to /api/profile', async () => {
   await store.dispatch(actionCreators.createProfile(profileData, history));
 
   expect(mock.history.post[0].data).toBe(profileData);
 });
 
-it('should update history object with /dashobard record', async () => {
+it('updates history object with /dashobard record', async () => {
   const res = await store.dispatch(
     actionCreators.createProfile(profileData, history)
   );
@@ -27,7 +27,7 @@ it('should update history object with /dashobard record', async () => {
   expect(history.push).toBeCalledWith('/dashboard');
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onPost('/api/profile').reply(404);
   await store.dispatch(actionCreators.createProfile(profileData, history));

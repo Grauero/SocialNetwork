@@ -12,27 +12,27 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make POST request to /api/posts', async () => {
+it('makes POST request to /api/posts', async () => {
   await store.dispatch(actionCreators.addPost(postData));
 
   expect(mock.history.post[0].data).toBe(postData);
 });
 
-it('should dispatch action CLEAR_ERRORS', async () => {
+it('dispatches action CLEAR_ERRORS', async () => {
   const expectedAction = { type: CLEAR_ERRORS };
   await store.dispatch(actionCreators.addPost(postData));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should dispatch action ADD_POST', async () => {
+it('dispatches action ADD_POST', async () => {
   const expectedAction = { payload: { test: 'test' }, type: ADD_POST };
   await store.dispatch(actionCreators.addPost(postData));
 
   expect(store.getActions()[1]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: null, type: GET_POSTS };
   mock.onPost('/api/posts').reply(404);
   await store.dispatch(actionCreators.getPosts());

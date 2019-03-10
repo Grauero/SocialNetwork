@@ -6,7 +6,7 @@ const initialState = {
   user: {}
 };
 
-it('should return initial state if fails to proceed action', () => {
+it('returns initial state if fails to proceed action', () => {
   const res = authReducer(initialState, 'UNKNOWN_ACTION');
 
   expect(res).toEqual(initialState);
@@ -18,19 +18,19 @@ describe('SET_CURRENT_USER', () => {
     payload: 'payload'
   };
 
-  it('should toggle isAuthenticated field if ACTION.PAYLOAD is NOT empty', () => {
+  it('toggles isAuthenticated field if ACTION.PAYLOAD is NOT empty', () => {
     const res = authReducer(initialState, action);
 
     expect(res.isAuthenticated).not.toBe(initialState.isAuthenticated);
   });
 
-  it('should NOT toggle isAuthenticated field if ACTION.PAYLOAD is empty', () => {
+  it('NOT toggles isAuthenticated field if ACTION.PAYLOAD is empty', () => {
     const res = authReducer(initialState, { type: SET_CURRENT_USER });
 
     expect(res.isAuthenticated).toBe(initialState.isAuthenticated);
   });
 
-  it('should return updated user field', () => {
+  it('returns updated user field', () => {
     const res = authReducer(initialState, action);
 
     expect(res.user).toBe('payload');

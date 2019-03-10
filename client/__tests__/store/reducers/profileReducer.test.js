@@ -12,13 +12,13 @@ const initialState = {
   loading: false
 };
 
-it('should return initial state if fails to proceed action', () => {
+it('returns initial state if fails to proceed action', () => {
   const res = profileReducer(initialState, 'UNKNOWN_ACTION');
 
   expect(res).toEqual(initialState);
 });
 
-it('should switch loading field to true if ACTION.TYPE is PROFILE_LOADING', () => {
+it('switches loading field to true if ACTION.TYPE is PROFILE_LOADING', () => {
   const res = profileReducer(initialState, { type: PROFILE_LOADING });
 
   expect(res.loading).not.toBe(initialState.loading);
@@ -27,7 +27,7 @@ it('should switch loading field to true if ACTION.TYPE is PROFILE_LOADING', () =
   expect(res.profiles).toBe(initialState.profiles);
 });
 
-it('should set profile field to NULL if ACTION.TYPE is CLEAR_CURRENT_PROFILE', () => {
+it('sets profile field to NULL if ACTION.TYPE is CLEAR_CURRENT_PROFILE', () => {
   const res = profileReducer(initialState, { type: CLEAR_CURRENT_PROFILE });
 
   expect(res.profile).toBeNull();
@@ -41,7 +41,7 @@ describe('GET_PROFILE', () => {
     payload: 'payload'
   };
 
-  it('should set profile field as ACTION.PAYLOAD', () => {
+  it('sets profile field as ACTION.PAYLOAD', () => {
     const res = profileReducer(initialState, action);
 
     expect(res.profile).toBe(action.payload);
@@ -49,7 +49,7 @@ describe('GET_PROFILE', () => {
     expect(res.profiles).toBe(initialState.profiles);
   });
 
-  it('should switch loading field to false', () => {
+  it('switches loading field to false', () => {
     const res = profileReducer(initialState, action);
 
     expect(res.loading).toBe(false);
@@ -63,7 +63,7 @@ describe('GET_PROFILES', () => {
     payload: 'payload'
   };
 
-  it('should set profiles field as a ACTION.PAYLOAD', () => {
+  it('sets profiles field as a ACTION.PAYLOAD', () => {
     const res = profileReducer(initialState, action);
 
     expect(res.profiles).toBe(action.payload);
@@ -71,7 +71,7 @@ describe('GET_PROFILES', () => {
     expect(res.profile).toBe(initialState.profile);
   });
 
-  it('should switch loading field to false', () => {
+  it('switches loading field to false', () => {
     const res = profileReducer(initialState, action);
 
     expect(res.loading).toBe(false);

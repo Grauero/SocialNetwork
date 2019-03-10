@@ -35,7 +35,7 @@ beforeEach(() => (component = shallow(<ProfileCreds {...props} />)));
 afterEach(() => component.unmount());
 
 function generateTestForProps(category, param) {
-  it(`should NOT render ${param} if its not defined`, () => {
+  it(`NOT renders ${param} if its not defined`, () => {
     const testProps = Object.assign({}, props, {
       [category]: [{ ...props[category][0], [param]: '' }]
     });
@@ -56,7 +56,7 @@ it('matches snapshot', () => {
   expect(toJSON(component)).toMatchSnapshot();
 });
 
-it('should NOT render any experience if experience is empty', () => {
+it('NOT renders any experience if experience is empty', () => {
   const testProps = Object.assign({}, props, { experience: [] });
 
   component = shallow(<ProfileCreds {...testProps} />);
@@ -65,7 +65,7 @@ it('should NOT render any experience if experience is empty', () => {
   expect(ul.debug()).toBe('');
 });
 
-it('should NOT render any education if education is empty', () => {
+it('NOT renders any education if education is empty', () => {
   const testProps = Object.assign({}, props, { education: [] });
 
   component = shallow(<ProfileCreds {...testProps} />);

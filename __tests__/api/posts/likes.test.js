@@ -35,13 +35,13 @@ afterAll(async () => {
 });
 
 describe('POST api/posts/like/:id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/posts/like/test');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message when no posts find with that ID', async () => {
+  it('returns status 404 with message when no posts find with that ID', async () => {
     const res = await request(server)
       .post('/api/posts/like/1')
       .set('Authorization', token);
@@ -50,7 +50,7 @@ describe('POST api/posts/like/:id', () => {
     expect(res.body).toMatchObject({ postNotFound: 'No post found' });
   });
 
-  it('should apply like from the authorized user and return liked post', async () => {
+  it('applies like from the authorized user and returns liked post', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -65,7 +65,7 @@ describe('POST api/posts/like/:id', () => {
     expect(res.body).toHaveProperty('text', post.text);
   });
 
-  it('should not apply second like from the same user', async () => {
+  it('not applies second like from the same user', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -86,13 +86,13 @@ describe('POST api/posts/like/:id', () => {
 });
 
 describe('POST api/posts/unlike/:id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/posts/unlike/test');
 
     expect(res.status).toBe(401);
   });
 
-  it('should return status 404 with message when no posts find with that ID', async () => {
+  it('returns status 404 with message when no posts find with that ID', async () => {
     const res = await request(server)
       .post('/api/posts/unlike/test')
       .set('Authorization', token);
@@ -101,7 +101,7 @@ describe('POST api/posts/unlike/:id', () => {
     expect(res.body).toMatchObject({ postNotFound: 'No post found' });
   });
 
-  it('should remove like from the authorized user and return post', async () => {
+  it('removes like from the authorized user and returns post', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')
@@ -119,7 +119,7 @@ describe('POST api/posts/unlike/:id', () => {
     expect(res.body).toHaveProperty('text', post.text);
   });
 
-  it('should not remove like if user dont have one', async () => {
+  it('not removes like if user dont have one', async () => {
     // create post
     const postId = (await request(server)
       .post('/api/posts/')

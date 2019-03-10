@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render markup if user isnt authenticated 1`] = `
+exports[`renders markup if user isnt authenticated 1`] = `
 <Landing
   auth={
     Object {
@@ -40,12 +40,12 @@ exports[`should render markup if user isnt authenticated 1`] = `
             </p>
             <hr />
             <Link
-              className="btn btn-lg btn-info mr-2"
+              className="btn btn-lg btn-light mr-2 signup"
               replace={false}
               to="/register"
             >
               <a
-                className="btn btn-lg btn-info mr-2"
+                className="btn btn-lg btn-light mr-2 signup"
                 href="/register"
                 onClick={[Function]}
               >

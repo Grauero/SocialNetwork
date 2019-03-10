@@ -69,6 +69,10 @@ body {
   background: rgba(200, 200, 200, 0.2);
 }
 
+.btn-info {
+  color: #1d2124;
+}
+
 .col-12 {
   position: relative;
 }

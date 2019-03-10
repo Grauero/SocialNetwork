@@ -12,20 +12,20 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make POST request to /api/posts/like/id', async () => {
+it('makes POST request to /api/posts/like/id', async () => {
   await store.dispatch(actionCreators.addLike(id));
 
   expect(mock.history.post[0].url).toBe(`/api/posts/like/${id}`);
 });
 
-it('should dispatch action POST_LOADING', async () => {
+it('dispatches action POST_LOADING', async () => {
   const expectedAction = { type: POST_LOADING };
   await store.dispatch(actionCreators.addLike(id));
 
   expect(store.getActions()[0]).toEqual(expectedAction);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onPost(`/api/posts/like/${id}`).reply(404);
   await store.dispatch(actionCreators.addLike(id));

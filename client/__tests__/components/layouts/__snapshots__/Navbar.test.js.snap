@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render auth links if user is authenticated 1`] = `
+exports[`renders auth links if user is authenticated 1`] = `
 Array [
   <Link
     className="navbar-brand"
@@ -57,7 +57,7 @@ Array [
 ]
 `;
 
-exports[`should render guest links if user is NOT authenticated 1`] = `
+exports[`renders guest links if user is NOT authenticated 1`] = `
 Array [
   <Link
     className="navbar-brand"

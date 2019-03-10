@@ -38,9 +38,7 @@ const MessageFeed = lazy(() => import('./components/message/MessageFeed'));
 
 // check for auth token
 if (localStorage.jwtToken) {
-  // set auth header for requests
   setAuthToken(localStorage.jwtToken);
-  // decode token and get user info
   const decoded = jwt_decode(localStorage.jwtToken);
   // set current user to logged in
   store.dispatch(setCurrentUser(decoded));

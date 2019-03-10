@@ -12,27 +12,27 @@ afterEach(() => {
   store.clearActions();
 });
 
-it('should make POST request to /api/users/login', async () => {
+it('makes POST request to /api/users/login', async () => {
   await store.dispatch(actionCreators.loginUser(userData));
 
   expect(mock.history.post[0].data).toBe(userData);
 });
 
-it('should save token into localStorage', async () => {
+it('saves token into localStorage', async () => {
   await store.dispatch(actionCreators.loginUser(userData));
   const item = window.localStorage.getItem('jwtToken');
 
   expect(item).toBe(token);
 });
 
-it('should dispatch SET_CURRENT_USER action', async () => {
+it('dispatches SET_CURRENT_USER action', async () => {
   const expectedAction = { type: SET_CURRENT_USER };
   await store.dispatch(actionCreators.loginUser(userData));
 
   expect(store.getActions()[0].type).toBe(expectedAction.type);
 });
 
-it('should dispatch action GET_ERRORS if error is happened', async () => {
+it('dispatches action GET_ERRORS if error is happened', async () => {
   const expectedAction = { payload: undefined, type: GET_ERRORS };
   mock.onPost(`/api/users/login`).reply(404);
   await store.dispatch(actionCreators.loginUser(userData));

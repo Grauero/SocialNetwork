@@ -35,14 +35,14 @@ afterAll(async () => {
 });
 
 describe('GET /', () => {
-  it('should return all posts', async () => {
+  it('returns all posts', async () => {
     await new Post(post).save();
     const res = await request(server).get('/api/posts/');
 
     expect(res.body.some(obj => obj.text === post.text)).toBeTruthy();
   });
 
-  it('should return status 404 when posts doesnt exists', async () => {
+  it('returns status 404 when posts doesnt exists', async () => {
     const res = await request(server).get('/api/posts/');
 
     expect(res.status).toBe(404);
@@ -50,14 +50,14 @@ describe('GET /', () => {
 });
 
 describe('GET /:id', () => {
-  it('should return post by ID', async () => {
+  it('returns post by ID', async () => {
     await new Post(post).save();
     const res = await request(server).get(`/api/posts/${post._id}`);
 
     expect(res.body).toHaveProperty('text', post.text);
   });
 
-  it('should return status 404 when ID of post doesnt exists', async () => {
+  it('returns status 404 when ID of post doesnt exists', async () => {
     await new Post(post).save();
     const res = await request(server).get('/api/posts/1');
 
@@ -67,13 +67,13 @@ describe('GET /:id', () => {
 });
 
 describe('POST /', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).post('/api/posts/');
 
     expect(res.status).toBe(401);
   });
 
-  it('should create and return new post when user is authorized and pass validation', async () => {
+  it('creates and returns new post when user is authorized and pass validation', async () => {
     const res = await request(server)
       .post('/api/posts/')
       .set('Authorization', token)
@@ -82,7 +82,7 @@ describe('POST /', () => {
     expect(res.body).toHaveProperty('text', post.text);
   });
 
-  it('should return status 400 when users data didnt pass validation', async () => {
+  it('returns status 400 when users data didnt pass validation', async () => {
     const res = await request(server)
       .post('/api/posts/')
       .set('Authorization', token)
@@ -94,13 +94,13 @@ describe('POST /', () => {
 });
 
 describe('DELETE /:id', () => {
-  it('should return status 401 when user isnt authorized', async () => {
+  it('returns status 401 when user isnt authorized', async () => {
     const res = await request(server).delete('/api/posts/test');
 
     expect(res.status).toBe(401);
   });
 
-  it('should delete post when user is authorized', async () => {
+  it('deletes post when user is authorized', async () => {
     const id = (await request(server)
       .post('/api/posts/')
       .set('Authorization', token)
@@ -113,7 +113,7 @@ describe('DELETE /:id', () => {
     expect(res.body).toMatchObject({ success: true });
   });
 
-  it('should return status 401 with message when user have no access', async () => {
+  it('returns status 401 with message when user have no access', async () => {
     const postId = (await request(server)
       .post('/api/posts/')
       .set('Authorization', token)
@@ -142,7 +142,7 @@ describe('DELETE /:id', () => {
     expect(res.body).toMatchObject({ noAccess: 'User didnt create that post' });
   });
 
-  it('should return status 404 with message when no posts find with that ID', async () => {
+  it('returns status 404 with message when no posts find with that ID', async () => {
     const res = await request(server)
       .delete('/api/posts/1')
       .set('Authorization', token);

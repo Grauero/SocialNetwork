@@ -26,9 +26,14 @@ const historyMock = (function() {
   };
 })();
 
+const fetch = jest.fn();
+
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock
 });
 Object.defineProperty(window, 'history', {
   value: historyMock
+});
+Object.defineProperty(window, 'fetch', {
+  value: fetch
 });
