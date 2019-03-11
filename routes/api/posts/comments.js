@@ -18,7 +18,7 @@ router.post('/:id', passport.authenticate('jwt', { session: false }), async (req
   try {
     const post = await Post.findById(req.params.id);
     const { text, name, avatar } = req.body;
-    const newComment = { text, name, avatar, user: req.user.id };
+    const newComment = { text, name, avatar, user: req.user.id, handle: req.user.handle };
 
     post.comments.unshift(newComment);
     const updatedPost = await post.save();

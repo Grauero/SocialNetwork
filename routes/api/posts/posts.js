@@ -36,7 +36,8 @@ router
       text,
       name,
       avatar,
-      user: req.user.id
+      user: req.user.id,
+      handle: req.user.handle
     });
 
     try {

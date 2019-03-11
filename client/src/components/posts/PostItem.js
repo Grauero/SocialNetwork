@@ -29,13 +29,13 @@ const PostItem = ({
     <div className="card card-body mb-3">
       <div className="row">
         <div className="col-md-2">
-          <a href="profile.html" aria-label="users profile">
+          <Link to={`/profile/${post.name}`} aria-label="users profile">
             <img
               className="rounded-circle d-none d-md-block"
               src={post.avatar}
               alt="User Avatar"
             />
-          </a>
+          </Link>
           <br />
           <p className="text-center">{post.name}</p>
         </div>

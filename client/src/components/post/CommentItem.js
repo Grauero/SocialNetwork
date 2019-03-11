@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { deleteComment } from '../../store/actions/postActions';
@@ -11,13 +12,13 @@ const CommentItem = ({ auth, comment, postId, deleteComment }) => {
     <div className="card card-body mb-3">
       <div className="row">
         <div className="col-md-2">
-          <a href="profile.html" aria-label="users profile">
+          <Link to={`/profile/${comment.name}`} aria-label="users profile">
             <img
               className="rounded-circle d-none d-md-block"
               src={comment.avatar}
               alt="User avatar"
             />
-          </a>
+          </Link>
           <br />
           <p className="text-center">{comment.name}</p>
         </div>
