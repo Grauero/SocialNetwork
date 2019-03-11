@@ -57,7 +57,9 @@ class PostForm extends Component {
                   value={this.state.text}
                   onChange={this.onChange}
                   error={this.state.errors.text}
+                  id="comment"
                 />
+                <label htmlFor="comment" className="hidden">New comment</label>
               </div>
               <button
                 type="submit"

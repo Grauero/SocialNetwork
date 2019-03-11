@@ -24,7 +24,7 @@ class Posts extends Component {
 
     return (
       <div className="feed">
-        <div className="container">
+        <div className="container" aria-label="post new comment">
           <div className="row">
             <div className="col-md-12">
               <PostForm />
