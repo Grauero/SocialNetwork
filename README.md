@@ -2,13 +2,20 @@
 https://net-work.herokuapp.com/
 
 ![landing](http://i.piccy.info/i9/6123cac0d42adfdad33b4cf740be1672/1552073275/63323/1306333/network_landing.jpg) 
-Network application for developers, build on React+Redux/Node+Express
+Network application for developers, built on React+Redux/Node+Express
 
 Registration/Authorization done with email/password + JWT tokens
 
 Application connected to github API for fetching users repositories
 
 Project tested with Jest+Enzyme
+
+Application audit with Google Chrome audits on mobile devices with simulated fast 3G, 4x CPU Slowdown:
+- /feed page: ![feed](http://i.piccy.info/i9/318980764f69b59e33badb9adf251d49/1552308747/14074/1306765/network_feed_page_mobile_simulatedFast3G.jpg)
+
+- /profile page: ![profile](http://i.piccy.info/i9/244550f9b20a01b9673edf3c31c045e0/1552309510/14415/1306780/network_profile_page_mobile_simulatedFast3G.jpg)
+
+- /profiles page: ![profiles](http://i.piccy.info/i9/a98a398e576a63179783fd9786dae218/1552309559/15686/1306780/network_profiles_page_mobile_simulatedFast3G.jpg)
 
 ## Application features:
 ### - users can create and fill up profile with their skills, experience, education
@@ -23,12 +30,12 @@ Project tested with Jest+Enzyme
   
  
  
-### - message other users and see their profiles and latest github repositories
+### - users can message other users and see their profiles and latest github repositories
   
  ![profile](http://i.piccy.info/i9/e8a3313c5297bef3b38c2d6445ef200b/1552074318/42482/1306335/network_profile.jpg)
 
 ## Scripts:
-  - ```npm run dev``` - to launch local dev-server (client+back)
+  - ```npm run dev``` - to launch local dev-server (client+backend)
   - ```npm run server``` - to launch ONLY backend part
   - ```npm run client``` - to launch ONLY client part
   - ```npm run test``` - to launch test run in watch mode
