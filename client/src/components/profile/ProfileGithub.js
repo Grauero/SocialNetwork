@@ -38,6 +38,7 @@ class ProfileGithub extends Component {
                 className="text-info"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="repository name"
               >
                 {repo.name}
               </a>

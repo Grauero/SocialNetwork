@@ -39,6 +39,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-website
+                aria-label="users website"
               >
                 <i className="fas fa-globe fa-2x" />
               </a>
@@ -50,6 +51,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-twitter
+                aria-label="users twitter"
               >
                 <i className="fab fa-twitter fa-2x" />
               </a>
@@ -61,6 +63,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-facebook
+                aria-label="users facebook"
               >
                 <i className="fab fa-facebook fa-2x" />
               </a>
@@ -72,6 +75,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-linkedin
+                aria-label="users linkedin"
               >
                 <i className="fab fa-linkedin  fa-2x" />
               </a>
@@ -83,6 +87,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-youtube
+                aria-label="users youtube"
               >
                 <i className="fab fa-youtube fa-2x" />
               </a>
@@ -94,6 +99,7 @@ const ProfileHeader = ({ profile }) => (
                 target="_blank"
                 rel="noopener noreferrer"
                 data-instagram
+                aria-label="users instagramm"
               >
                 <i className="fab fa-instagram fa-2x" />
               </a>

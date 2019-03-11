@@ -30,7 +30,7 @@ const Navbar = ({
         </Link>
       </li>
       <li className="nav-item">
-        <a href=" " onClick={onLogoutClick} className="nav-link">
+        <a href=" " onClick={onLogoutClick} className="nav-link" aria-label="logout">
           <img
             className="rounded-circle"
             src={user.avatar}
