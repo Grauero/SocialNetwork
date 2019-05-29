@@ -1,4 +1,4 @@
-# SocialNetwork
+# SocialNetwork [![Build Status](https://travis-ci.org/Grauero/SocialNetwork.svg?branch=master)](https://travis-ci.org/Grauero/SocialNetwork) [![Coverage Status](https://coveralls.io/repos/github/Grauero/SocialNetwork/badge.svg)](https://coveralls.io/github/Grauero/SocialNetwork)
 https://net-work.herokuapp.com/
 
 ![landing](http://i.piccy.info/i9/6123cac0d42adfdad33b4cf740be1672/1552073275/63323/1306333/network_landing.jpg) 
