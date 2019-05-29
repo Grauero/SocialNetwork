@@ -11,7 +11,11 @@
     "dev": "concurrently \"npm run server\" \"cd client && npm run start\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "test": "jest --watch -i",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest --coverage",
+    "test-CI-server": "jest",
+    "test-CI-client": "npm run test-CI --prefix client",
+    "coveralls-server": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "coveralls-client": "npm run test-CI --prefix client && cat ./client/coverage/lcov.info | coveralls"
   },
   "private": true,
   "author": "Grauero",
@@ -42,6 +46,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
+    "coveralls": "^3.0.3",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
