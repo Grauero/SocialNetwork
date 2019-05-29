@@ -39,6 +39,8 @@
     "test": "jest --watch --no-cache",
     "test-clear-cache": "jest --clearCache",
     "test-coverage": "jest --coverage",
+    "test-CI": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -51,14 +53,15 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "axios-mock-adapter": "^1.16.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "coveralls": "^3.0.3",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.8.0",
     "enzyme-to-json": "^3.3.5",
