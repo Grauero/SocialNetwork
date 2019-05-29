@@ -5,8 +5,8 @@ node_js:
 branches:
   only:
     - master
+before_install:
+  - cd client
 script:
-  - npm run test-CI-server
-  - npm run test-CI-client
-  - npm run coveralls-server
-  - npm run coveralls-client
+  - npm run test-CI
+  - npm run coveralls

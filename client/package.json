@@ -37,9 +37,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest --watch --no-cache",
-    "test-CI": "jest",
     "test-clear-cache": "jest --clearCache",
     "test-coverage": "jest --coverage",
+    "test-CI": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
