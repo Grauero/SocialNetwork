@@ -4,7 +4,6 @@ const validateExperienceInput = require('../../../validation/experience');
 const addExperienceToProfile = async (req, res) => {
   const { errors, isValid } = validateExperienceInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }

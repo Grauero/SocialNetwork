@@ -4,7 +4,6 @@ const validateEducationInput = require('../../../validation/education');
 const addEducationToProfile = async (req, res) => {
   const { errors, isValid } = validateEducationInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }

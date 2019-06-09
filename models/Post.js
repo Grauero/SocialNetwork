@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// schema for posts document in DB
 const PostSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -19,7 +19,6 @@ const getAllPosts = async (req, res) => {
 const createPost = async (req, res) => {
   const { errors, isValid } = validatePostInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }

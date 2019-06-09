@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// schema for profile document in DB
 const ProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,

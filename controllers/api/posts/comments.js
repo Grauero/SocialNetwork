@@ -4,7 +4,6 @@ const validatePostInput = require('../../../validation/post');
 const addComentToPost = async (req, res) => {
   const { errors, isValid } = validatePostInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }

@@ -10,7 +10,6 @@ const validateLoginInput = require('../../../validation/login');
 const registerUser = async (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -54,7 +53,6 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
-  // check validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -69,7 +67,6 @@ const loginUser = async (req, res) => {
       return res.status(404).json(errors);
     }
 
-    // check password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
